@@ -284,3 +284,267 @@ MakeCompositePSDForAllWindows <- function(list.of.windows,
   return(output)
 
 }
+
+#' Find averaged xy plots
+#'
+#' If there are multiple 2D plots where the range of the x values are the same,
+#' then this function can allow you to average the y-values for all of these plots.
+#' The increment of the x-values can be different because this function uses interpolation
+#' to ensure each window has the same x-axis when the averaging step occurs.
+#'
+#'
+#' @param list.of.windows A list of windows (dataframes). Each window should have the same range of values in the x-axis in order for averaging to work.
+#' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used for making averaging.
+#' @param x_start Numeric value specifying start of the new x-axis for the averaged PSD. Default is 0, so the first observation in the time series corresponds with x = 0.
+#' @param x_end Numeric value specifying end of the new x-axis for the averaged PSD. Maximum value is the sampling_frequency divided by 2.
+#' @param x_increment Numeric value specifying increment of the new x-axis for the averaged PSD.
+#'
+#' @return
+#' 1. Vector of x values for plotting. The units will be number of observations. So if the time series has 100 observations and x_increment used is 1, then each tick mark on the x-axis corresponds to one observation unit.
+#' 2. Vector of averaged y values after looking at all windows.
+#' 3. Vector of standard deviation of y values for each x value.
+#'
+#'
+#' @export
+#'
+#' @examples
+#' #Create a vector of time that represent times where data are sampled.
+#' Fs = 100; #sampling frequency in Hz
+#' T = 1/Fs; #sampling period
+#' L = 1000; #length of time vector
+#' t = (0:L-1)*T; #time vector
+#'
+#' #First signal
+#' #1. 1 Hz with amplitude of 4
+#' S1 <- 4*sin(2*pi*1*t)
+#' S1.data.frame <- as.data.frame(cbind(t, S1))
+#' colnames(S1.data.frame) <- c("Time", "Signal")
+#'
+#' #Second signal
+#' #1. 1 Hz with amplitude of -2
+#' #2. 2 Hz with amplitude of -2
+#' S2 <- (-2)*sin(2*pi*1*t) - 2*sin(2*pi*2*t);
+#' S2.data.frame <- as.data.frame(cbind(t, S2))
+#' colnames(S2.data.frame) <- c("Time", "Signal")
+#'
+#' #Third signal
+#' #1. 1 Hz with amplitude of 2
+#' #2. 2 Hz with amplitude of 2
+#' S3 <- 2*sin(2*pi*1*t) + 2*sin(2*pi*2*t);
+#' S3.data.frame <- as.data.frame(cbind(t, S3))
+#' colnames(S3.data.frame) <- c("Time", "Signal")
+#'
+#' #Add all signals to a List
+#' list.of.windows <- list(S1.data.frame, S2.data.frame, S3.data.frame)
+#'
+#' results <- MakeCompositeXYPlotForAllWindows(list.of.windows, "Signal", 0, 999, 1)
+#'
+#' x.values <- results[[1]]
+#'
+#' y.values <- results[[2]]
+#'
+#' stddev.y.values <- results[[3]]
+#'
+#' #plot each xy plot individually
+#' dev.new()
+#' plot(t, S1, ylim = c(-5, 5), type = "l")
+#' lines(t, S2, col="blue")
+#' lines(t, S3, col="green")
+#'
+#'
+#' #plot the averaged plot
+#' #The only curve remaining should be the 1Hz with amplitude of 4/3.
+#' dev.new()
+#' plot(x.values, y.values, type = "l")
+#'
+#' #plot averaged plot with error bars
+#' dev.new()
+#' plot(x.values, y.values, type = "l")
+#' #Add error bars
+#' arrows(x.values, y.values, x.values, y.values + stddev.y.values, length=0.05, angle=90)
+#' arrows(x.values, y.values, x.values, y.values - stddev.y.values, length=0.05, angle=90)
+#'
+#'
+MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
+                                          name.of.col.containing.time.series,
+                                          x_start = 0,
+                                          x_end,
+                                          x_increment){
+
+  #Each row of the matrix will be the y values for a single window.
+  #Each column will correspond to a different x value.
+  #This will be used to calculate the standard deviation of y values at each x value
+  captured.y.values <- NULL
+
+  #We want to ensure that the axes we are averaging across are the same
+  #for all windows.
+  #For PD data, 0, 150, 1. Increment is 1, but each increment represents 0.02 seconds.
+  new_x <- seq(x_start, x_end, by = x_increment)
+
+  #Create vector to hold the summed y values.
+  summed.y <- rep(0,length(new_x))
+
+  #Go through all windows
+  for(i in 1:length(list.of.windows)){
+
+    print(i)
+
+    single.window <- list.of.windows[[i]]
+
+    #First observation is 0.
+    single.window.x <- 0:(length(single.window[,name.of.col.containing.time.series])-1)
+    single.window.y <- single.window[,name.of.col.containing.time.series]
+
+    #Interpolate every curve so that they contain the same x values. 0 to 24.
+    interpolation.res <- stats::approx(x = single.window.x, y = single.window.y,
+                                       xout = new_x, method="linear")
+
+    summed.y <- summed.y + interpolation.res$y
+
+    captured.y.values <- rbind(captured.y.values, interpolation.res$y)
+
+  }
+
+  #Take the average of the summed vector to get the average PSD value at
+  #each frequency.
+  averaged.y <- summed.y/length(list.of.windows)
+
+  #Get the standard deviation of the PSD value at each frequency. Std for
+  #each column.
+  captured.y.values <- apply(captured.y.values, 2, as.numeric)
+  stddev.y <- apply(captured.y.values,2, stats::sd)
+
+  output <- list(new_x, averaged.y, stddev.y)
+  return(output)
+
+}
+
+
+
+##This is the function to use to quickly make plots. To adjust the plots
+#for specific formatting, then use the above functions to get values to plot
+#and then use your own plotting code.
+#Output the ggplot object.
+
+#Outputs two objects.
+#1. An automatically generated ggplot
+#2. The values for each line to be plotting. The values can be used to remake ggplot. This is good if the color/axes/etc. need to be changed.
+
+
+#' Title
+#'
+#' @param list.of.windows
+#' @param name.of.col.containing.time.series
+#' @param x_start
+#' @param x_end
+#' @param x_increment
+#' @param level1.column.name
+#' @param level2.column.name
+#' @param level.combinations
+#' @param level.combinations.labels
+#' @param plot.title
+#' @param plot.xlab
+#' @param plot.ylab
+#' @param combination.index.for.envelope
+#'
+#' @return
+#' @export
+#'
+#' @examples
+PlotTimeSeries <- function(list.of.windows,
+                           name.of.col.containing.time.series,
+                           x_start = 0,
+                           x_end,
+                           x_increment,
+                           level1.column.name,
+                           level2.column.name,
+                           level.combinations,
+                           level.combinations.labels,
+                           plot.title,
+                           plot.xlab,
+                           plot.ylab,
+                           combination.index.for.envelope = NULL){
+
+
+  #Each object in this list contains the x and y values for a line that should
+  #appear in the plot
+  list.of.values.to.plot <- list()
+  list.of.dataframes.to.plot <- list()
+
+  for(i in 1:length(level.combinations)){
+
+    level1.categories.to.use <-  level.combinations[[i]][[1]]
+    level2.categories.to.use <- level.combinations[[i]][[2]]
+
+    subset.windows <- GetSubsetOfWindowsTwoLevels(list.of.windows, level1.column.name, level2.column.name,
+                                level1.categories.to.use, level2.categories.to.use)
+
+
+    ##SWITCH HERE FOR XY, PSD, LOG
+    list.of.values.to.plot[[i]] <- MakeCompositeXYPlotForAllWindows(subset.windows,
+                                     name.of.col.containing.time.series,
+                                     x_start = x_start,
+                                     x_end = x_end,
+                                     x_increment = x_increment)
+
+    data.temp <- as.data.frame(cbind(list.of.values.to.plot[[i]][[1]], list.of.values.to.plot[[i]][[2]], list.of.values.to.plot[[i]][[3]]))
+    colnames(data.temp) <- c("xvals", "yvals", "ystddev")
+    list.of.dataframes.to.plot[[i]] <- data.temp
+
+  }
+
+
+  ggplot.object <- ggplot(list.of.dataframes.to.plot[[1]], aes(x=xvals, y=yvals))
+
+  #Add error envelope to plot. Envelope needs to be added before lines are added
+  #otherwise the envelope will cover the lines.
+  if(!is.null(combination.index.for.envelope)){
+
+    ggplot.object <- ggplot.object +
+      geom_ribbon(data = list.of.dataframes.to.plot[[combination.index.for.envelope]], aes(ymin=yvals-ystddev, ymax=yvals+ystddev), fill = "grey70")
+
+  }
+
+  #Add lines to plot
+  for(i in 1:length(level.combinations)){
+
+    ggplot.object <- ggplot.object +
+                     geom_line(data = list.of.dataframes.to.plot[[i]], aes(x=xvals, y=yvals, color = level.combinations.labels[[i]]))
+
+
+  }
+
+  #Add legend to plot
+  color.to.use <- c("blue", "red", "black", "green")
+  ggplot.object <- ggplot.object +
+                   scale_colour_manual("",
+                        breaks = level.combinations.labels,
+                        values = color.to.use[1:length(level.combinations.labels)])
+
+  #Add title and axes to plot
+  ggplot.object <- ggplot.object +
+                   ggtitle(plot.title) +
+                   xlab(plot.xlab) +
+                   ylab(plot.ylab)
+
+
+  results <- list(list.of.dataframes.to.plot, ggplot.object)
+
+  return(results)
+
+
+  #Testing: PlotTimeSeries(windows, "SummedXYZ", 0, 150, 1, "RTR_AMP", "TASK_ID", list( list(c(1, 2, 3), c(task.names)) ), "combined", "Combined amplitudes and task into 1", "Time", "Acceleration", 1)
+}
+
+
+
+
+#PlotPSD <- function()
+
+
+#Function to make error envelopes.
+#Input x, y and then the standard deviation for y.
+
+
+
+#Function to overlay error envelopes on the same plot.

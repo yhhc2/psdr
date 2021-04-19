@@ -42,7 +42,7 @@ with level1 as the row labels and level2 as the column labels.
 
 #Example using a dataframe with 5 homogeneous windows.
 
-#Windows 20 and 30 are homogeneous if looking at col.two and col.three values.
+#Windows are homogeneous if looking at col.two and col.three values.
 window.name.column <- c(10, 10, 10, 20, 20, 20, 30, 30, 30, 30, 40, 40, 50, 50, 50, 50)
 col.two <- c("a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "b", "a", "a", "a", "a")
 col.three <- c(1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 3, 3, 3, 3)

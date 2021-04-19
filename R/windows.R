@@ -250,7 +250,7 @@ GetSubsetOfWindows <- function(list.of.windows, name.of.column.to.look.at.in.win
 #'
 #' #Example using a dataframe with 5 homogeneous windows.
 #'
-#' #Windows 20 and 30 are homogeneous if looking at col.two and col.three values.
+#' #Windows are homogeneous if looking at col.two and col.three values.
 #' window.name.column <- c(10, 10, 10, 20, 20, 20, 30, 30, 30, 30, 40, 40, 50, 50, 50, 50)
 #' col.two <- c("a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "b", "a", "a", "a", "a")
 #' col.three <- c(1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 3, 3, 3, 3)
@@ -301,6 +301,83 @@ CountWindows <- function(list.of.windows, level1.column.name, level2.column.name
   }
 
   return(matrix.of.counts)
+
+}
+
+
+#' Select only windows where a two specified columns must match specified values
+#'
+#' Looks at all the windows (dataframes) in a list of homogeneous windows. And
+#' only selects the windows where the column values for two columns matches
+#' the specified values.
+#'
+#' Takes a List of windows (dataframes) where each window is a homogeneous window,
+#' which means in each window, there is only one unique value in the specified
+#' column. This function looks through the homogeneous windows in the List, selects
+#' the windows that have specified column value(s) in the first specified column, then
+#' from the windows selected based on the first column, windows are further selected
+#' to have specified column value(s) in the second specified column. Puts these windows
+#' into a new List and outputs the new List of windows. Uses the
+#' GetSubsetOfWindows() function.
+#'
+#'
+#' @param list.of.windows A list of windows (dataframes) and each window can only have a single unique value for the two specified columns.
+#' @param level1.column.name A String that specifies the column name to use for the first level of the contingency table. This column should only contain one unique value within each window.
+#' @param level2.column.name A String that specifies the column name to use for the second level of the contingency table. This column should only contain one unique value within each window.
+#' @param level1.categories A vector that specifies the possible labels in the level1 column.
+#' @param level2.categories A vector that specifies the possible labels in the level2 column.
+#'
+#' @return List containing only selected windows
+#'
+#'
+#' @export
+#'
+#' @examples
+#' #Example using a dataframe with 5 homogeneous windows.
+#'
+#' #Windows are homogeneous if looking at col.two and col.three values.
+#' window.name.column <- c(10, 10, 10, 20, 20, 20, 30, 30, 30, 30, 40, 40, 50, 50, 50, 50)
+#' col.two <- c("a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "b", "b", "a", "a", "a", "a")
+#' col.three <- c(1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 3, 3, 3, 3)
+#'
+#' multi.window.data <- data.frame(window.name.column, col.two, col.three)
+#'
+#' list.of.homogeneous.windows <- GetHomogeneousWindows(multi.window.data,
+#' "window.name.column", c("col.two", "col.three"))
+#'
+#' result <- GetSubsetOfWindowsTwoLevels(list.of.homogeneous.windows, "col.two", "col.three",
+#' c("a"), c("1", "2"))
+#'
+#' #Should contain windows 10, 20, 30 because col.two is "a" and col.three can be "1" or "2"
+#' result
+#'
+GetSubsetOfWindowsTwoLevels <- function(list.of.windows, level1.column.name, level2.column.name,
+                                        level1.categories, level2.categories){
+
+  selected.windows <- list()
+
+  windows.level1 <- list()
+
+  #Get windows for first level
+  for(i in 1:length(level1.categories)){
+
+    windows.level1.temp <- GetSubsetOfWindows(list.of.windows, level1.column.name, level1.categories[[i]])
+
+    windows.level1 <- c(windows.level1, windows.level1.temp)
+
+  }
+
+  #Using windows that satisfy first level, find the ones that satisfy second level too
+  for(i in 1:length(level2.categories)){
+
+    windows.level2.temp <- GetSubsetOfWindows(windows.level1, level2.column.name, level2.categories[[i]])
+
+    selected.windows <- c(selected.windows, windows.level2.temp)
+
+  }
+
+
+  return(selected.windows)
 
 }
 
