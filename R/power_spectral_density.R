@@ -432,9 +432,45 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 
 
 
-#' Title
+#' Automated plotting of time series, PSD, and log transformed PSD.
 #'
-#' @param list.of.windows A list of windows (dataframes).
+#' This function uses a lot of the functions in this package (psdr) to automate the
+#' plotting process for plotting composite curves and having multiple curves
+#' on the same plot.
+#'
+#' Given a list of windows, you can specify which windows you want to average together
+#' to form a curve on the plot. You can specify multiple combos and therefore multiple
+#' curves can be plotted on the same plot with a legend to specify the combo
+#' used to create each curve. An error envelope can also be created for a single curve
+#' on the plot.
+#'
+#' The function automatically generates a ggplot
+#' for easy plotting. However, the function also outputs dataframes for each combo.
+#' Each dataframe has 3 columns:
+#'
+#' 1. X value: For timeseries, this will be in the original units that separates
+#' each observation in the time series. For example, if there are 150 observations
+#' and each observation is 0.02 seconds apart, then if 150 observations are
+#' specified as the x_increment, then each observation are still 0.02 seconds.
+#' The time difference between the first and last observation needs to equal the
+#' time difference between the first and last observation in the original time series.
+#' For PSD and LogPSd, the units will be in Hz (frequency). The frequency range
+#' depends on the sampling frequency. Smallest frequency is 0 and largest frequency
+#' is sampling_frequency/2.
+#'
+#' 2. Y value: For time series, this will be in the original units of the time series.
+#' For PSD, the units will be (original units)^2/Hz, for LogPSD, the units will be
+#' log((original units)^2/Hz)).
+#'
+#' 3. Standard deviation of Y value. This can be used to plot error bars
+#' or error envelopes to see the spread of the windows used to make the composite.
+#'
+#' Three different plots can be created:
+#' 1. Time series plot. This simply takes the time series in the windows, averages them for each combo, and then plots the composite curve for each combo.
+#' 2. PSD plot. This takes the time series in the windows and given the sampling frequency, it calculates the PSD. It averages the PSD for the windows in each combo, and then plots the composite curve for each combo.
+#' 3. Log transformed PSD plot. Same as PSD plot except at the end, the composite PSD curves are log transformed.
+#'
+#' @param list.of.windows A list of windows (dataframes). All windows should have similar lengths
 #' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used.
 #' @param x_start Numeric value specifying start of the new x-axis. Default is 0.
 #' @param x_end Numeric value specifying end of the new x-axis. For PSD, maximum value is the sampling_frequency divided by 2.
@@ -451,7 +487,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' @param sampling_frequency Numeric value used for specifying sampling frequency if PSD or LogPSD is made with this function. Default is NULL because default plot created is a time series plot.
 #'
 #' @return A List with two objects:
-#' 1. A List of dataframes containing values for each line on the plot.
+#' 1. A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.
 #' 2. A ggplot object that can be plotted right away.
 #'
 #' @export
