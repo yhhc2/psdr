@@ -122,7 +122,7 @@ MakePowerSpectralDensity <- function(sampling_frequency, data_vector){
   L <- length(data_vector)
   t <- (0:(L-1)) * T
 
-  X <- data_vector
+  X <- as.numeric(data_vector)
 
   Y <- stats::fft(X)
 
@@ -475,6 +475,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' level2.vals <- rep("1", length(S1))
 #' S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
 #' colnames(S1.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S1.data.frame[,"Signal"] <- as.numeric(S1.data.frame[,"Signal"])
 #'
 #' #Second signal
 #' #1. 1 Hz with amplitude of -4
@@ -484,6 +485,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' level2.vals <- rep("2", length(S2))
 #' S2.data.frame <- as.data.frame(cbind(t, S2, level1.vals, level2.vals))
 #' colnames(S2.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S2.data.frame[,"Signal"] <- as.numeric(S2.data.frame[,"Signal"])
 #'
 #' #Third signal
 #' #1. 1 Hz with amplitude of 2
@@ -493,14 +495,16 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' level2.vals <- rep("3", length(S3))
 #' S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
 #' colnames(S3.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S3.data.frame[,"Signal"] <- as.numeric(S3.data.frame[,"Signal"])
 #'
 #' #Fourth signal
-#' #1. 1 Hz with amplitude of 2
-#' S4 <- 2*sin(2*pi*1*t)
+#' #1. 1 Hz with amplitude of -2
+#' S4 <- -2*sin(2*pi*1*t)
 #' level1.vals <- rep("b", length(S4))
 #' level2.vals <- rep("3", length(S4))
 #' S4.data.frame <- as.data.frame(cbind(t, S4, level1.vals, level2.vals))
 #' colnames(S4.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S4.data.frame[,"Signal"] <- as.numeric(S4.data.frame[,"Signal"])
 #'
 #' windows <- list(S1.data.frame, S2.data.frame, S3.data.frame, S4.data.frame)
 #'
@@ -509,6 +513,9 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #'
 #' #Gets the composite of the third and fourth signal
 #' SecondComboToUse <- list( c("a", "b"), c(3) )
+#'
+#'
+#' #Timeseries-----------------------------------------------------------------
 #'
 #' timeseries.results <- AutomatedCompositePlotting(list.of.windows = windows,
 #'                            name.of.col.containing.time.series = "Signal",
@@ -526,10 +533,60 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #'                            TimeSeries.PSD.LogPSD = "TimeSeries",
 #'                            sampling_frequency = NULL)
 #'
-#' ggplot.obj <- timeseries.results[[2]]
+#' ggplot.obj.timeseries <- timeseries.results[[2]]
 #'
+#' #Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.
 #' dev.new()
-#' ggplot.obj
+#' ggplot.obj.timeseries
+#'
+#' #PSD-------------------------------------------------------------------------
+#'
+#' PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
+#'                            name.of.col.containing.time.series = "Signal",
+#'                            x_start = 0,
+#'                            x_end = 50,
+#'                            x_increment = 0.01,
+#'                            level1.column.name = "level1.ID",
+#'                            level2.column.name = "level2.ID",
+#'                            level.combinations = list(FirstComboToUse, SecondComboToUse),
+#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#'                            plot.title = "Example",
+#'                            plot.xlab = "Hz",
+#'                            plot.ylab = "(Original units)^2/Hz",
+#'                            combination.index.for.envelope = 1,
+#'                            TimeSeries.PSD.LogPSD = "PSD",
+#'                            sampling_frequency = 100)
+#'
+#' ggplot.obj.PSD <- PSD.results[[2]]
+#'
+#' #Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.
+#' #Error envelope is specified for the first (blue) curve.
+#' dev.new()
+#' ggplot.obj.PSD
+#'
+#' #LogPSD-------------------------------------------------------------------------
+#'
+#' LogPSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
+#'                            name.of.col.containing.time.series = "Signal",
+#'                            x_start = 0,
+#'                            x_end = 50,
+#'                            x_increment = 0.01,
+#'                            level1.column.name = "level1.ID",
+#'                            level2.column.name = "level2.ID",
+#'                            level.combinations = list(FirstComboToUse, SecondComboToUse),
+#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#'                            plot.title = "Example",
+#'                            plot.xlab = "Hz",
+#'                            plot.ylab = "log((Original units)^2/Hz)",
+#'                            combination.index.for.envelope = NULL,
+#'                            TimeSeries.PSD.LogPSD = "LogPSD",
+#'                            sampling_frequency = 100)
+#'
+#' ggplot.obj.LogPSD <- LogPSD.results[[2]]
+#'
+#' #Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.
+#' dev.new()
+#' ggplot.obj.LogPSD
 #'
 AutomatedCompositePlotting <- function(list.of.windows,
                            name.of.col.containing.time.series,
@@ -547,21 +604,38 @@ AutomatedCompositePlotting <- function(list.of.windows,
                            TimeSeries.PSD.LogPSD = "TimeSeries",
                            sampling_frequency = NULL){
 
+  # #Testing conditions
+  # list.of.windows = windows
+  # name.of.col.containing.time.series = "Signal"
+  # x_start = 0
+  # x_end = 999
+  # x_increment = 1
+  # level1.column.name = "level1.ID"
+  # level2.column.name = "level2.ID"
+  # level.combinations = list(FirstComboToUse, SecondComboToUse)
+  # level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4")
+  # plot.title = "Example"
+  # plot.xlab = "Time"
+  # plot.ylab = "Original units"
+  # combination.index.for.envelope = NULL
+  # TimeSeries.PSD.LogPSD = "TimeSeries"
+  # sampling_frequency = NULL
+
   #Testing conditions
   list.of.windows = windows
   name.of.col.containing.time.series = "Signal"
   x_start = 0
-  x_end = 999
-  x_increment = 1
+  x_end = 50
+  x_increment = 0.01
   level1.column.name = "level1.ID"
   level2.column.name = "level2.ID"
   level.combinations = list(FirstComboToUse, SecondComboToUse)
   level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4")
   plot.title = "Example"
-  plot.xlab = "Time"
-  plot.ylab = "Original units"
+  plot.xlab = "Hz"
+  plot.ylab = "(Original units)^2/Hz"
   combination.index.for.envelope = NULL
-  TimeSeries.PSD.LogPSD = "TimeSeries"
+  TimeSeries.PSD.LogPSD = "PSD"
   sampling_frequency = NULL
 
   #Each object in this list contains the x and y values for a line that should
