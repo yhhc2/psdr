@@ -638,19 +638,18 @@ AutomatedCompositePlotting <- function(list.of.windows,
   }
 
   #Add legend to plot
-  color.to.use <- c("blue", "red", "black", "green")
+  my.colors <- c("blue", "red", "black", "green")
 
   values.to.use <- NULL
-  for(i in 1:length(level.combinations.labels)){
 
-    values.to.use <- c(values.to.use, level.combinations.labels[[i]] = color.to.use[[i]])
-
-  }
+  ##LEFT OFF HERE##############################################################################################
+  #https://stackoverflow.com/questions/10349206/add-legend-to-ggplot2-line-plot
+  #Use paste or something to get "=" into the expression.
 
   ggplot.object <- ggplot.object +
                    scale_colour_manual("",
                         breaks = level.combinations.labels,
-                        values = color.to.use[1:length(level.combinations.labels)])
+                        values = values.to.use)
 
   #Add title and axes to plot
   ggplot.object <- ggplot.object +
