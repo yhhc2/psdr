@@ -15,9 +15,9 @@ GetSubsetOfWindowsTwoLevels(
 \arguments{
 \item{list.of.windows}{A list of windows (dataframes) and each window can only have a single unique value for the two specified columns.}
 
-\item{level1.column.name}{A String that specifies the column name to use for the first level of the contingency table. This column should only contain one unique value within each window.}
+\item{level1.column.name}{A String that specifies the column name to use for the first level. This column should only contain one unique value within each window.}
 
-\item{level2.column.name}{A String that specifies the column name to use for the second level of the contingency table. This column should only contain one unique value within each window.}
+\item{level2.column.name}{A String that specifies the column name to use for the second level. This column should only contain one unique value within each window.}
 
 \item{level1.categories}{A vector that specifies the possible labels in the level1 column.}
 

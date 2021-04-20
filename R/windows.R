@@ -322,8 +322,8 @@ CountWindows <- function(list.of.windows, level1.column.name, level2.column.name
 #'
 #'
 #' @param list.of.windows A list of windows (dataframes) and each window can only have a single unique value for the two specified columns.
-#' @param level1.column.name A String that specifies the column name to use for the first level of the contingency table. This column should only contain one unique value within each window.
-#' @param level2.column.name A String that specifies the column name to use for the second level of the contingency table. This column should only contain one unique value within each window.
+#' @param level1.column.name A String that specifies the column name to use for the first level. This column should only contain one unique value within each window.
+#' @param level2.column.name A String that specifies the column name to use for the second level. This column should only contain one unique value within each window.
 #' @param level1.categories A vector that specifies the possible labels in the level1 column.
 #' @param level2.categories A vector that specifies the possible labels in the level2 column.
 #'

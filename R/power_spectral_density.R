@@ -431,27 +431,107 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #2. The values for each line to be plotting. The values can be used to remake ggplot. This is good if the color/axes/etc. need to be changed.
 
 
+
 #' Title
 #'
-#' @param list.of.windows
-#' @param name.of.col.containing.time.series
-#' @param x_start
-#' @param x_end
-#' @param x_increment
-#' @param level1.column.name
-#' @param level2.column.name
-#' @param level.combinations
-#' @param level.combinations.labels
-#' @param plot.title
-#' @param plot.xlab
-#' @param plot.ylab
-#' @param combination.index.for.envelope
+#' @param list.of.windows A list of windows (dataframes).
+#' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used.
+#' @param x_start Numeric value specifying start of the new x-axis. Default is 0.
+#' @param x_end Numeric value specifying end of the new x-axis. For PSD, maximum value is the sampling_frequency divided by 2.
+#' @param x_increment Numeric value specifying increment of the new x-axis.
+#' @param level1.column.name A String that specifies the column name to use for the first level. This column should only contain one unique value within each window.
+#' @param level2.column.name A String that specifies the column name to use for the second level. This column should only contain one unique value within each window.
+#' @param level.combinations A List containing Lists. Each list that it contains has two vectors. The first vector specifying the values for level1 and the second vector specifying the values for level2. Each list element will correspond to a new line on the plot.
+#' @param level.combinations.labels A vector of strings that labels each combination. This is used for making the figure legend.
+#' @param plot.title String for title of plot.
+#' @param plot.xlab String for x-axis of plot.
+#' @param plot.ylab String for y-axis of plot.
+#' @param combination.index.for.envelope A numeric value that specifies which combination (index of level.combinations) should have a line with an error envelope. The default is no envelope.
+#' @param TimeSeries.PSD.LogPSD A String with 3 possible values to specify what type of plot to create from the time series: 1. "TimeSeries", 2. "PSD", 3. "LogPSD"
+#' @param sampling_frequency Numeric value used for specifying sampling frequency if PSD or LogPSD is made with this function. Default is NULL because default plot created is a time series plot.
 #'
-#' @return
+#' @return A List with two objects:
+#' 1. A List of dataframes containing values for each line on the plot.
+#' 2. A ggplot object that can be plotted right away.
+#'
 #' @export
 #'
 #' @examples
-PlotTimeSeries <- function(list.of.windows,
+#'
+#' #I want to create a plot that shows two curves:
+#' #1. Composite of time series signals 1, 2, and 3.
+#' #2. Composite of time series signals 3 and 4.
+#'
+#' #Create a vector of time that represent times where data are sampled.
+#' Fs = 100; #sampling frequency in Hz
+#' T = 1/Fs; #sampling period
+#' L = 1000; #length of time vector
+#' t = (0:L-1)*T; #time vector
+#'
+#' #First signal
+#' #1. 1 Hz with amplitude of 2
+#' S1 <- 2*sin(2*pi*1*t)
+#' level1.vals <- rep("a", length(S1))
+#' level2.vals <- rep("1", length(S1))
+#' S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
+#' colnames(S1.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#'
+#' #Second signal
+#' #1. 1 Hz with amplitude of -4
+#' #2. 2 Hz with amplitude of -2
+#' S2 <- (-4)*sin(2*pi*1*t) - 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S2))
+#' level2.vals <- rep("2", length(S2))
+#' S2.data.frame <- as.data.frame(cbind(t, S2, level1.vals, level2.vals))
+#' colnames(S2.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#'
+#' #Third signal
+#' #1. 1 Hz with amplitude of 2
+#' #2. 2 Hz with amplitude of 2
+#' S3 <- 2*sin(2*pi*1*t) + 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S3))
+#' level2.vals <- rep("3", length(S3))
+#' S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
+#' colnames(S3.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#'
+#' #Fourth signal
+#' #1. 1 Hz with amplitude of 2
+#' S4 <- 2*sin(2*pi*1*t)
+#' level1.vals <- rep("b", length(S4))
+#' level2.vals <- rep("3", length(S4))
+#' S4.data.frame <- as.data.frame(cbind(t, S4, level1.vals, level2.vals))
+#' colnames(S4.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#'
+#' windows <- list(S1.data.frame, S2.data.frame, S3.data.frame, S4.data.frame)
+#'
+#' #Gets the composite of the first, second, and third signal. Should result in a flat signal.
+#' FirstComboToUse <- list( c("a"), c(1, 2, 3) )
+#'
+#' #Gets the composite of the third and fourth signal
+#' SecondComboToUse <- list( c("a", "b"), c(3) )
+#'
+#' timeseries.results <- AutomatedCompositePlotting(list.of.windows = windows,
+#'                            name.of.col.containing.time.series = "Signal",
+#'                            x_start = 0,
+#'                            x_end = 999,
+#'                            x_increment = 1,
+#'                            level1.column.name = "level1.ID",
+#'                            level2.column.name = "level2.ID",
+#'                            level.combinations = list(FirstComboToUse, SecondComboToUse),
+#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#'                            plot.title = "Example",
+#'                            plot.xlab = "Time",
+#'                            plot.ylab = "Original units",
+#'                            combination.index.for.envelope = NULL,
+#'                            TimeSeries.PSD.LogPSD = "TimeSeries",
+#'                            sampling_frequency = NULL)
+#'
+#' ggplot.obj <- timeseries.results[[2]]
+#'
+#' dev.new()
+#' ggplot.obj
+#'
+AutomatedCompositePlotting <- function(list.of.windows,
                            name.of.col.containing.time.series,
                            x_start = 0,
                            x_end,
@@ -463,13 +543,23 @@ PlotTimeSeries <- function(list.of.windows,
                            plot.title,
                            plot.xlab,
                            plot.ylab,
-                           combination.index.for.envelope = NULL){
+                           combination.index.for.envelope = NULL,
+                           TimeSeries.PSD.LogPSD = "TimeSeries",
+                           sampling_frequency = NULL){
 
 
   #Each object in this list contains the x and y values for a line that should
   #appear in the plot
   list.of.values.to.plot <- list()
   list.of.dataframes.to.plot <- list()
+
+  #------------------------------------------------------------------------------
+  # Generate values to plot for each composite line specified by objects in the
+  # level.combinations list
+  #------------------------------------------------------------------------------
+
+  #The combination specifies the window subsets to use for each composite line.
+  #For each combination, generate the values to plot for the composite line.
 
   for(i in 1:length(level.combinations)){
 
@@ -481,11 +571,41 @@ PlotTimeSeries <- function(list.of.windows,
 
 
     ##SWITCH HERE FOR XY, PSD, LOG
-    list.of.values.to.plot[[i]] <- MakeCompositeXYPlotForAllWindows(subset.windows,
-                                     name.of.col.containing.time.series,
-                                     x_start = x_start,
-                                     x_end = x_end,
-                                     x_increment = x_increment)
+    if(TimeSeries.PSD.LogPSD == "TimeSeries"){
+
+      list.of.values.to.plot[[i]] <- MakeCompositeXYPlotForAllWindows(subset.windows,
+                                                                      name.of.col.containing.time.series,
+                                                                      x_start = x_start,
+                                                                      x_end = x_end,
+                                                                      x_increment = x_increment)
+    } else if(TimeSeries.PSD.LogPSD == "PSD"){
+
+      list.of.values.to.plot[[i]] <- MakeCompositePSDForAllWindows(subset.windows,
+                                                                   name.of.col.containing.time.series,
+                                                                   sampling_frequency,
+                                                                   x_start = 0,
+                                                                   x_end,
+                                                                   x_increment)
+    } else if(TimeSeries.PSD.LogPSD == "LogPSD"){
+
+      list.of.values.to.plot[[i]] <- MakeCompositePSDForAllWindows(subset.windows,
+                                                                   name.of.col.containing.time.series,
+                                                                   sampling_frequency,
+                                                                   x_start = 0,
+                                                                   x_end,
+                                                                   x_increment)
+
+      list.of.values.to.plot[[i]][[2]] <- log(list.of.values.to.plot[[i]][[2]])
+
+      list.of.values.to.plot[[i]][[3]] <- log(list.of.values.to.plot[[i]][[3]])
+
+
+    } else{
+
+      stop("Invalid input for argument: TimeSeries.PSD.LogPSD")
+
+    }
+
 
     data.temp <- as.data.frame(cbind(list.of.values.to.plot[[i]][[1]], list.of.values.to.plot[[i]][[2]], list.of.values.to.plot[[i]][[3]]))
     colnames(data.temp) <- c("xvals", "yvals", "ystddev")
@@ -493,6 +613,9 @@ PlotTimeSeries <- function(list.of.windows,
 
   }
 
+  #------------------------------------------------------------------------------
+  # Create ggplot
+  #------------------------------------------------------------------------------
 
   ggplot.object <- ggplot(list.of.dataframes.to.plot[[1]], aes(x=xvals, y=yvals))
 
@@ -516,6 +639,14 @@ PlotTimeSeries <- function(list.of.windows,
 
   #Add legend to plot
   color.to.use <- c("blue", "red", "black", "green")
+
+  values.to.use <- NULL
+  for(i in 1:length(level.combinations.labels)){
+
+    values.to.use <- c(values.to.use, level.combinations.labels[[i]] = color.to.use[[i]])
+
+  }
+
   ggplot.object <- ggplot.object +
                    scale_colour_manual("",
                         breaks = level.combinations.labels,
@@ -528,6 +659,10 @@ PlotTimeSeries <- function(list.of.windows,
                    ylab(plot.ylab)
 
 
+  #------------------------------------------------------------------------------
+  # Return values to plot for each line as well as the ggplot object
+  #------------------------------------------------------------------------------
+
   results <- list(list.of.dataframes.to.plot, ggplot.object)
 
   return(results)
@@ -536,15 +671,3 @@ PlotTimeSeries <- function(list.of.windows,
   #Testing: PlotTimeSeries(windows, "SummedXYZ", 0, 150, 1, "RTR_AMP", "TASK_ID", list( list(c(1, 2, 3), c(task.names)) ), "combined", "Combined amplitudes and task into 1", "Time", "Acceleration", 1)
 }
 
-
-
-
-#PlotPSD <- function()
-
-
-#Function to make error envelopes.
-#Input x, y and then the standard deviation for y.
-
-
-
-#Function to overlay error envelopes on the same plot.
