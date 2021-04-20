@@ -160,14 +160,14 @@ PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
                            plot.title = "Example",
                            plot.xlab = "Hz",
                            plot.ylab = "(Original units)^2/Hz",
-                           combination.index.for.envelope = 1,
+                           combination.index.for.envelope = 2,
                            TimeSeries.PSD.LogPSD = "PSD",
                            sampling_frequency = 100)
 
 ggplot.obj.PSD <- PSD.results[[2]]
 
-#Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.
-#Error envelope is specified for the first (blue) curve.
+#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be stronger in both cases because more signals have this frequency (even if amp is negative).
+#Error envelope is specified for the second (red) curve. Envelope should only be present for 1 Hz signal.
 dev.new()
 ggplot.obj.PSD
 
@@ -191,7 +191,8 @@ LogPSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
 
 ggplot.obj.LogPSD <- LogPSD.results[[2]]
 
-#Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.
+#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be stronger in both cases because more signals have this frequency (even if amp is negative).
+#Error envelope is specified for the second (red) curve. Envelope should only be present for 1 Hz signal.
 dev.new()
 ggplot.obj.LogPSD
 
