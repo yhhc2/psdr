@@ -547,6 +547,22 @@ AutomatedCompositePlotting <- function(list.of.windows,
                            TimeSeries.PSD.LogPSD = "TimeSeries",
                            sampling_frequency = NULL){
 
+  #Testing conditions
+  list.of.windows = windows
+  name.of.col.containing.time.series = "Signal"
+  x_start = 0
+  x_end = 999
+  x_increment = 1
+  level1.column.name = "level1.ID"
+  level2.column.name = "level2.ID"
+  level.combinations = list(FirstComboToUse, SecondComboToUse)
+  level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4")
+  plot.title = "Example"
+  plot.xlab = "Time"
+  plot.ylab = "Original units"
+  combination.index.for.envelope = NULL
+  TimeSeries.PSD.LogPSD = "TimeSeries"
+  sampling_frequency = NULL
 
   #Each object in this list contains the x and y values for a line that should
   #appear in the plot
@@ -617,22 +633,34 @@ AutomatedCompositePlotting <- function(list.of.windows,
   # Create ggplot
   #------------------------------------------------------------------------------
 
-  ggplot.object <- ggplot(list.of.dataframes.to.plot[[1]], aes(x=xvals, y=yvals))
+  ggplot.object <- ggplot2::ggplot(list.of.dataframes.to.plot[[1]], ggplot2::aes(x=xvals, y=yvals))
+
+  #Remove white space from all combination labels. This is needed for the legend to work.
+  for(i in 1:length(level.combinations.labels)){
+
+    x <- level.combinations.labels[[i]]
+    level.combinations.labels[[i]] <- gsub(" ", "", x, fixed = TRUE)
+
+  }
+
 
   #Add error envelope to plot. Envelope needs to be added before lines are added
   #otherwise the envelope will cover the lines.
   if(!is.null(combination.index.for.envelope)){
 
     ggplot.object <- ggplot.object +
-      geom_ribbon(data = list.of.dataframes.to.plot[[combination.index.for.envelope]], aes(ymin=yvals-ystddev, ymax=yvals+ystddev), fill = "grey70")
+                     ggplot2::geom_ribbon(data = list.of.dataframes.to.plot[[combination.index.for.envelope]], ggplot2::aes(ymin=yvals-ystddev, ymax=yvals+ystddev), fill = "grey70")
 
   }
 
   #Add lines to plot
+  #i will not be evaluated if placed inside ggplot2 aes(). aes() stores expression. LEFT HERE
+  #https://stackoverflow.com/questions/32698616/ggplot2-adding-lines-in-a-loop-and-retaining-colour-mappings
   for(i in 1:length(level.combinations)){
 
     ggplot.object <- ggplot.object +
-                     geom_line(data = list.of.dataframes.to.plot[[i]], aes(x=xvals, y=yvals, color = level.combinations.labels[[i]]))
+                     ggplot2::geom_line(data = list.of.dataframes.to.plot[[i]], ggplot2::aes(x=xvals, y=yvals, color = level.combinations.labels[[i]]))
+
 
 
   }
@@ -640,22 +668,36 @@ AutomatedCompositePlotting <- function(list.of.windows,
   #Add legend to plot
   my.colors <- c("blue", "red", "black", "green")
 
-  values.to.use <- NULL
-
-  ##LEFT OFF HERE##############################################################################################
   #https://stackoverflow.com/questions/10349206/add-legend-to-ggplot2-line-plot
-  #Use paste or something to get "=" into the expression.
+  values.to.use <- NULL
+  for(i in 1:length(level.combinations.labels)){
+
+    x <- paste("\"", level.combinations.labels[[i]], "\"", "=", "\"", my.colors[[i]], "\"")
+
+    values.to.use[[i]] <- gsub(" ", "", x, fixed = TRUE)
+
+  }
+
+  # ggplot.object <- ggplot.object +
+  #                  ggplot2::scale_colour_manual("",
+  #                       breaks = level.combinations.labels,
+  #                       values = unlist(values.to.use))
+
+  # ggplot.object <- ggplot.object +
+  #   ggplot2::scale_colour_manual("",
+  #                                values = unlist(values.to.use))
 
   ggplot.object <- ggplot.object +
-                   scale_colour_manual("",
+                   ggplot2::scale_colour_manual("",
                         breaks = level.combinations.labels,
-                        values = values.to.use)
+                        values = c("Signal1+2+3"="blue", "Signal3+4"="red"))
+
 
   #Add title and axes to plot
   ggplot.object <- ggplot.object +
-                   ggtitle(plot.title) +
-                   xlab(plot.xlab) +
-                   ylab(plot.ylab)
+                   ggplot2::ggtitle(plot.title) +
+                   ggplot2::xlab(plot.xlab) +
+                   ggplot2::ylab(plot.ylab)
 
 
   #------------------------------------------------------------------------------
