@@ -660,7 +660,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
   for(i in 1:length(level.combinations)){
 
     ggplot.object <- ggplot.object +
-                     ggplot2::geom_line(data = list.of.dataframes.to.plot[[i]], ggplot2::aes_(x="xvals", y="yvals", color = level.combinations.labels[[i]]))
+                     ggplot2::geom_line(data = list.of.dataframes.to.plot[[i]], ggplot2::aes_(x=quote(xvals), y=quote(yvals), color = level.combinations.labels[[i]]))
 
 
 
