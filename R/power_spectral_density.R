@@ -656,10 +656,11 @@ AutomatedCompositePlotting <- function(list.of.windows,
   #Add lines to plot
   #i will not be evaluated if placed inside ggplot2 aes(). aes() stores expression. LEFT HERE
   #https://stackoverflow.com/questions/32698616/ggplot2-adding-lines-in-a-loop-and-retaining-colour-mappings
+  #Need to use aes_() https://stackoverflow.com/questions/39021021/force-ggplot-to-evaluate-counter-variable
   for(i in 1:length(level.combinations)){
 
     ggplot.object <- ggplot.object +
-                     ggplot2::geom_line(data = list.of.dataframes.to.plot[[i]], ggplot2::aes(x=xvals, y=yvals, color = level.combinations.labels[[i]]))
+                     ggplot2::geom_line(data = list.of.dataframes.to.plot[[i]], ggplot2::aes_(x="xvals", y="yvals", color = level.combinations.labels[[i]]))
 
 
 
@@ -668,29 +669,34 @@ AutomatedCompositePlotting <- function(list.of.windows,
   #Add legend to plot
   my.colors <- c("blue", "red", "black", "green")
 
-  #https://stackoverflow.com/questions/10349206/add-legend-to-ggplot2-line-plot
-  values.to.use <- NULL
-  for(i in 1:length(level.combinations.labels)){
+  # #https://stackoverflow.com/questions/10349206/add-legend-to-ggplot2-line-plot
+  # values.to.use <- NULL
+  # for(i in 1:length(level.combinations.labels)){
+  #
+  #   x <- paste("\"", level.combinations.labels[[i]], "\"", "=", "\"", my.colors[[i]], "\"")
+  #
+  #   values.to.use[[i]] <- gsub(" ", "", x, fixed = TRUE)
+  #
+  # }
 
-    x <- paste("\"", level.combinations.labels[[i]], "\"", "=", "\"", my.colors[[i]], "\"")
+  named.colors <- my.colors[1:length(level.combinations.labels)]
+  names(named.colors) <- level.combinations.labels
 
-    values.to.use[[i]] <- gsub(" ", "", x, fixed = TRUE)
-
-  }
-
-  # ggplot.object <- ggplot.object +
-  #                  ggplot2::scale_colour_manual("",
-  #                       breaks = level.combinations.labels,
-  #                       values = unlist(values.to.use))
+  ggplot.object <- ggplot.object +
+                   ggplot2::scale_colour_manual("",
+                        breaks = level.combinations.labels,
+                        values = named.colors)
 
   # ggplot.object <- ggplot.object +
   #   ggplot2::scale_colour_manual("",
   #                                values = unlist(values.to.use))
 
-  ggplot.object <- ggplot.object +
-                   ggplot2::scale_colour_manual("",
-                        breaks = level.combinations.labels,
-                        values = c("Signal1+2+3"="blue", "Signal3+4"="red"))
+  # ggplot.object <- ggplot.object +
+  #                  ggplot2::scale_colour_manual("",
+  #                       breaks = level.combinations.labels,
+  #                       values = c("Signal1+2+3"="blue", "Signal3+4"="red"))
+
+  #values = c("Signal1+2+3"="blue", "Signal3+4"="red") #this expression just creates a named vector.
 
 
   #Add title and axes to plot
