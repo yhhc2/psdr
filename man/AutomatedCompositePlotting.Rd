@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_spectral_density.R
 \name{AutomatedCompositePlotting}
 \alias{AutomatedCompositePlotting}
-\title{Title}
+\title{Automated plotting of time series, PSD, and log transformed PSD.}
 \usage{
 AutomatedCompositePlotting(
   list.of.windows,
@@ -23,7 +23,7 @@ AutomatedCompositePlotting(
 )
 }
 \arguments{
-\item{list.of.windows}{A list of windows (dataframes).}
+\item{list.of.windows}{A list of windows (dataframes). All windows should have similar lengths}
 
 \item{name.of.col.containing.time.series}{A string that specifies the name of the column in the windows that correspond to the time series that should be used.}
 
@@ -56,12 +56,48 @@ AutomatedCompositePlotting(
 \value{
 A List with two objects:
 \enumerate{
-\item A List of dataframes containing values for each line on the plot.
+\item A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.
 \item A ggplot object that can be plotted right away.
 }
 }
 \description{
-Title
+This function uses a lot of the functions in this package (psdr) to automate the
+plotting process for plotting composite curves and having multiple curves
+on the same plot.
+}
+\details{
+Given a list of windows, you can specify which windows you want to average together
+to form a curve on the plot. You can specify multiple combos and therefore multiple
+curves can be plotted on the same plot with a legend to specify the combo
+used to create each curve. An error envelope can also be created for a single curve
+on the plot.
+
+The function automatically generates a ggplot
+for easy plotting. However, the function also outputs dataframes for each combo.
+Each dataframe has 3 columns:
+\enumerate{
+\item X value: For timeseries, this will be in the original units that separates
+each observation in the time series. For example, if there are 150 observations
+and each observation is 0.02 seconds apart, then if 150 observations are
+specified as the x_increment, then each observation are still 0.02 seconds.
+The time difference between the first and last observation needs to equal the
+time difference between the first and last observation in the original time series.
+For PSD and LogPSd, the units will be in Hz (frequency). The frequency range
+depends on the sampling frequency. Smallest frequency is 0 and largest frequency
+is sampling_frequency/2.
+\item Y value: For time series, this will be in the original units of the time series.
+For PSD, the units will be (original units)^2/Hz, for LogPSD, the units will be
+log((original units)^2/Hz)).
+\item Standard deviation of Y value. This can be used to plot error bars
+or error envelopes to see the spread of the windows used to make the composite.
+}
+
+Three different plots can be created:
+\enumerate{
+\item Time series plot. This simply takes the time series in the windows, averages them for each combo, and then plots the composite curve for each combo.
+\item PSD plot. This takes the time series in the windows and given the sampling frequency, it calculates the PSD. It averages the PSD for the windows in each combo, and then plots the composite curve for each combo.
+\item Log transformed PSD plot. Same as PSD plot except at the end, the composite PSD curves are log transformed.
+}
 }
 \examples{
 
@@ -166,8 +202,10 @@ PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
 
 ggplot.obj.PSD <- PSD.results[[2]]
 
-#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be stronger in both cases because more signals have this frequency (even if amp is negative).
-#Error envelope is specified for the second (red) curve. Envelope should only be present for 1 Hz signal.
+#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be
+#stronger in both cases because more signals have this frequency (even if amp is negative).
+#Error envelope is specified for the second (red) curve. Envelope should only
+#be present for 1 Hz signal.
 dev.new()
 ggplot.obj.PSD
 
@@ -191,8 +229,10 @@ LogPSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
 
 ggplot.obj.LogPSD <- LogPSD.results[[2]]
 
-#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be stronger in both cases because more signals have this frequency (even if amp is negative).
-#Error envelope is specified for the second (red) curve. Envelope should only be present for 1 Hz signal.
+#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should
+#be stronger in both cases because more signals have this frequency (even if amp is negative).
+#Error envelope is specified for the second (red) curve. Envelope should only
+#be present for 1 Hz signal.
 dev.new()
 ggplot.obj.LogPSD
 

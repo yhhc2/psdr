@@ -595,8 +595,10 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #'
 #' ggplot.obj.PSD <- PSD.results[[2]]
 #'
-#' #Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be stronger in both cases because more signals have this frequency (even if amp is negative).
-#' #Error envelope is specified for the second (red) curve. Envelope should only be present for 1 Hz signal.
+#' #Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be
+#' #stronger in both cases because more signals have this frequency (even if amp is negative).
+#' #Error envelope is specified for the second (red) curve. Envelope should only
+#' #be present for 1 Hz signal.
 #' dev.new()
 #' ggplot.obj.PSD
 #'
@@ -620,8 +622,10 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #'
 #' ggplot.obj.LogPSD <- LogPSD.results[[2]]
 #'
-#' #Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be stronger in both cases because more signals have this frequency (even if amp is negative).
-#' #Error envelope is specified for the second (red) curve. Envelope should only be present for 1 Hz signal.
+#' #Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should
+#' #be stronger in both cases because more signals have this frequency (even if amp is negative).
+#' #Error envelope is specified for the second (red) curve. Envelope should only
+#' #be present for 1 Hz signal.
 #' dev.new()
 #' ggplot.obj.LogPSD
 #'
