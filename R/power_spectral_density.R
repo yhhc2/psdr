@@ -714,7 +714,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
       list.of.values.to.plot[[i]] <- MakeCompositePSDForAllWindows(subset.windows,
                                                                    name.of.col.containing.time.series,
                                                                    sampling_frequency,
-                                                                   x_start = 0,
+                                                                   x_start = x_start,
                                                                    x_end,
                                                                    x_increment)
     } else if(TimeSeries.PSD.LogPSD == "LogPSD"){
@@ -722,7 +722,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
       list.of.values.to.plot[[i]] <- MakeCompositePSDForAllWindows(subset.windows,
                                                                    name.of.col.containing.time.series,
                                                                    sampling_frequency,
-                                                                   x_start = 0,
+                                                                   x_start = x_start,
                                                                    x_end,
                                                                    x_increment)
 
