@@ -504,6 +504,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' @param combination.index.for.envelope A numeric value that specifies which combination (index of level.combinations) should have a line with an error envelope. The default is no envelope.
 #' @param TimeSeries.PSD.LogPSD A String with 3 possible values to specify what type of plot to create from the time series: 1. "TimeSeries", 2. "PSD", 3. "LogPSD"
 #' @param sampling_frequency Numeric value used for specifying sampling frequency if PSD or LogPSD is made with this function. Default is NULL because default plot created is a time series plot.
+#' @param my.colors A vector of strings that specify the color for each line. 9 default values are used.
 #'
 #' @return A List with two objects:
 #' 1. A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.
@@ -662,7 +663,8 @@ AutomatedCompositePlotting <- function(list.of.windows,
                            plot.ylab,
                            combination.index.for.envelope = NULL,
                            TimeSeries.PSD.LogPSD = "TimeSeries",
-                           sampling_frequency = NULL){
+                           sampling_frequency = NULL,
+                           my.colors = c("blue", "red", "black", "green", "gold", "darkorchid1", "brown", "pink", "gray")){
 
   # #Testing conditions
   # list.of.windows = windows
@@ -801,7 +803,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
   }
 
   #Add legend to plot
-  my.colors <- c("blue", "red", "black", "green")
+  my.colors <- c("blue", "red", "black", "green", "gold", "darkorchid1", "brown", "pink", "gray")
 
   # #https://stackoverflow.com/questions/10349206/add-legend-to-ggplot2-line-plot
   # values.to.use <- NULL

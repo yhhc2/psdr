@@ -19,7 +19,9 @@ AutomatedCompositePlotting(
   plot.ylab,
   combination.index.for.envelope = NULL,
   TimeSeries.PSD.LogPSD = "TimeSeries",
-  sampling_frequency = NULL
+  sampling_frequency = NULL,
+  my.colors = c("blue", "red", "black", "green", "gold", "darkorchid1", "brown",
+    "pink", "gray")
 )
 }
 \arguments{
@@ -52,6 +54,8 @@ AutomatedCompositePlotting(
 \item{TimeSeries.PSD.LogPSD}{A String with 3 possible values to specify what type of plot to create from the time series: 1. "TimeSeries", 2. "PSD", 3. "LogPSD"}
 
 \item{sampling_frequency}{Numeric value used for specifying sampling frequency if PSD or LogPSD is made with this function. Default is NULL because default plot created is a time series plot.}
+
+\item{my.colors}{A vector of strings that specify the color for each line. 9 default values are used.}
 }
 \value{
 A List with two objects:
