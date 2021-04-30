@@ -803,7 +803,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
   }
 
   #Add legend to plot
-  my.colors <- c("blue", "red", "black", "green", "gold", "darkorchid1", "brown", "pink", "gray")
+  #my.colors <- c("blue", "red", "black", "green", "gold", "darkorchid1", "brown", "pink", "gray")
 
   # #https://stackoverflow.com/questions/10349206/add-legend-to-ggplot2-line-plot
   # values.to.use <- NULL
