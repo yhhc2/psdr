@@ -664,7 +664,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
                            combination.index.for.envelope = NULL,
                            TimeSeries.PSD.LogPSD = "TimeSeries",
                            sampling_frequency = NULL,
-                           my.colors = c("blue", "red", "black", "green", "gold", "darkorchid1", "brown", "pink", "gray")){
+                           my.colors = c("blue", "red", "black", "green", "gold", "darkorchid1", "brown", "deeppink", "gray")){
 
   # #Testing conditions
   # list.of.windows = windows

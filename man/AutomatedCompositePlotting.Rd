@@ -21,7 +21,7 @@ AutomatedCompositePlotting(
   TimeSeries.PSD.LogPSD = "TimeSeries",
   sampling_frequency = NULL,
   my.colors = c("blue", "red", "black", "green", "gold", "darkorchid1", "brown",
-    "pink", "gray")
+    "deeppink", "gray")
 )
 }
 \arguments{
