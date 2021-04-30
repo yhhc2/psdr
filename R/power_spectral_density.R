@@ -278,7 +278,17 @@ MakeCompositePSDForAllWindows <- function(list.of.windows,
   #Get the standard deviation of the PSD value at each frequency. Std for
   #each column.
   captured.PSD.values <- apply(captured.PSD.values, 2, as.numeric)
-  stddev.amplitudes <- apply(captured.PSD.values,2, stats::sd)
+
+  if(length(list.of.windows) > 1){
+
+    stddev.amplitudes <- apply(captured.PSD.values,2, stats::sd)
+
+  } else{
+
+    stddev.amplitudes <- 0
+
+  }
+
 
   output <- list(new_x, averaged.amplitudes, stddev.amplitudes)
   return(output)
@@ -412,7 +422,16 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
   #Get the standard deviation of the PSD value at each frequency. Std for
   #each column.
   captured.y.values <- apply(captured.y.values, 2, as.numeric)
-  stddev.y <- apply(captured.y.values,2, stats::sd)
+
+  if(length(list.of.windows) > 1){
+
+    stddev.y <- apply(captured.y.values,2, stats::sd)
+
+  } else{
+
+    stddev.y <- 0
+
+  }
 
   output <- list(new_x, averaged.y, stddev.y)
   return(output)
