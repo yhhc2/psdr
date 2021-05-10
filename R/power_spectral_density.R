@@ -854,3 +854,88 @@ AutomatedCompositePlotting <- function(list.of.windows,
   #Testing: PlotTimeSeries(windows, "SummedXYZ", 0, 150, 1, "RTR_AMP", "TASK_ID", list( list(c(1, 2, 3), c(task.names)) ), "combined", "Combined amplitudes and task into 1", "Time", "Acceleration", 1)
 }
 
+
+
+#' Given a time series vector, generate a PSD, then calculate integration for specified bins
+#'
+#' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
+#' @param data_vector Vector of numeric values. Timeseries vector of data.
+#' @param frequency_bins A list of objects where each object is a vector with two elements. The first element is a numeric value specifying the start frequency of a bin. The second element is a numeric value specifying the end frequency of a bin. Each object corresponds to a new frequency bin for calculating integral.
+#'
+#' @return A list where each object is also a list. The nested list objects have the first element specifying the bin boundaries. The second element specifies the integral.
+#'
+#' @export
+#'
+#' @examples
+#'
+#' #Create a vector of time that represent times where data are sampled.
+#' Fs = 100; #sampling frequency in Hz
+#' T = 1/Fs; #sampling period
+#' L = 1000; #length of time vector
+#' t = (0:L-1)*T; #time vector
+#'
+#' #Form a signal (time series) that contains two frequencies:
+#' #1. 10 Hz with amplitude of 1
+#' #2. 25 Hz with amplitude of 2
+#' S <- 1*sin(2*pi*10*t) + 2*sin(2*pi*25*t);
+#'
+#' results <- MakePowerSpectralDensity(Fs, S)
+#'
+#' frequencies <- results[[1]]
+#'
+#' PSD <- results[[2]]
+#'
+#' dev.new()
+#' plot(frequencies, PSD, type = "l")
+#'
+#' bins <- list(
+#' c(9, 11),
+#' c(24,26),
+#' c(9,26),
+#' c(30,40)
+#' )
+#'
+#' integration.results <- PSDIntegrationPerFreqBin(Fs, S, bins)
+#'
+#' for(i in 1:length(integration.results)){
+#'
+#'    message <- paste("Area in bin ", integration.results[[i]][[1]], " is ", integration.results[[i]][[2]])
+#'    print(message)
+#'
+#' }
+#'
+PSDIntegrationPerFreqBin <- function(sampling_frequency, data_vector, frequency_bins){
+
+
+  #This will hold the final results to output. A list where each object is also
+  #a list. The nested list objects have the first element specifying the bin
+  #boundaries. The second element specifies the integral.
+  results <- list()
+
+  single.window.results <- MakePowerSpectralDensity(sampling_frequency, data_vector)
+
+  single.window.freq <- single.window.results[[1]]
+  single.window.amplitude <- single.window.results[[2]]
+
+  #Interpolate every curve so that they contain the same x values. 0 to 24.
+  interpolation.res.function <- stats::approxfun(x = single.window.freq, y = single.window.amplitude,
+                                              method="linear")
+
+  #Divide the frequency into bins. For each bin, calculate the integral.
+  for(i in 1:length(frequency_bins)){
+
+    bin.start <- frequency_bins[[i]][[1]]
+    bin.end <- frequency_bins[[i]][[2]]
+
+    #Integration for bin
+    integration.res <- stats::integrate(interpolation.res.function, bin.start, bin.end)
+
+    bin.label <- paste(bin.start, "-", bin.end)
+
+    results[[i]] <- list(bin.label, integration.res$value)
+
+  }
+
+  return(results)
+
+}
