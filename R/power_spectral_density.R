@@ -942,6 +942,210 @@ PSDIntegrationPerFreqBin <- function(sampling_frequency, data_vector, frequency_
 
 
 
+#' Given a x, y, plot. Find the maximum value on the plot.
+#'
+#' To generate a curve of points, interpolation is used
+#' and the range and increment can be specified. Will output
+#' a message if multiple maxima are detected.
+#'
+#' @param x_vector A numerical vector with x coordinates.
+#' @param y_vector A numerical vector with y coordinates.
+#' @param x_start Numeric value specifying start of x value to look at.
+#' @param x_end Numeric value specifying end of x value to look at.
+#' @param x_increment Numeric value specifying the increment of the x-values to use.
+#'
+#' @return A vector with two elements, The first element is the x value
+#' where the max y value is found. The second element is the max y value.
+#'
+#'
+#' @export
+#'
+#' @examples
+#'
+#' #I want to create a plot that shows two curves:
+#' #1. Composite of time series signals 1, 2, and 3.
+#' #2. Composite of time series signals 3 and 4.
+#'
+#' #Create a vector of time that represent times where data are sampled.
+#' Fs = 100; #sampling frequency in Hz
+#' T = 1/Fs; #sampling period
+#' L = 1000; #length of time vector
+#' t = (0:L-1)*T; #time vector
+#'
+#' #First signal
+#' #1. 1 Hz with amplitude of 2
+#' S1 <- 2*sin(2*pi*1*t)
+#' level1.vals <- rep("a", length(S1))
+#' level2.vals <- rep("1", length(S1))
+#' S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
+#' colnames(S1.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S1.data.frame[,"Signal"] <- as.numeric(S1.data.frame[,"Signal"])
+#'
+#' #Second signal
+#' #1. 1 Hz with amplitude of -4
+#' #2. 2 Hz with amplitude of -2
+#' S2 <- (-4)*sin(2*pi*1*t) - 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S2))
+#' level2.vals <- rep("2", length(S2))
+#' S2.data.frame <- as.data.frame(cbind(t, S2, level1.vals, level2.vals))
+#' colnames(S2.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S2.data.frame[,"Signal"] <- as.numeric(S2.data.frame[,"Signal"])
+#'
+#' #Third signal
+#' #1. 1 Hz with amplitude of 2
+#' #2. 2 Hz with amplitude of 2
+#' S3 <- 2*sin(2*pi*1*t) + 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S3))
+#' level2.vals <- rep("3", length(S3))
+#' S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
+#' colnames(S3.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S3.data.frame[,"Signal"] <- as.numeric(S3.data.frame[,"Signal"])
+#'
+#' #Fourth signal
+#' #1. 1 Hz with amplitude of -2
+#' S4 <- -2*sin(2*pi*1*t)
+#' level1.vals <- rep("b", length(S4))
+#' level2.vals <- rep("3", length(S4))
+#' S4.data.frame <- as.data.frame(cbind(t, S4, level1.vals, level2.vals))
+#' colnames(S4.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S4.data.frame[,"Signal"] <- as.numeric(S4.data.frame[,"Signal"])
+#'
+#' #Extra representation of S2 dataframe to show an example that has enough samples
+#' #to have significance for Kruskal-Wallis test
+#' windows <- list(S1.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame,
+#' S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S3.data.frame, S4.data.frame)
+#'
+#' #Gets the composite of the first, second, and third signal. Should result in a flat signal.
+#' FirstComboToUse <- list( c("a"), c(1, 2, 3) )
+#'
+#' #Gets the composite of the third and fourth signal
+#' SecondComboToUse <- list( c("a", "b"), c(3) )
+#'
+#'
+#' #PSD-------------------------------------------------------------------------
+#'
+#' PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
+#'                            name.of.col.containing.time.series = "Signal",
+#'                            x_start = 0,
+#'                            x_end = 10,
+#'                            x_increment = 0.01,
+#'                            level1.column.name = "level1.ID",
+#'                            level2.column.name = "level2.ID",
+#'                            level.combinations = list(FirstComboToUse, SecondComboToUse),
+#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#'                            plot.title = "Example",
+#'                            plot.xlab = "Hz",
+#'                            plot.ylab = "(Original units)^2/Hz",
+#'                            combination.index.for.envelope = 2,
+#'                            TimeSeries.PSD.LogPSD = "PSD",
+#'                            sampling_frequency = 100)
+#'
+#' ggplot.obj.PSD <- PSD.results[[2]]
+#'
+#' dataframes.plotted <- PSD.results[[1]]
+#'
+#' first.curve <- dataframes.plotted[[1]]
+#'
+#' second.curve <- dataframes.plotted[[2]]
+#'
+#' first.curve.max <- IdentifyMaxOnXY(first.curve$xvals, first.curve$yvals, 0, 10, 0.01)
+#' first.curve.max.limited <- IdentifyMaxOnXY(first.curve$xvals, first.curve$yvals, 1.25, 2.5, 0.01)
+#'
+#' second.curve.max <- IdentifyMaxOnXY(second.curve$xvals, second.curve$yvals, 0, 10, 0.01)
+#'
+#'
+IdentifyMaxOnXY <- function(x_vector, y_vector, x_start = 0,
+                                         x_end,
+                                         x_increment){
+
+  #The axes for each PSD is slightly different, so we want to
+  #interpolate for a given x-axis
+  new_x <- seq(x_start, x_end, by = x_increment)
+
+  #Interpolate every curve so that they contain the same x values. 0 to 24.
+  interpolation.res <- stats::approx(x = x_vector, y = y_vector,
+                                     xout = new_x, method="linear")
+
+  xval <- interpolation.res$x
+  yval <- interpolation.res$y
+
+  interpolation.res.dataframe <- data.frame(xval, yval)
+
+  #Identify row with maximum amplitude
+  results <- interpolation.res.dataframe[which.max(interpolation.res.dataframe$yval),]
+
+  if(length(results) > 2){
+
+    print("Multiple maxima detected")
+
+  }
+
+  return(results)
+
+}
+
+
+
+#' Given a time series vector, create a PSD and find the dominant frequency.
+#'
+#' The range to look for a dominant frequency (frequency corresponding to max
+#' PSD value) should be specified for this function. This function uses the
+#' MakePowerSpectralDensity() function and the IdentifyMaxOnXY() function
+#' together. If multiple equal maxima are found, then IdentifyMaxOnXY()
+#' will display a message.
+#'
+#' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
+#' @param data_vector Vector of numeric values. Timeseries vector of data.
+#' @param x_start Numeric value specifying start of x value to look at.
+#' @param x_end Numeric value specifying end of x value to look at.
+#' @param x_increment Numeric value specifying the increment of the x-values to use.
+#'
+#' @return A vector with two elements, The first element is the x value (frequency)
+#' where the max y value (PSD value) is found. The second element is the max y value.
+#'
+#' @export
+#'
+#' @examples
+#' #I want to create a plot that shows two curves:
+#' #1. Composite of time series signals 1, 2, and 3.
+#' #2. Composite of time series signals 3 and 4.
+#'
+#' #Create a vector of time that represent times where data are sampled.
+#' Fs = 100; #sampling frequency in Hz
+#' T = 1/Fs; #sampling period
+#' L = 1000; #length of time vector
+#' t = (0:L-1)*T; #time vector
+#'
+#' #First signal
+#' #1. 1 Hz with amplitude of 2
+#' S1 <- 2*sin(2*pi*1*t)
+#' level1.vals <- rep("a", length(S1))
+#' level2.vals <- rep("1", length(S1))
+#' S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
+#' colnames(S1.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S1.data.frame[,"Signal"] <- as.numeric(S1.data.frame[,"Signal"])
+#'
+#'
+#' results <- PSDIdentifyDominantFrequency(Fs, S1.data.frame[,"Signal"], 0, 10, 0.01)
+#'
+PSDIdentifyDominantFrequency <- function(sampling_frequency, data_vector, x_start = 0,
+                                         x_end,
+                                         x_increment){
+
+
+  single.window.results <- MakePowerSpectralDensity(sampling_frequency, data_vector)
+
+  single.window.freq <- single.window.results[[1]]
+  single.window.amplitude <- single.window.results[[2]]
+
+  results <- IdentifyMaxOnXY(single.window.freq, single.window.amplitude, x_start = x_start,
+                              x_end = x_end,
+                              x_increment = x_increment)
+
+  return(results)
+
+}
+
 #' Calculate integral for multiple PSDs for a single frequency bin
 #'
 #' @param list.of.windows A list of windows (dataframes).
@@ -1010,9 +1214,9 @@ PSDIntegrationPerFreqBin <- function(sampling_frequency, data_vector, frequency_
 #'
 #'
 SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
-                                          name.of.col.containing.time.series,
-                                          sampling_frequency,
-                                          single.bin.boundary){
+                                                      name.of.col.containing.time.series,
+                                                      sampling_frequency,
+                                                      single.bin.boundary){
 
   #Each row of the matrix will be the PSD values for a single window.
   #Each column will correspond to a different frequency.
@@ -1027,7 +1231,7 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
     single.window <- list.of.windows[[i]]
 
     integration.results <- PSDIntegrationPerFreqBin(sampling_frequency, single.window[,name.of.col.containing.time.series],
-                             list(single.bin.boundary))
+                                                    list(single.bin.boundary))
 
     integration.value <- integration.results[[1]][[2]]
 
@@ -1040,6 +1244,9 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 }
 
 
+#-------------------------------------------------------------------------------
+#Use the integration and dominant frequency finder functions to work on multiple
+#windows
 
 #' Given sets of windows corresponding to different combos, see if the integration
 #' of a specific frequency bin is significantly different between the combos
@@ -1061,7 +1268,12 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 #' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
 #' @param single.bin.boundary A numeric vector with two elements. First element is the start frequency for the bin. Second element is the end frequency of the bin.
 #'
-#' @return
+#' @return A list with 3 objects:
+#' 1. integrals.with.combo.labels: Dataframe used for statistical testing.
+#' 2. kruskal.test.res: Results from Kruskal-Willis testing.
+#' 3. pairwise.wilcox.rest.res: Results from pairwise Wilcoxo testing
+#'
+#'
 #' @export
 #'
 #' @examples
@@ -1175,13 +1387,13 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 #' integration.compare.res2[[2]]
 #'
 SingleBinPSDIntegrationComparison <- function(list.of.windows,
-                                       name.of.col.containing.time.series,
-                                       level1.column.name,
-                                       level2.column.name,
-                                       level.combinations,
-                                       level.combinations.labels,
-                                       sampling_frequency,
-                                       single.bin.boundary){
+                                              name.of.col.containing.time.series,
+                                              level1.column.name,
+                                              level2.column.name,
+                                              level.combinations,
+                                              level.combinations.labels,
+                                              sampling_frequency,
+                                              single.bin.boundary){
 
 
   integrals.for.each.combo <- list()
@@ -1197,8 +1409,8 @@ SingleBinPSDIntegrationComparison <- function(list.of.windows,
                                                   level1.categories.to.use, level2.categories.to.use)
 
     integration.res.for.subset.windows <- SingleBinPSDIntegrationForMultipleWindows(subset.windows,
-                                              name.of.col.containing.time.series,
-                                              sampling_frequency, single.bin.boundary)
+                                                                                    name.of.col.containing.time.series,
+                                                                                    sampling_frequency, single.bin.boundary)
 
     integrals.for.each.combo[[i]] <- integration.res.for.subset.windows
 
@@ -1239,7 +1451,9 @@ SingleBinPSDIntegrationComparison <- function(list.of.windows,
   return(output)
 }
 
+#End of using integration and dominant frequency finder on multiple windows.
+#-------------------------------------------------------------------------------
 
+#Find the dominant frequency for many curves for a single combo.
 
-#Instead of doing integration, just find the frequency corresponding
-#to maximum amplitude.
+#Compare the dominant frequency for different combos.
