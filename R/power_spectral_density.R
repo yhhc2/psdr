@@ -860,7 +860,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
 #'
 #' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
 #' @param data_vector Vector of numeric values. Timeseries vector of data.
-#' @param frequency_bins A list of objects where each object is a vector with two elements. The first element is a numeric value specifying the start frequency of a bin. The second element is a numeric value specifying the end frequency of a bin. Each object corresponds to a new frequency bin for calculating integral.
+#' @param frequency_bins A list of objects where each object is a vector with two elements. The first element is a numeric value specifying the start frequency of a bin. The second element is a numeric value specifying the end frequency of a bin. Each object corresponds to a new frequency bin for calculating integral. For integration, approxfun is used, so increment does not need to be specified.
 #'
 #' @return A list where each object is also a list. The nested list objects have the first element specifying the bin boundaries. The second element specifies the integral.
 #'
@@ -1146,12 +1146,17 @@ PSDIdentifyDominantFrequency <- function(sampling_frequency, data_vector, x_star
 
 }
 
+
+#-------------------------------------------------------------------------------
+#Use the integration and dominant frequency finder functions to work on multiple
+#windows
+
 #' Calculate integral for multiple PSDs for a single frequency bin
 #'
 #' @param list.of.windows A list of windows (dataframes).
 #' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used for making PSD.
 #' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
-#' @param single.bin.boundary A numeric vector with two elements. First element is the start frequency for the bin. Second element is the end frequency of the bin.
+#' @param single.bin.boundary A numeric vector with two elements. First element is the start frequency for the bin. Second element is the end frequency of the bin.  For integration, approxfun is used, so increment does not need to be specified.
 #'
 #' @return A vector where each element is the integration result of each window.
 #'
@@ -1244,20 +1249,130 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 }
 
 
-#-------------------------------------------------------------------------------
-#Use the integration and dominant frequency finder functions to work on multiple
-#windows
+
+#' Calculate dominant frequency for multiple PSDs for a single frequency range
+#'
+#' @param list.of.windows A list of windows (dataframes).
+#' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used for making PSD.
+#' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
+#' @param x_start Numeric value specifying start of x value (frequency) to look at.
+#' @param x_end Numeric value specifying end of x value to look at.
+#' @param x_increment Numeric value specifying the increment of the x-values to use.
+#'
+#'
+#' @return A vector where each element is the dominant frequency of each window.
+#'
+#' @export
+#'
+#' @examples
+#'
+#' #I want to create a plot that shows two curves:
+#' #1. Composite of time series signals 1, 2, and 3.
+#' #2. Composite of time series signals 3 and 4.
+#'
+#' #Create a vector of time that represent times where data are sampled.
+#' Fs = 100; #sampling frequency in Hz
+#' T = 1/Fs; #sampling period
+#' L = 1000; #length of time vector
+#' t = (0:L-1)*T; #time vector
+#'
+#' #First signal
+#' #1. 1 Hz with amplitude of 2
+#' S1 <- 2*sin(2*pi*1*t)
+#' level1.vals <- rep("a", length(S1))
+#' level2.vals <- rep("1", length(S1))
+#' S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
+#' colnames(S1.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S1.data.frame[,"Signal"] <- as.numeric(S1.data.frame[,"Signal"])
+#'
+#' #Second signal
+#' #1. 1 Hz with amplitude of -4
+#' #2. 2 Hz with amplitude of -2
+#' S2 <- (-4)*sin(2*pi*1*t) - 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S2))
+#' level2.vals <- rep("2", length(S2))
+#' S2.data.frame <- as.data.frame(cbind(t, S2, level1.vals, level2.vals))
+#' colnames(S2.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S2.data.frame[,"Signal"] <- as.numeric(S2.data.frame[,"Signal"])
+#'
+#' #Third signal
+#' #1. 1 Hz with amplitude of 2
+#' #2. 2 Hz with amplitude of 2
+#' S3 <- 2*sin(2*pi*1*t) + 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S3))
+#' level2.vals <- rep("3", length(S3))
+#' S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
+#' colnames(S3.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S3.data.frame[,"Signal"] <- as.numeric(S3.data.frame[,"Signal"])
+#'
+#' #Fourth signal
+#' #1. 1 Hz with amplitude of -2
+#' S4 <- -2*sin(2*pi*1*t)
+#' level1.vals <- rep("b", length(S4))
+#' level2.vals <- rep("3", length(S4))
+#' S4.data.frame <- as.data.frame(cbind(t, S4, level1.vals, level2.vals))
+#' colnames(S4.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S4.data.frame[,"Signal"] <- as.numeric(S4.data.frame[,"Signal"])
+#'
+#' windows <- list(S1.data.frame, S2.data.frame, S3.data.frame, S4.data.frame)
+#'
+#'
+#' results <- PSDDominantFrequencyForMultipleWindows(windows, "Signal", Fs, 0, 10, 0.01)
+#'
+#'
+PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
+                                                      name.of.col.containing.time.series,
+                                                      sampling_frequency,
+                                                   x_start, x_end, x_increment){
+
+  #Each row of the matrix will be the PSD values for a single window.
+  #Each column will correspond to a different frequency.
+  #This will be used to calculate the standard deviation of PSD at each frequency.
+  captured.dominant.freq.values <- NULL
+
+  #Go through all windows
+  for(i in 1:length(list.of.windows)){
+
+    print(i)
+
+    single.window <- list.of.windows[[i]]
+
+
+    dominant.freq.results <- PSDIdentifyDominantFrequency(sampling_frequency,
+                                                        single.window[,name.of.col.containing.time.series],
+                                                        x_start = x_start,
+                                                        x_end = x_end,
+                                                        x_increment = x_increment)
+
+    dominant.freq.value <- dominant.freq.results[1,1]
+
+    captured.dominant.freq.values <- c(captured.dominant.freq.values, dominant.freq.value)
+
+  }
+
+  return(captured.dominant.freq.values)
+
+}
+
+
 
 #' Given sets of windows corresponding to different combos, see if the integration
-#' of a specific frequency bin is significantly different between the combos
+#' or dominant frequency of a specific frequency range is significantly different between the combos
 #'
-#' Just for a single frequency bin: For Each combination in level.combinations, generate the integral for each
-#' window of each combination. At this point, we should have vectors of integrals with each vector
-#' corresponding to a different combo. Now we want to see if the integrals
+#' Just for a single frequency bin: For Each combination in level.combinations,
+#' generate the integral or dominant frequency for each
+#' window of each combination. At this point, we should have vectors of
+#' integrals or dominant frequency with each vector
+#' corresponding to a different combo. Now we want to see if the integrals or dominant frequencies
 #' in each combo significantly differ from the other combos. Kruskal-Wallis test is used
-#' as a non-parametric ANOVA test to see if the combos have integrals that
+#' as a non-parametric ANOVA test to see if the combos have integrals or dominant frequencies that
 #' are significantly different.
 #'
+#' Need to specify whether to compare integral or dominant frequency:
+#' If integral (total power in frequency bin) is the value to compare, then
+#' SingleBinPSDIntegrationForMultipleWindows() is used. If dominant frequency (
+#' frequency corresponding to max PSD value in frequency bin) is the value to
+#' compare, then PSDDominantFrequencyForMultipleWindows() is used.
 #'
 #' @param list.of.windows A list of windows (dataframes).
 #' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used for making PSD.
@@ -1267,6 +1382,10 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 #' @param level.combinations.labels A vector of strings that labels each combination. This is used for naming the groups in integrals.with.combo.labels
 #' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
 #' @param single.bin.boundary A numeric vector with two elements. First element is the start frequency for the bin. Second element is the end frequency of the bin.
+#' @param x_start Numeric value specifying start of the new x-axis for the averaged PSD. Default is 0 Hz.
+#' @param x_end Numeric value specifying end of the new x-axis for the averaged PSD. Maximum value is the sampling_frequency divided by 2.
+#' @param x_increment Numeric value specifying increment of the new x-axis for the averaged PSD.
+#' @param integration.or.dominant.freq A string with two possible values for choosing whether integral or dominant frequency should be calculated and compared: "integration" or "dominant_freq".
 #'
 #' @return A list with 3 objects:
 #' 1. integrals.with.combo.labels: Dataframe used for statistical testing.
@@ -1326,16 +1445,29 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 #' colnames(S4.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
 #' S4.data.frame[,"Signal"] <- as.numeric(S4.data.frame[,"Signal"])
 #'
+#' #Fifth signal
+#' #1. 5 Hz with amplitude of -2
+#' S5 <- -2*sin(2*pi*5*t)
+#' level1.vals <- rep("c", length(S5))
+#' level2.vals <- rep("1", length(S5))
+#' S5.data.frame <- as.data.frame(cbind(t, S5, level1.vals, level2.vals))
+#' colnames(S5.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S5.data.frame[,"Signal"] <- as.numeric(S5.data.frame[,"Signal"])
+#'
 #' #Extra representation of S2 dataframe to show an example that has enough samples
 #' #to have significance for Kruskal-Wallis test
 #' windows <- list(S1.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame,
-#' S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S3.data.frame, S4.data.frame)
+#' S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S3.data.frame, S4.data.frame,
+#' S5.data.frame, S5.data.frame, S5.data.frame, S5.data.frame, S5.data.frame)
 #'
 #' #Gets the composite of the first, second, and third signal. Should result in a flat signal.
 #' FirstComboToUse <- list( c("a"), c(1, 2, 3) )
 #'
 #' #Gets the composite of the third and fourth signal
 #' SecondComboToUse <- list( c("a", "b"), c(3) )
+#'
+#' #Gets the composite of fifth signal
+#' ThirdComboToUse <- list( c("c"), c(1) )
 #'
 #'
 #' #PSD-------------------------------------------------------------------------
@@ -1347,8 +1479,8 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 #'                            x_increment = 0.01,
 #'                            level1.column.name = "level1.ID",
 #'                            level2.column.name = "level2.ID",
-#'                            level.combinations = list(FirstComboToUse, SecondComboToUse),
-#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#'                            level.combinations = list(FirstComboToUse, SecondComboToUse, ThirdComboToUse),
+#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4", "Signal 5"),
 #'                            plot.title = "Example",
 #'                            plot.xlab = "Hz",
 #'                            plot.ylab = "(Original units)^2/Hz",
@@ -1358,45 +1490,95 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 #'
 #' ggplot.obj.PSD <- PSD.results[[2]]
 #'
+#' #Integration-------------------------------------------------------------------------
+#'
 #' #Compare integration for the 1.5-2.5 Hz bin. P-value should not indicate
 #' #significant difference
-#' integration.compare.res <- SingleBinPSDIntegrationComparison(list.of.windows = windows,
+#' integration.compare.res <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,
 #' name.of.col.containing.time.series = "Signal",
 #' level1.column.name = "level1.ID",
 #' level2.column.name = "level2.ID",
 #' level.combinations = list(FirstComboToUse, SecondComboToUse),
 #' level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
 #' sampling_frequency = 100,
-#' single.bin.boundary = c(1.5, 2.5))
+#' single.bin.boundary = c(1.5, 2.5),
+#' integration.or.dominant.freq = "integration")
 #'
 #' #Kruskal-Wallis test results
 #' integration.compare.res[[2]]
 #'
 #' #Compare integration for the 0.5-1.5 Hz bin. P-value should indicate
 #' #significant difference
-#' integration.compare.res2 <- SingleBinPSDIntegrationComparison(list.of.windows = windows,
+#' integration.compare.res2 <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,
 #' name.of.col.containing.time.series = "Signal",
 #' level1.column.name = "level1.ID",
 #' level2.column.name = "level2.ID",
 #' level.combinations = list(FirstComboToUse, SecondComboToUse),
 #' level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
 #' sampling_frequency = 100,
-#' single.bin.boundary = c(0.5,1.5))
+#' single.bin.boundary = c(0.5,1.5),
+#' integration.or.dominant.freq = "integration")
 #'
 #' #Kruskal-Wallis test results
 #' integration.compare.res2[[2]]
 #'
-SingleBinPSDIntegrationComparison <- function(list.of.windows,
+#'
+#'
+#' #Dominant Frequency---------------------------------------------------------------------
+#'
+#' #Compare dominant frequency P-value should not indicate
+#' #significant difference
+#' integration.compare.res3 <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,
+#' name.of.col.containing.time.series = "Signal",
+#' level1.column.name = "level1.ID",
+#' level2.column.name = "level2.ID",
+#' level.combinations = list(FirstComboToUse, SecondComboToUse),
+#' level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#' sampling_frequency = 100,
+#' x_start = 0,
+#' x_end = 10,
+#' x_increment = 0.01,
+#' integration.or.dominant.freq = "dominant_freq")
+#'
+#' #Kruskal-Wallis test results
+#' integration.compare.res3[[2]]
+#'
+#'
+#' #Compare dominant frequency P-value should indicate
+#' #significant difference
+#' integration.compare.res4 <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,
+#' name.of.col.containing.time.series = "Signal",
+#' level1.column.name = "level1.ID",
+#' level2.column.name = "level2.ID",
+#' level.combinations = list(SecondComboToUse, ThirdComboToUse),
+#' level.combinations.labels = c("Signal 3 + 4", "Signal 5"),
+#' sampling_frequency = 100,
+#' x_start = 0,
+#' x_end = 10,
+#' x_increment = 0.01,
+#' integration.or.dominant.freq = "dominant_freq")
+#'
+#' #Kruskal-Wallis test results
+#' integration.compare.res4[[2]]
+#' #Values used in comparison of the two groups
+#' integration.compare.res4[[1]]
+#'
+#'
+SingleBinPSDIntegrationOrDominantFreqComparison <- function(list.of.windows,
                                               name.of.col.containing.time.series,
                                               level1.column.name,
                                               level2.column.name,
                                               level.combinations,
                                               level.combinations.labels,
                                               sampling_frequency,
-                                              single.bin.boundary){
+                                              single.bin.boundary = NULL,
+                                              x_start = NULL,
+                                              x_end = NULL,
+                                              x_increment = NULL,
+                                              integration.or.dominant.freq){
 
 
-  integrals.for.each.combo <- list()
+  integrals.or.dominant.freq.for.each.combo <- list()
 
   #For each combo specified, get the integral value for the specified bin in all
   #windows that belong to the combo
@@ -1408,45 +1590,60 @@ SingleBinPSDIntegrationComparison <- function(list.of.windows,
     subset.windows <- GetSubsetOfWindowsTwoLevels(list.of.windows, level1.column.name, level2.column.name,
                                                   level1.categories.to.use, level2.categories.to.use)
 
-    integration.res.for.subset.windows <- SingleBinPSDIntegrationForMultipleWindows(subset.windows,
-                                                                                    name.of.col.containing.time.series,
-                                                                                    sampling_frequency, single.bin.boundary)
+    if(integration.or.dominant.freq == "integration"){
 
-    integrals.for.each.combo[[i]] <- integration.res.for.subset.windows
+      integration.res.for.subset.windows <- SingleBinPSDIntegrationForMultipleWindows(subset.windows,
+                                                                                      name.of.col.containing.time.series,
+                                                                                      sampling_frequency, single.bin.boundary)
+
+      integrals.or.dominant.freq.for.each.combo[[i]] <- integration.res.for.subset.windows
+
+    } else{
+
+      dominant.freq.res.for.subset.windows <- PSDDominantFrequencyForMultipleWindows(subset.windows,
+                                                                                     name.of.col.containing.time.series,
+                                                                                     sampling_frequency,
+                                                                                     x_start, x_end, x_increment)
+
+      integrals.or.dominant.freq.for.each.combo[[i]] <- dominant.freq.res.for.subset.windows
+
+    }
 
   }
 
 
-  #At this point, we should have vectors of integrals with each vector
+  #At this point, we should have vectors of integrals or dominant frequency with each vector
   #corresponding to a different combo. Now we want to see if the integrals
   #in each combo significantly differ from the other combos. ANOVA can be used.
 
-  #Combine the vectors of integrals together
-  integrals.combined <- NULL
-  combo.labels.combined <- NULL
-  for(i in 1:length(integrals.for.each.combo)){
+  #Combine the vectors of integrals or dominant frequency together
+  vals.to.compare.combined <- NULL
 
-    #Combine integrals into one large vector
-    integral.vec.for.one.combo <- integrals.for.each.combo[[i]]
-    integrals.combined <- c(integrals.combined, integral.vec.for.one.combo)
+  combo.labels.combined <- NULL
+
+  for(i in 1:length(integrals.or.dominant.freq.for.each.combo)){
+
+    #Combine integral/dominant_freq into one large vector
+    integral.or.dominant.freq.vec.for.one.combo <- integrals.or.dominant.freq.for.each.combo[[i]]
+    vals.to.compare.combined <- c(vals.to.compare.combined, integral.or.dominant.freq.vec.for.one.combo)
 
     #Make sure to have another column that labels which integrals belong in
     #which combo
-    combo.labels.combined.temp <- rep(level.combinations.labels[[i]], length(integral.vec.for.one.combo))
+    combo.labels.combined.temp <- rep(level.combinations.labels[[i]], length(integral.or.dominant.freq.vec.for.one.combo))
     combo.labels.combined <- c(combo.labels.combined, combo.labels.combined.temp)
 
   }
 
-  integrals.with.combo.labels <- as.data.frame(integrals.combined, combo.labels.combined)
+  vals.to.compare.with.combo.labels <- as.data.frame(vals.to.compare.combined, combo.labels.combined)
 
   #http://www.sthda.com/english/wiki/kruskal-wallis-test-in-r
-  kruskal.test.res <- kruskal.test(integrals.combined ~ combo.labels.combined, data = integrals.with.combo.labels)
-  pairwise.wilcox.rest.res <- pairwise.wilcox.test(integrals.with.combo.labels$integrals.combined,
-                                                   integrals.with.combo.labels$combo.labels.combined,
+  kruskal.test.res <- kruskal.test(vals.to.compare.combined ~ combo.labels.combined, data = vals.to.compare.with.combo.labels)
+  pairwise.wilcox.rest.res <- pairwise.wilcox.test(vals.to.compare.with.combo.labels$vals.to.compare.combined,
+                                                   vals.to.compare.with.combo.labels$combo.labels.combined,
                                                    p.adjust.method = "BH")
 
 
-  output <- list(integrals.with.combo.labels, kruskal.test.res, pairwise.wilcox.rest.res)
+  output <- list(vals.to.compare.with.combo.labels, kruskal.test.res, pairwise.wilcox.rest.res)
 
   return(output)
 }
