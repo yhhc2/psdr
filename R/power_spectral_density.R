@@ -939,3 +939,307 @@ PSDIntegrationPerFreqBin <- function(sampling_frequency, data_vector, frequency_
   return(results)
 
 }
+
+
+
+#' Calculate integral for multiple PSDs for a single frequency bin
+#'
+#' @param list.of.windows A list of windows (dataframes).
+#' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used for making PSD.
+#' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
+#' @param single.bin.boundary A numeric vector with two elements. First element is the start frequency for the bin. Second element is the end frequency of the bin.
+#'
+#' @return A vector where each element is the integration result of each window.
+#'
+#' @export
+#'
+#' @examples
+#'
+#' #I want to create a plot that shows two curves:
+#' #1. Composite of time series signals 1, 2, and 3.
+#' #2. Composite of time series signals 3 and 4.
+#'
+#' #Create a vector of time that represent times where data are sampled.
+#' Fs = 100; #sampling frequency in Hz
+#' T = 1/Fs; #sampling period
+#' L = 1000; #length of time vector
+#' t = (0:L-1)*T; #time vector
+#'
+#' #First signal
+#' #1. 1 Hz with amplitude of 2
+#' S1 <- 2*sin(2*pi*1*t)
+#' level1.vals <- rep("a", length(S1))
+#' level2.vals <- rep("1", length(S1))
+#' S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
+#' colnames(S1.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S1.data.frame[,"Signal"] <- as.numeric(S1.data.frame[,"Signal"])
+#'
+#' #Second signal
+#' #1. 1 Hz with amplitude of -4
+#' #2. 2 Hz with amplitude of -2
+#' S2 <- (-4)*sin(2*pi*1*t) - 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S2))
+#' level2.vals <- rep("2", length(S2))
+#' S2.data.frame <- as.data.frame(cbind(t, S2, level1.vals, level2.vals))
+#' colnames(S2.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S2.data.frame[,"Signal"] <- as.numeric(S2.data.frame[,"Signal"])
+#'
+#' #Third signal
+#' #1. 1 Hz with amplitude of 2
+#' #2. 2 Hz with amplitude of 2
+#' S3 <- 2*sin(2*pi*1*t) + 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S3))
+#' level2.vals <- rep("3", length(S3))
+#' S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
+#' colnames(S3.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S3.data.frame[,"Signal"] <- as.numeric(S3.data.frame[,"Signal"])
+#'
+#' #Fourth signal
+#' #1. 1 Hz with amplitude of -2
+#' S4 <- -2*sin(2*pi*1*t)
+#' level1.vals <- rep("b", length(S4))
+#' level2.vals <- rep("3", length(S4))
+#' S4.data.frame <- as.data.frame(cbind(t, S4, level1.vals, level2.vals))
+#' colnames(S4.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S4.data.frame[,"Signal"] <- as.numeric(S4.data.frame[,"Signal"])
+#'
+#' windows <- list(S1.data.frame, S2.data.frame, S3.data.frame, S4.data.frame)
+#'
+#'
+#' results <- SingleBinPSDIntegrationForMultipleWindows(windows, "Signal", Fs, c(0,2))
+#'
+#'
+SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
+                                          name.of.col.containing.time.series,
+                                          sampling_frequency,
+                                          single.bin.boundary){
+
+  #Each row of the matrix will be the PSD values for a single window.
+  #Each column will correspond to a different frequency.
+  #This will be used to calculate the standard deviation of PSD at each frequency.
+  captured.integration.values <- NULL
+
+  #Go through all windows
+  for(i in 1:length(list.of.windows)){
+
+    print(i)
+
+    single.window <- list.of.windows[[i]]
+
+    integration.results <- PSDIntegrationPerFreqBin(sampling_frequency, single.window[,name.of.col.containing.time.series],
+                             list(single.bin.boundary))
+
+    integration.value <- integration.results[[1]][[2]]
+
+    captured.integration.values <- c(captured.integration.values, integration.value)
+
+  }
+
+  return(captured.integration.values)
+
+}
+
+
+
+#' Given sets of windows corresponding to different combos, see if the integration
+#' of a specific frequency bin is significantly different between the combos
+#'
+#' Just for a single frequency bin: For Each combination in level.combinations, generate the integral for each
+#' window of each combination. At this point, we should have vectors of integrals with each vector
+#' corresponding to a different combo. Now we want to see if the integrals
+#' in each combo significantly differ from the other combos. Kruskal-Wallis test is used
+#' as a non-parametric ANOVA test to see if the combos have integrals that
+#' are significantly different.
+#'
+#'
+#' @param list.of.windows A list of windows (dataframes).
+#' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used for making PSD.
+#' @param level1.column.name A String that specifies the column name to use for the first level. This column should only contain one unique value within each window.
+#' @param level2.column.name A String that specifies the column name to use for the second level. This column should only contain one unique value within each window.
+#' @param level.combinations A List containing Lists. Each list that it contains has two vectors. The first vector specifying the values for level1 and the second vector specifying the values for level2. Each list element will correspond to a new line on the plot.
+#' @param level.combinations.labels A vector of strings that labels each combination. This is used for naming the groups in integrals.with.combo.labels
+#' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
+#' @param single.bin.boundary A numeric vector with two elements. First element is the start frequency for the bin. Second element is the end frequency of the bin.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#' #I want to create a plot that shows two curves:
+#' #1. Composite of time series signals 1, 2, and 3.
+#' #2. Composite of time series signals 3 and 4.
+#'
+#' #Create a vector of time that represent times where data are sampled.
+#' Fs = 100; #sampling frequency in Hz
+#' T = 1/Fs; #sampling period
+#' L = 1000; #length of time vector
+#' t = (0:L-1)*T; #time vector
+#'
+#' #First signal
+#' #1. 1 Hz with amplitude of 2
+#' S1 <- 2*sin(2*pi*1*t)
+#' level1.vals <- rep("a", length(S1))
+#' level2.vals <- rep("1", length(S1))
+#' S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
+#' colnames(S1.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S1.data.frame[,"Signal"] <- as.numeric(S1.data.frame[,"Signal"])
+#'
+#' #Second signal
+#' #1. 1 Hz with amplitude of -4
+#' #2. 2 Hz with amplitude of -2
+#' S2 <- (-4)*sin(2*pi*1*t) - 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S2))
+#' level2.vals <- rep("2", length(S2))
+#' S2.data.frame <- as.data.frame(cbind(t, S2, level1.vals, level2.vals))
+#' colnames(S2.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S2.data.frame[,"Signal"] <- as.numeric(S2.data.frame[,"Signal"])
+#'
+#' #Third signal
+#' #1. 1 Hz with amplitude of 2
+#' #2. 2 Hz with amplitude of 2
+#' S3 <- 2*sin(2*pi*1*t) + 2*sin(2*pi*2*t);
+#' level1.vals <- rep("a", length(S3))
+#' level2.vals <- rep("3", length(S3))
+#' S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
+#' colnames(S3.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S3.data.frame[,"Signal"] <- as.numeric(S3.data.frame[,"Signal"])
+#'
+#' #Fourth signal
+#' #1. 1 Hz with amplitude of -2
+#' S4 <- -2*sin(2*pi*1*t)
+#' level1.vals <- rep("b", length(S4))
+#' level2.vals <- rep("3", length(S4))
+#' S4.data.frame <- as.data.frame(cbind(t, S4, level1.vals, level2.vals))
+#' colnames(S4.data.frame) <- c("Time", "Signal", "level1.ID", "level2.ID")
+#' S4.data.frame[,"Signal"] <- as.numeric(S4.data.frame[,"Signal"])
+#'
+#' #Extra representation of S2 dataframe to show an example that has enough samples
+#' #to have significance for Kruskal-Wallis test
+#' windows <- list(S1.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame,
+#' S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S3.data.frame, S4.data.frame)
+#'
+#' #Gets the composite of the first, second, and third signal. Should result in a flat signal.
+#' FirstComboToUse <- list( c("a"), c(1, 2, 3) )
+#'
+#' #Gets the composite of the third and fourth signal
+#' SecondComboToUse <- list( c("a", "b"), c(3) )
+#'
+#'
+#' #PSD-------------------------------------------------------------------------
+#'
+#' PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
+#'                            name.of.col.containing.time.series = "Signal",
+#'                            x_start = 0,
+#'                            x_end = 10,
+#'                            x_increment = 0.01,
+#'                            level1.column.name = "level1.ID",
+#'                            level2.column.name = "level2.ID",
+#'                            level.combinations = list(FirstComboToUse, SecondComboToUse),
+#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#'                            plot.title = "Example",
+#'                            plot.xlab = "Hz",
+#'                            plot.ylab = "(Original units)^2/Hz",
+#'                            combination.index.for.envelope = 2,
+#'                            TimeSeries.PSD.LogPSD = "PSD",
+#'                            sampling_frequency = 100)
+#'
+#' ggplot.obj.PSD <- PSD.results[[2]]
+#'
+#' #Compare integration for the 1.5-2.5 Hz bin. P-value should not indicate
+#' #significant difference
+#' integration.compare.res <- SingleBinPSDIntegrationComparison(list.of.windows = windows,
+#' name.of.col.containing.time.series = "Signal",
+#' level1.column.name = "level1.ID",
+#' level2.column.name = "level2.ID",
+#' level.combinations = list(FirstComboToUse, SecondComboToUse),
+#' level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#' sampling_frequency = 100,
+#' single.bin.boundary = c(1.5, 2.5))
+#'
+#' #Kruskal-Wallis test results
+#' integration.compare.res[[2]]
+#'
+#' #Compare integration for the 0.5-1.5 Hz bin. P-value should indicate
+#' #significant difference
+#' integration.compare.res2 <- SingleBinPSDIntegrationComparison(list.of.windows = windows,
+#' name.of.col.containing.time.series = "Signal",
+#' level1.column.name = "level1.ID",
+#' level2.column.name = "level2.ID",
+#' level.combinations = list(FirstComboToUse, SecondComboToUse),
+#' level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#' sampling_frequency = 100,
+#' single.bin.boundary = c(0.5,1.5))
+#'
+#' #Kruskal-Wallis test results
+#' integration.compare.res2[[2]]
+#'
+SingleBinPSDIntegrationComparison <- function(list.of.windows,
+                                       name.of.col.containing.time.series,
+                                       level1.column.name,
+                                       level2.column.name,
+                                       level.combinations,
+                                       level.combinations.labels,
+                                       sampling_frequency,
+                                       single.bin.boundary){
+
+
+  integrals.for.each.combo <- list()
+
+  #For each combo specified, get the integral value for the specified bin in all
+  #windows that belong to the combo
+  for(i in 1:length(level.combinations)){
+
+    level1.categories.to.use <-  level.combinations[[i]][[1]]
+    level2.categories.to.use <- level.combinations[[i]][[2]]
+
+    subset.windows <- GetSubsetOfWindowsTwoLevels(list.of.windows, level1.column.name, level2.column.name,
+                                                  level1.categories.to.use, level2.categories.to.use)
+
+    integration.res.for.subset.windows <- SingleBinPSDIntegrationForMultipleWindows(subset.windows,
+                                              name.of.col.containing.time.series,
+                                              sampling_frequency, single.bin.boundary)
+
+    integrals.for.each.combo[[i]] <- integration.res.for.subset.windows
+
+  }
+
+
+  #At this point, we should have vectors of integrals with each vector
+  #corresponding to a different combo. Now we want to see if the integrals
+  #in each combo significantly differ from the other combos. ANOVA can be used.
+
+  #Combine the vectors of integrals together
+  integrals.combined <- NULL
+  combo.labels.combined <- NULL
+  for(i in 1:length(integrals.for.each.combo)){
+
+    #Combine integrals into one large vector
+    integral.vec.for.one.combo <- integrals.for.each.combo[[i]]
+    integrals.combined <- c(integrals.combined, integral.vec.for.one.combo)
+
+    #Make sure to have another column that labels which integrals belong in
+    #which combo
+    combo.labels.combined.temp <- rep(level.combinations.labels[[i]], length(integral.vec.for.one.combo))
+    combo.labels.combined <- c(combo.labels.combined, combo.labels.combined.temp)
+
+  }
+
+  integrals.with.combo.labels <- as.data.frame(integrals.combined, combo.labels.combined)
+
+  #http://www.sthda.com/english/wiki/kruskal-wallis-test-in-r
+  kruskal.test.res <- kruskal.test(integrals.combined ~ combo.labels.combined, data = integrals.with.combo.labels)
+  pairwise.wilcox.rest.res <- pairwise.wilcox.test(integrals.with.combo.labels$integrals.combined,
+                                                   integrals.with.combo.labels$combo.labels.combined,
+                                                   p.adjust.method = "BH")
+
+
+  output <- list(integrals.with.combo.labels, kruskal.test.res, pairwise.wilcox.rest.res)
+
+  return(output)
+}
+
+
+
+#Instead of doing integration, just find the frequency corresponding
+#to maximum amplitude.
