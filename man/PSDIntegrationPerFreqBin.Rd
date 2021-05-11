@@ -11,7 +11,7 @@ PSDIntegrationPerFreqBin(sampling_frequency, data_vector, frequency_bins)
 
 \item{data_vector}{Vector of numeric values. Timeseries vector of data.}
 
-\item{frequency_bins}{A list of objects where each object is a vector with two elements. The first element is a numeric value specifying the start frequency of a bin. The second element is a numeric value specifying the end frequency of a bin. Each object corresponds to a new frequency bin for calculating integral.}
+\item{frequency_bins}{A list of objects where each object is a vector with two elements. The first element is a numeric value specifying the start frequency of a bin. The second element is a numeric value specifying the end frequency of a bin. Each object corresponds to a new frequency bin for calculating integral. For integration, approxfun is used, so increment does not need to be specified.}
 }
 \value{
 A list where each object is also a list. The nested list objects have the first element specifying the bin boundaries. The second element specifies the integral.
@@ -52,7 +52,9 @@ integration.results <- PSDIntegrationPerFreqBin(Fs, S, bins)
 
 for(i in 1:length(integration.results)){
 
-   message <- paste("Area in bin ", integration.results[[i]][[1]], " is ", integration.results[[i]][[2]])
+   message <- paste("Area in bin ", integration.results[[i]][[1]], " is ",
+                   integration.results[[i]][[2]])
+
    print(message)
 
 }

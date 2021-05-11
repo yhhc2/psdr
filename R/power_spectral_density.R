@@ -899,7 +899,9 @@ AutomatedCompositePlotting <- function(list.of.windows,
 #'
 #' for(i in 1:length(integration.results)){
 #'
-#'    message <- paste("Area in bin ", integration.results[[i]][[1]], " is ", integration.results[[i]][[2]])
+#'    message <- paste("Area in bin ", integration.results[[i]][[1]], " is ",
+#'                    integration.results[[i]][[2]])
+#'
 #'    print(message)
 #'
 #' }
@@ -1013,7 +1015,8 @@ PSDIntegrationPerFreqBin <- function(sampling_frequency, data_vector, frequency_
 #' #Extra representation of S2 dataframe to show an example that has enough samples
 #' #to have significance for Kruskal-Wallis test
 #' windows <- list(S1.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame,
-#' S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S3.data.frame, S4.data.frame)
+#' S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S3.data.frame,
+#' S4.data.frame)
 #'
 #' #Gets the composite of the first, second, and third signal. Should result in a flat signal.
 #' FirstComboToUse <- list( c("a"), c(1, 2, 3) )
@@ -1457,7 +1460,8 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 #' #Extra representation of S2 dataframe to show an example that has enough samples
 #' #to have significance for Kruskal-Wallis test
 #' windows <- list(S1.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame,
-#' S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S3.data.frame, S4.data.frame,
+#' S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S2.data.frame, S3.data.frame,
+#' S4.data.frame,
 #' S5.data.frame, S5.data.frame, S5.data.frame, S5.data.frame, S5.data.frame)
 #'
 #' #Gets the composite of the first, second, and third signal. Should result in a flat signal.
@@ -1479,8 +1483,12 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 #'                            x_increment = 0.01,
 #'                            level1.column.name = "level1.ID",
 #'                            level2.column.name = "level2.ID",
-#'                            level.combinations = list(FirstComboToUse, SecondComboToUse, ThirdComboToUse),
-#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4", "Signal 5"),
+#'                            level.combinations = list(FirstComboToUse,
+#'                                                     SecondComboToUse,
+#'                                                     ThirdComboToUse),
+#'                            level.combinations.labels = c("Signal 1 + 2 + 3",
+#'                                                          "Signal 3 + 4",
+#'                                                          "Signal 5"),
 #'                            plot.title = "Example",
 #'                            plot.xlab = "Hz",
 #'                            plot.ylab = "(Original units)^2/Hz",
@@ -1494,7 +1502,8 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 #'
 #' #Compare integration for the 1.5-2.5 Hz bin. P-value should not indicate
 #' #significant difference
-#' integration.compare.res <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,
+#' integration.compare.res <- SingleBinPSDIntegrationOrDominantFreqComparison(
+#' list.of.windows = windows,
 #' name.of.col.containing.time.series = "Signal",
 #' level1.column.name = "level1.ID",
 #' level2.column.name = "level2.ID",
@@ -1509,7 +1518,8 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 #'
 #' #Compare integration for the 0.5-1.5 Hz bin. P-value should indicate
 #' #significant difference
-#' integration.compare.res2 <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,
+#' integration.compare.res2 <- SingleBinPSDIntegrationOrDominantFreqComparison(
+#' list.of.windows = windows,
 #' name.of.col.containing.time.series = "Signal",
 #' level1.column.name = "level1.ID",
 #' level2.column.name = "level2.ID",
@@ -1528,7 +1538,8 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 #'
 #' #Compare dominant frequency P-value should not indicate
 #' #significant difference
-#' integration.compare.res3 <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,
+#' integration.compare.res3 <- SingleBinPSDIntegrationOrDominantFreqComparison(
+#' list.of.windows = windows,
 #' name.of.col.containing.time.series = "Signal",
 #' level1.column.name = "level1.ID",
 #' level2.column.name = "level2.ID",
@@ -1546,7 +1557,8 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 #'
 #' #Compare dominant frequency P-value should indicate
 #' #significant difference
-#' integration.compare.res4 <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,
+#' integration.compare.res4 <- SingleBinPSDIntegrationOrDominantFreqComparison(
+#' list.of.windows = windows,
 #' name.of.col.containing.time.series = "Signal",
 #' level1.column.name = "level1.ID",
 #' level2.column.name = "level2.ID",
@@ -1637,8 +1649,8 @@ SingleBinPSDIntegrationOrDominantFreqComparison <- function(list.of.windows,
   vals.to.compare.with.combo.labels <- as.data.frame(vals.to.compare.combined, combo.labels.combined)
 
   #http://www.sthda.com/english/wiki/kruskal-wallis-test-in-r
-  kruskal.test.res <- kruskal.test(vals.to.compare.combined ~ combo.labels.combined, data = vals.to.compare.with.combo.labels)
-  pairwise.wilcox.rest.res <- pairwise.wilcox.test(vals.to.compare.with.combo.labels$vals.to.compare.combined,
+  kruskal.test.res <- stats::kruskal.test(vals.to.compare.combined ~ combo.labels.combined, data = vals.to.compare.with.combo.labels)
+  pairwise.wilcox.rest.res <- stats::pairwise.wilcox.test(vals.to.compare.with.combo.labels$vals.to.compare.combined,
                                                    vals.to.compare.with.combo.labels$combo.labels.combined,
                                                    p.adjust.method = "BH")
 
