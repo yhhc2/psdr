@@ -96,6 +96,18 @@ will display a message." />
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/examples_with_output.html">examples_with_output</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -164,10 +176,7 @@ will display a message.</p>
 where the max y value (PSD value) is found. The second element is the max y value.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#I want to create a plot that shows two curves:</span>
-<span class='co'>#1. Composite of time series signals 1, 2, and 3.</span>
-<span class='co'>#2. Composite of time series signals 3 and 4.</span>
-
+    <pre class="examples"><div class='input'>
 <span class='co'>#Create a vector of time that represent times where data are sampled.</span>
 <span class='va'>Fs</span> <span class='op'>=</span> <span class='fl'>100</span>; <span class='co'>#sampling frequency in Hz</span>
 <span class='cn'>T</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='va'>Fs</span>; <span class='co'>#sampling period</span>
@@ -185,7 +194,7 @@ where the max y value (PSD value) is found. The second element is the max y valu
 
 
 <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>PSDIdentifyDominantFrequency</span><span class='op'>(</span><span class='va'>Fs</span>, <span class='va'>S1.data.frame</span><span class='op'>[</span>,<span class='st'>"Signal"</span><span class='op'>]</span>, <span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>0.01</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in PSDIdentifyDominantFrequency(Fs, S1.data.frame[, "Signal"], 0,     10, 0.01): could not find function "PSDIdentifyDominantFrequency"</span></div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

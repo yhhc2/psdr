@@ -101,6 +101,18 @@ are significantly different." />
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/examples_with_output.html">examples_with_output</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -220,9 +232,6 @@ compare, then PSDDominantFrequencyForMultipleWindows() is used.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>#I want to create a plot that shows two curves:</span>
-<span class='co'>#1. Composite of time series signals 1, 2, and 3.</span>
-<span class='co'>#2. Composite of time series signals 3 and 4.</span>
 
 <span class='co'>#Create a vector of time that represent times where data are sampled.</span>
 <span class='va'>Fs</span> <span class='op'>=</span> <span class='fl'>100</span>; <span class='co'>#sampling frequency in Hz</span>
@@ -349,10 +358,27 @@ level.combinations.labels <span class='op'>=</span> <span class='fu'><a href='ht
 sampling_frequency <span class='op'>=</span> <span class='fl'>100</span>,
 single.bin.boundary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.5</span>, <span class='fl'>2.5</span><span class='op'>)</span>,
 integration.or.dominant.freq <span class='op'>=</span> <span class='st'>"integration"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,     name.of.col.containing.time.series = "Signal", level1.column.name = "level1.ID",     level2.column.name = "level2.ID", level.combinations = list(FirstComboToUse,         SecondComboToUse), level.combinations.labels = c("Signal 1 + 2 + 3",         "Signal 3 + 4"), sampling_frequency = 100, single.bin.boundary = c(1.5,         2.5), integration.or.dominant.freq = "integration"): could not find function "SingleBinPSDIntegrationOrDominantFreqComparison"</span></div><div class='input'>
+</div><div class='output co'>#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+#&gt; [1] 4
+#&gt; [1] 5
+#&gt; [1] 6
+#&gt; [1] 7
+#&gt; [1] 8
+#&gt; [1] 9
+#&gt; [1] 10
+#&gt; [1] 11
+#&gt; [1] 1
+#&gt; [1] 2</div><div class='input'>
 <span class='co'>#Kruskal-Wallis test results</span>
 <span class='va'>integration.compare.res</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'integration.compare.res' not found</span></div><div class='input'>
+</div><div class='output co'>#&gt; 
+#&gt; 	Kruskal-Wallis rank sum test
+#&gt; 
+#&gt; data:  vals.to.compare.combined by combo.labels.combined
+#&gt; Kruskal-Wallis chi-squared = 0, df = 1, p-value = 1
+#&gt; </div><div class='input'>
 <span class='co'>#Compare integration for the 0.5-1.5 Hz bin. P-value should indicate</span>
 <span class='co'>#significant difference</span>
 <span class='va'>integration.compare.res2</span> <span class='op'>&lt;-</span> <span class='fu'>SingleBinPSDIntegrationOrDominantFreqComparison</span><span class='op'>(</span>
@@ -365,10 +391,27 @@ level.combinations.labels <span class='op'>=</span> <span class='fu'><a href='ht
 sampling_frequency <span class='op'>=</span> <span class='fl'>100</span>,
 single.bin.boundary <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>,<span class='fl'>1.5</span><span class='op'>)</span>,
 integration.or.dominant.freq <span class='op'>=</span> <span class='st'>"integration"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,     name.of.col.containing.time.series = "Signal", level1.column.name = "level1.ID",     level2.column.name = "level2.ID", level.combinations = list(FirstComboToUse,         SecondComboToUse), level.combinations.labels = c("Signal 1 + 2 + 3",         "Signal 3 + 4"), sampling_frequency = 100, single.bin.boundary = c(0.5,         1.5), integration.or.dominant.freq = "integration"): could not find function "SingleBinPSDIntegrationOrDominantFreqComparison"</span></div><div class='input'>
+</div><div class='output co'>#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+#&gt; [1] 4
+#&gt; [1] 5
+#&gt; [1] 6
+#&gt; [1] 7
+#&gt; [1] 8
+#&gt; [1] 9
+#&gt; [1] 10
+#&gt; [1] 11
+#&gt; [1] 1
+#&gt; [1] 2</div><div class='input'>
 <span class='co'>#Kruskal-Wallis test results</span>
 <span class='va'>integration.compare.res2</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'integration.compare.res2' not found</span></div><div class='input'>
+</div><div class='output co'>#&gt; 
+#&gt; 	Kruskal-Wallis rank sum test
+#&gt; 
+#&gt; data:  vals.to.compare.combined by combo.labels.combined
+#&gt; Kruskal-Wallis chi-squared = 4.7468, df = 1, p-value = 0.02935
+#&gt; </div><div class='input'>
 
 
 <span class='co'>#Dominant Frequency---------------------------------------------------------------------</span>
@@ -387,10 +430,27 @@ x_start <span class='op'>=</span> <span class='fl'>0</span>,
 x_end <span class='op'>=</span> <span class='fl'>10</span>,
 x_increment <span class='op'>=</span> <span class='fl'>0.01</span>,
 integration.or.dominant.freq <span class='op'>=</span> <span class='st'>"dominant_freq"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,     name.of.col.containing.time.series = "Signal", level1.column.name = "level1.ID",     level2.column.name = "level2.ID", level.combinations = list(FirstComboToUse,         SecondComboToUse), level.combinations.labels = c("Signal 1 + 2 + 3",         "Signal 3 + 4"), sampling_frequency = 100, x_start = 0,     x_end = 10, x_increment = 0.01, integration.or.dominant.freq = "dominant_freq"): could not find function "SingleBinPSDIntegrationOrDominantFreqComparison"</span></div><div class='input'>
+</div><div class='output co'>#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+#&gt; [1] 4
+#&gt; [1] 5
+#&gt; [1] 6
+#&gt; [1] 7
+#&gt; [1] 8
+#&gt; [1] 9
+#&gt; [1] 10
+#&gt; [1] 11
+#&gt; [1] 1
+#&gt; [1] 2</div><div class='input'>
 <span class='co'>#Kruskal-Wallis test results</span>
 <span class='va'>integration.compare.res3</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'integration.compare.res3' not found</span></div><div class='input'>
+</div><div class='output co'>#&gt; 
+#&gt; 	Kruskal-Wallis rank sum test
+#&gt; 
+#&gt; data:  vals.to.compare.combined by combo.labels.combined
+#&gt; Kruskal-Wallis chi-squared = NaN, df = 1, p-value = NA
+#&gt; </div><div class='input'>
 
 <span class='co'>#Compare dominant frequency P-value should indicate</span>
 <span class='co'>#significant difference</span>
@@ -406,12 +466,30 @@ x_start <span class='op'>=</span> <span class='fl'>0</span>,
 x_end <span class='op'>=</span> <span class='fl'>10</span>,
 x_increment <span class='op'>=</span> <span class='fl'>0.01</span>,
 integration.or.dominant.freq <span class='op'>=</span> <span class='st'>"dominant_freq"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = windows,     name.of.col.containing.time.series = "Signal", level1.column.name = "level1.ID",     level2.column.name = "level2.ID", level.combinations = list(SecondComboToUse,         ThirdComboToUse), level.combinations.labels = c("Signal 3 + 4",         "Signal 5"), sampling_frequency = 100, x_start = 0, x_end = 10,     x_increment = 0.01, integration.or.dominant.freq = "dominant_freq"): could not find function "SingleBinPSDIntegrationOrDominantFreqComparison"</span></div><div class='input'>
+</div><div class='output co'>#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+#&gt; [1] 4
+#&gt; [1] 5</div><div class='input'>
 <span class='co'>#Kruskal-Wallis test results</span>
 <span class='va'>integration.compare.res4</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'integration.compare.res4' not found</span></div><div class='input'><span class='co'>#Values used in comparison of the two groups</span>
+</div><div class='output co'>#&gt; 
+#&gt; 	Kruskal-Wallis rank sum test
+#&gt; 
+#&gt; data:  vals.to.compare.combined by combo.labels.combined
+#&gt; Kruskal-Wallis chi-squared = 6, df = 1, p-value = 0.01431
+#&gt; </div><div class='input'><span class='co'>#Values used in comparison of the two groups</span>
 <span class='va'>integration.compare.res4</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'integration.compare.res4' not found</span></div><div class='input'>
+</div><div class='output co'>#&gt;              vals.to.compare.combined
+#&gt; Signal 3 + 4                        1
+#&gt; Signal 3 + 4                        1
+#&gt; Signal 5                            5
+#&gt; Signal 5                            5
+#&gt; Signal 5                            5
+#&gt; Signal 5                            5
+#&gt; Signal 5                            5</div><div class='input'>
 
 </div></pre>
   </div>

@@ -94,6 +94,18 @@ on the same plot." />
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/examples_with_output.html">examples_with_output</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -339,6 +351,10 @@ or error envelopes to see the spread of the windows used to make the composite.<
 
 <span class='co'>#PSD-------------------------------------------------------------------------</span>
 
+<span class='co'>#Note that the PSDs are not generated directly from the "Signal 1 + 2 + 3" and</span>
+<span class='co'>#the "Signal 3 + 4" time series. Instead, PSDs are generated individually</span>
+<span class='co'>#for signals 1, 2, 3, and 4, and then then are summed together.</span>
+
 <span class='va'>PSD.results</span> <span class='op'>&lt;-</span> <span class='fu'>AutomatedCompositePlotting</span><span class='op'>(</span>list.of.windows <span class='op'>=</span> <span class='va'>windows</span>,
                            name.of.col.containing.time.series <span class='op'>=</span> <span class='st'>"Signal"</span>,
                            x_start <span class='op'>=</span> <span class='fl'>0</span>,
@@ -364,10 +380,41 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='co'>#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be</span>
 <span class='co'>#stronger in both cases because more signals have this frequency (even if amp is negative).</span>
 <span class='co'>#Error envelope is specified for the second (red) curve. Envelope should only</span>
-<span class='co'>#be present for 1 Hz signal.</span>
+<span class='co'>#be present for 2 Hz signal.</span>
 <span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>ggplot.obj.PSD</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 5 row(s) containing missing values (geom_path).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 5 row(s) containing missing values (geom_path).</span></div><div class='input'>
+<span class='co'>#PSD Zoomed in---------------------------------------------------------------</span>
+
+<span class='va'>PSD.results</span> <span class='op'>&lt;-</span> <span class='fu'>AutomatedCompositePlotting</span><span class='op'>(</span>list.of.windows <span class='op'>=</span> <span class='va'>windows</span>,
+                           name.of.col.containing.time.series <span class='op'>=</span> <span class='st'>"Signal"</span>,
+                           x_start <span class='op'>=</span> <span class='fl'>0</span>,
+                           x_end <span class='op'>=</span> <span class='fl'>5</span>,
+                           x_increment <span class='op'>=</span> <span class='fl'>0.01</span>,
+                           level1.column.name <span class='op'>=</span> <span class='st'>"level1.ID"</span>,
+                           level2.column.name <span class='op'>=</span> <span class='st'>"level2.ID"</span>,
+                           level.combinations <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>FirstComboToUse</span>, <span class='va'>SecondComboToUse</span><span class='op'>)</span>,
+                           level.combinations.labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Signal 1 + 2 + 3"</span>, <span class='st'>"Signal 3 + 4"</span><span class='op'>)</span>,
+                           plot.title <span class='op'>=</span> <span class='st'>"Example"</span>,
+                           plot.xlab <span class='op'>=</span> <span class='st'>"Hz"</span>,
+                           plot.ylab <span class='op'>=</span> <span class='st'>"(Original units)^2/Hz"</span>,
+                           combination.index.for.envelope <span class='op'>=</span> <span class='fl'>2</span>,
+                           TimeSeries.PSD.LogPSD <span class='op'>=</span> <span class='st'>"PSD"</span>,
+                           sampling_frequency <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+#&gt; [1] 1
+#&gt; [1] 2</div><div class='input'>
+<span class='va'>ggplot.obj.PSD</span> <span class='op'>&lt;-</span> <span class='va'>PSD.results</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
+
+<span class='co'>#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be</span>
+<span class='co'>#stronger in both cases because more signals have this frequency (even if amp is negative).</span>
+<span class='co'>#Error envelope is specified for the second (red) curve. Envelope should only</span>
+<span class='co'>#be present for 1 Hz signal.</span>
+<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>ggplot.obj.PSD</span>
+
 <span class='co'>#LogPSD-------------------------------------------------------------------------</span>
 
 <span class='va'>LogPSD.results</span> <span class='op'>&lt;-</span> <span class='fu'>AutomatedCompositePlotting</span><span class='op'>(</span>list.of.windows <span class='op'>=</span> <span class='va'>windows</span>,
@@ -395,7 +442,7 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='co'>#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should</span>
 <span class='co'>#be stronger in both cases because more signals have this frequency (even if amp is negative).</span>
 <span class='co'>#Error envelope is specified for the second (red) curve. Envelope should only</span>
-<span class='co'>#be present for 1 Hz signal.</span>
+<span class='co'>#be present for 2 Hz signal.</span>
 <span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>ggplot.obj.LogPSD</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 5 row(s) containing missing values (geom_path).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 5 row(s) containing missing values (geom_path).</span></div><div class='input'>
