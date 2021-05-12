@@ -34,9 +34,6 @@ Calculate dominant frequency for multiple PSDs for a single frequency range
 }
 \examples{
 
-#I want to create a plot that shows two curves:
-#1. Composite of time series signals 1, 2, and 3.
-#2. Composite of time series signals 3 and 4.
 
 #Create a vector of time that represent times where data are sampled.
 Fs = 100; #sampling frequency in Hz

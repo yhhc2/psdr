@@ -188,6 +188,10 @@ ggplot.obj.timeseries
 
 #PSD-------------------------------------------------------------------------
 
+#Note that the PSDs are not generated directly from the "Signal 1 + 2 + 3" and
+#the "Signal 3 + 4" time series. Instead, PSDs are generated individually
+#for signals 1, 2, 3, and 4, and then then are summed together.
+
 PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
                            name.of.col.containing.time.series = "Signal",
                            x_start = 0,

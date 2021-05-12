@@ -597,6 +597,10 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #'
 #' #PSD-------------------------------------------------------------------------
 #'
+#' #Note that the PSDs are not generated directly from the "Signal 1 + 2 + 3" and
+#' #the "Signal 3 + 4" time series. Instead, PSDs are generated individually
+#' #for signals 1, 2, 3, and 4, and then then are summed together.
+#'
 #' PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
 #'                            name.of.col.containing.time.series = "Signal",
 #'                            x_start = 0,
@@ -1136,9 +1140,6 @@ IdentifyMaxOnXY <- function(x_vector, y_vector, x_start = 0,
 #' @export
 #'
 #' @examples
-#' #I want to create a plot that shows two curves:
-#' #1. Composite of time series signals 1, 2, and 3.
-#' #2. Composite of time series signals 3 and 4.
 #'
 #' #Create a vector of time that represent times where data are sampled.
 #' Fs = 100; #sampling frequency in Hz
@@ -1194,9 +1195,6 @@ PSDIdentifyDominantFrequency <- function(sampling_frequency, data_vector, x_star
 #'
 #' @examples
 #'
-#' #I want to create a plot that shows two curves:
-#' #1. Composite of time series signals 1, 2, and 3.
-#' #2. Composite of time series signals 3 and 4.
 #'
 #' #Create a vector of time that represent times where data are sampled.
 #' Fs = 100; #sampling frequency in Hz
@@ -1296,9 +1294,6 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 #'
 #' @examples
 #'
-#' #I want to create a plot that shows two curves:
-#' #1. Composite of time series signals 1, 2, and 3.
-#' #2. Composite of time series signals 3 and 4.
 #'
 #' #Create a vector of time that represent times where data are sampled.
 #' Fs = 100; #sampling frequency in Hz
@@ -1427,9 +1422,6 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 #'
 #' @examples
 #'
-#' #I want to create a plot that shows two curves:
-#' #1. Composite of time series signals 1, 2, and 3.
-#' #2. Composite of time series signals 3 and 4.
 #'
 #' #Create a vector of time that represent times where data are sampled.
 #' Fs = 100; #sampling frequency in Hz
