@@ -16,3 +16,7 @@ RoxygenNote: 7.1.1
 Imports: 
     ggplot2 (>= 3.3.2),
     stats (>= 4.0.2)
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

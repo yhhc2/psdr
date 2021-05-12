@@ -1,0 +1,20 @@
+---
+title: "examples_with_output"
+author: "Yong-Han Hank Cheng"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{examples_with_output}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(psdr)
+```

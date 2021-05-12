@@ -618,6 +618,33 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' #Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be
 #' #stronger in both cases because more signals have this frequency (even if amp is negative).
 #' #Error envelope is specified for the second (red) curve. Envelope should only
+#' #be present for 2 Hz signal.
+#' dev.new()
+#' ggplot.obj.PSD
+#'
+#' #PSD Zoomed in---------------------------------------------------------------
+#'
+#' PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
+#'                            name.of.col.containing.time.series = "Signal",
+#'                            x_start = 0,
+#'                            x_end = 5,
+#'                            x_increment = 0.01,
+#'                            level1.column.name = "level1.ID",
+#'                            level2.column.name = "level2.ID",
+#'                            level.combinations = list(FirstComboToUse, SecondComboToUse),
+#'                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+#'                            plot.title = "Example",
+#'                            plot.xlab = "Hz",
+#'                            plot.ylab = "(Original units)^2/Hz",
+#'                            combination.index.for.envelope = 2,
+#'                            TimeSeries.PSD.LogPSD = "PSD",
+#'                            sampling_frequency = 100)
+#'
+#' ggplot.obj.PSD <- PSD.results[[2]]
+#'
+#' #Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be
+#' #stronger in both cases because more signals have this frequency (even if amp is negative).
+#' #Error envelope is specified for the second (red) curve. Envelope should only
 #' #be present for 1 Hz signal.
 #' dev.new()
 #' ggplot.obj.PSD
@@ -645,7 +672,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' #Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should
 #' #be stronger in both cases because more signals have this frequency (even if amp is negative).
 #' #Error envelope is specified for the second (red) curve. Envelope should only
-#' #be present for 1 Hz signal.
+#' #be present for 2 Hz signal.
 #' dev.new()
 #' ggplot.obj.LogPSD
 #'
