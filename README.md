@@ -741,16 +741,24 @@ plot(frequencies, amplitudes, type = "l")
 
 ``` r
 #Create a vector of time that represent times where data are sampled.
-Fs = 100; #sampling frequency in Hz
+Fs = 100; #sampling frequency in Hz (sampling/second)
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:L-1)*T; #time vector in seconds
 
 #Form a signal (time series) that contains two frequencies:
 #1. 10 Hz with amplitude of 1
 #2. 25 Hz with amplitude of 2
 S <- 1*sin(2*pi*10*t) + 2*sin(2*pi*25*t);
 
+#Plot the signal
+plot(t[1:100], S[1:100], type = "l")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+``` r
+#Make a PSD to see the frequencies in the signal
 results <- MakePowerSpectralDensity(Fs, S)
 
 frequencies <- results[[1]]
@@ -761,7 +769,7 @@ PSD <- results[[2]]
 plot(frequencies, PSD, type = "l")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
 
 ### PSDDominantFrequencyForMultipleWindows()
 
