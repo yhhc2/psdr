@@ -81,7 +81,7 @@ MakeOneSidedAmplitudeSpectrum <- function(sampling_frequency, data_vector){
 #'
 #'
 #' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
-#' @param data_vector Vector of numeric values. Timeseries vector of data.
+#' @param data_vector Vector of numeric values. Time series vector of data.
 #'
 #' @return A List with two objects:
 #' 1. Vector of frequencies in Hz. The maximum frequency should be half the sampling frequency. Called Nyquist Frequency.
