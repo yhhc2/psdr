@@ -9,7 +9,7 @@ MakePowerSpectralDensity(sampling_frequency, data_vector)
 \arguments{
 \item{sampling_frequency}{Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.}
 
-\item{data_vector}{Vector of numeric values. Timeseries vector of data.}
+\item{data_vector}{Vector of numeric values. Time series vector of data.}
 }
 \value{
 A List with two objects:
