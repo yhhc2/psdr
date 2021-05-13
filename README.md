@@ -6,7 +6,9 @@
 Author: Yong-Han Hank Cheng
 
 This package allows you to generate and compare power spectral density
-(PSD) plots given timeseries data.
+(PSD) plots given timeseries data. PSDs are used to take a time series
+data, analyze the oscillations, and then output the frequencies of these
+oscillations in the time series.
 
 ## Installation
 
