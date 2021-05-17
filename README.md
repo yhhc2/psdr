@@ -1209,6 +1209,9 @@ integration.or.dominant.freq = "integration")
     ## [1] 1
     ## [1] 2
 
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+
 ``` r
 #Kruskal-Wallis test results
 integration.compare.res[[2]]
@@ -1219,6 +1222,26 @@ integration.compare.res[[2]]
     ## 
     ## data:  vals.to.compare.combined by combo.labels.combined
     ## Kruskal-Wallis chi-squared = 0, df = 1, p-value = 1
+
+``` r
+#Values used in Kruskal-Wallis test
+integration.compare.res[[1]]
+```
+
+    ##    vals.to.compare.combined combo.labels.combined
+    ## 1              4.433109e-08      Signal 1 + 2 + 3
+    ## 2              1.985659e-03      Signal 1 + 2 + 3
+    ## 3              1.985659e-03      Signal 1 + 2 + 3
+    ## 4              1.985659e-03      Signal 1 + 2 + 3
+    ## 5              1.985659e-03      Signal 1 + 2 + 3
+    ## 6              1.985659e-03      Signal 1 + 2 + 3
+    ## 7              1.985659e-03      Signal 1 + 2 + 3
+    ## 8              1.985659e-03      Signal 1 + 2 + 3
+    ## 9              1.985659e-03      Signal 1 + 2 + 3
+    ## 10             1.985659e-03      Signal 1 + 2 + 3
+    ## 11             1.990877e-03      Signal 1 + 2 + 3
+    ## 12             1.990877e-03          Signal 3 + 4
+    ## 13             4.433109e-08          Signal 3 + 4
 
 ``` r
 #Compare integration for the 0.5-1.5 Hz bin. P-value should indicate
@@ -1249,6 +1272,9 @@ integration.or.dominant.freq = "integration")
     ## [1] 1
     ## [1] 2
 
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+
 ``` r
 #Kruskal-Wallis test results
 integration.compare.res2[[2]]
@@ -1259,6 +1285,26 @@ integration.compare.res2[[2]]
     ## 
     ## data:  vals.to.compare.combined by combo.labels.combined
     ## Kruskal-Wallis chi-squared = 4.7468, df = 1, p-value = 0.02935
+
+``` r
+#Values used in Kruskal-Wallis test
+integration.compare.res2[[1]]
+```
+
+    ##    vals.to.compare.combined combo.labels.combined
+    ## 1               0.001996310      Signal 1 + 2 + 3
+    ## 2               0.007994817      Signal 1 + 2 + 3
+    ## 3               0.007994817      Signal 1 + 2 + 3
+    ## 4               0.007994817      Signal 1 + 2 + 3
+    ## 5               0.007994817      Signal 1 + 2 + 3
+    ## 6               0.007994817      Signal 1 + 2 + 3
+    ## 7               0.007994817      Signal 1 + 2 + 3
+    ## 8               0.007994817      Signal 1 + 2 + 3
+    ## 9               0.007994817      Signal 1 + 2 + 3
+    ## 10              0.007994817      Signal 1 + 2 + 3
+    ## 11              0.002001592      Signal 1 + 2 + 3
+    ## 12              0.002001592          Signal 3 + 4
+    ## 13              0.001996310          Signal 3 + 4
 
 ``` r
 #Dominant Frequency---------------------------------------------------------------------
@@ -1293,6 +1339,9 @@ integration.or.dominant.freq = "dominant_freq")
     ## [1] 1
     ## [1] 2
 
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+
 ``` r
 #Kruskal-Wallis test results
 integration.compare.res3[[2]]
@@ -1303,6 +1352,26 @@ integration.compare.res3[[2]]
     ## 
     ## data:  vals.to.compare.combined by combo.labels.combined
     ## Kruskal-Wallis chi-squared = NaN, df = 1, p-value = NA
+
+``` r
+#Values used in Kruskal-Wallis test
+integration.compare.res3[[1]]
+```
+
+    ##    vals.to.compare.combined combo.labels.combined
+    ## 1                         1      Signal 1 + 2 + 3
+    ## 2                         1      Signal 1 + 2 + 3
+    ## 3                         1      Signal 1 + 2 + 3
+    ## 4                         1      Signal 1 + 2 + 3
+    ## 5                         1      Signal 1 + 2 + 3
+    ## 6                         1      Signal 1 + 2 + 3
+    ## 7                         1      Signal 1 + 2 + 3
+    ## 8                         1      Signal 1 + 2 + 3
+    ## 9                         1      Signal 1 + 2 + 3
+    ## 10                        1      Signal 1 + 2 + 3
+    ## 11                        1      Signal 1 + 2 + 3
+    ## 12                        1          Signal 3 + 4
+    ## 13                        1          Signal 3 + 4
 
 ``` r
 #Compare dominant frequency P-value should indicate
@@ -1329,6 +1398,9 @@ integration.or.dominant.freq = "dominant_freq")
     ## [1] 4
     ## [1] 5
 
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+
 ``` r
 #Kruskal-Wallis test results
 integration.compare.res4[[2]]
@@ -1345,11 +1417,11 @@ integration.compare.res4[[2]]
 integration.compare.res4[[1]]
 ```
 
-    ##              vals.to.compare.combined
-    ## Signal 3 + 4                        1
-    ## Signal 3 + 4                        1
-    ## Signal 5                            5
-    ## Signal 5                            5
-    ## Signal 5                            5
-    ## Signal 5                            5
-    ## Signal 5                            5
+    ##   vals.to.compare.combined combo.labels.combined
+    ## 1                        1          Signal 3 + 4
+    ## 2                        1          Signal 3 + 4
+    ## 3                        5              Signal 5
+    ## 4                        5              Signal 5
+    ## 5                        5              Signal 5
+    ## 6                        5              Signal 5
+    ## 7                        5              Signal 5

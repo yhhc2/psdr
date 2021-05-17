@@ -963,6 +963,9 @@ integration.or.dominant.freq = "integration")
 #Kruskal-Wallis test results
 integration.compare.res[[2]]
 
+#Values used in Kruskal-Wallis test
+integration.compare.res[[1]]
+
 #Compare integration for the 0.5-1.5 Hz bin. P-value should indicate
 #significant difference
 integration.compare.res2 <- SingleBinPSDIntegrationOrDominantFreqComparison(
@@ -978,6 +981,9 @@ integration.or.dominant.freq = "integration")
 
 #Kruskal-Wallis test results
 integration.compare.res2[[2]]
+
+#Values used in Kruskal-Wallis test
+integration.compare.res2[[1]]
 
 
 #Dominant Frequency---------------------------------------------------------------------
@@ -999,6 +1005,9 @@ integration.or.dominant.freq = "dominant_freq")
 
 #Kruskal-Wallis test results
 integration.compare.res3[[2]]
+
+#Values used in Kruskal-Wallis test
+integration.compare.res3[[1]]
 
 #Compare dominant frequency P-value should indicate
 #significant difference
