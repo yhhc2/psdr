@@ -1665,7 +1665,7 @@ SingleBinPSDIntegrationOrDominantFreqComparison <- function(list.of.windows,
 
   }
 
-  vals.to.compare.with.combo.labels <- as.data.frame(vals.to.compare.combined, combo.labels.combined)
+  vals.to.compare.with.combo.labels <- data.frame(vals.to.compare.combined, combo.labels.combined)
 
   #http://www.sthda.com/english/wiki/kruskal-wallis-test-in-r
   kruskal.test.res <- stats::kruskal.test(vals.to.compare.combined ~ combo.labels.combined, data = vals.to.compare.with.combo.labels)
