@@ -210,6 +210,15 @@ ggplot.obj.LogPSD <- LogPSD.results[[2]]
 #dev.new()
 ggplot.obj.LogPSD
 
+#Are dominant frequencies different---------------------------------------------
+comparison_results <- PSD.results[[3]]
+
+#Table used for statistical testing
+comparison_results[[1]]
+
+#Kruskal Wallis results
+comparison_results[[2]]
+
 ```
 
 

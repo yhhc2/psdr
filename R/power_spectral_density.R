@@ -506,9 +506,12 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' @param sampling_frequency Numeric value used for specifying sampling frequency if PSD or LogPSD is made with this function. Default is NULL because default plot created is a time series plot.
 #' @param my.colors A vector of strings that specify the color for each line. 9 default values are used.
 #'
-#' @return A List with two objects:
+#' @return A List with three objects:
 #' 1. A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.
 #' 2. A ggplot object that can be plotted right away.
+#' 3. If plot selected is a PSD, then a List is outputted from
+#' SingleBinPSDIntegrationOrDominantFreqComparison() to compare
+#' dominant frequencies.
 #'
 #' @export
 #'
@@ -872,17 +875,37 @@ AutomatedCompositePlotting <- function(list.of.windows,
                    ggplot2::xlab(plot.xlab) +
                    ggplot2::ylab(plot.ylab)
 
-
   #------------------------------------------------------------------------------
-  # Return values to plot for each line as well as the ggplot object
+  # See if the combinations produce significantly different dominant frequencies
   #------------------------------------------------------------------------------
 
-  results <- list(list.of.dataframes.to.plot, ggplot.object)
+  if(TimeSeries.PSD.LogPSD == "PSD"){
 
-  return(results)
+    comparison_results <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = list.of.windows,
+                                                  name.of.col.containing.time.series = name.of.col.containing.time.series,
+                                                  level1.column.name = level1.column.name,
+                                                  level2.column.name = level2.column.name,
+                                                  level.combinations = level.combinations,
+                                                  level.combinations.labels = level.combinations.labels,
+                                                  sampling_frequency = sampling_frequency,
+                                                  single.bin.boundary = NULL,
+                                                  x_start = x_start,
+                                                  x_end = x_end,
+                                                  x_increment = x_increment,
+                                                  integration.or.dominant.freq = "dominant_freq")
 
+    results <- list(list.of.dataframes.to.plot, ggplot.object, comparison_results)
 
-  #Testing: PlotTimeSeries(windows, "SummedXYZ", 0, 150, 1, "RTR_AMP", "TASK_ID", list( list(c(1, 2, 3), c(task.names)) ), "combined", "Combined amplitudes and task into 1", "Time", "Acceleration", 1)
+    return(results)
+
+  } else{
+
+    results <- list(list.of.dataframes.to.plot, ggplot.object)
+
+    return(results)
+
+  }
+
 }
 
 

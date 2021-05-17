@@ -58,10 +58,13 @@ AutomatedCompositePlotting(
 \item{my.colors}{A vector of strings that specify the color for each line. 9 default values are used.}
 }
 \value{
-A List with two objects:
+A List with three objects:
 \enumerate{
 \item A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.
 \item A ggplot object that can be plotted right away.
+\item If plot selected is a PSD, then a List is outputted from
+SingleBinPSDIntegrationOrDominantFreqComparison() to compare
+dominant frequencies.
 }
 }
 \description{
