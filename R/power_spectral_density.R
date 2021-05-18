@@ -509,7 +509,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' @return A List with three objects:
 #' 1. A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.
 #' 2. A ggplot object that can be plotted right away.
-#' 3. If plot selected is a PSD and mutliple combinations are used, then a List is outputted from
+#' 3. If plot selected is a PSD, then a List is outputted from
 #' SingleBinPSDIntegrationOrDominantFreqComparison() to compare
 #' dominant frequencies between combinations.
 #'
@@ -879,7 +879,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
   # See if the combinations produce significantly different dominant frequencies
   #------------------------------------------------------------------------------
 
-  if((TimeSeries.PSD.LogPSD == "PSD") & (length(level.combinations.labels) > 1) ){
+  if((TimeSeries.PSD.LogPSD == "PSD")){
 
     comparison_results <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = list.of.windows,
                                                   name.of.col.containing.time.series = name.of.col.containing.time.series,
@@ -1631,6 +1631,17 @@ SingleBinPSDIntegrationOrDominantFreqComparison <- function(list.of.windows,
                                               x_increment = NULL,
                                               integration.or.dominant.freq){
 
+  #If only one combination is used, then comparisons cannot be made,
+  #so end the function prematurely.
+  if(length(level.combinations) < 1){
+    
+    no.comparison.message <- "Only one group is present, so comparisons cannot be done."
+    
+    output <- list(no.comparison.message, no.comparison.message, no.comparison.message)
+    
+    return(output)
+    
+  }
 
   integrals.or.dominant.freq.for.each.combo <- list()
 
