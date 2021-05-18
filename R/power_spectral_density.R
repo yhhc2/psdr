@@ -1631,18 +1631,6 @@ SingleBinPSDIntegrationOrDominantFreqComparison <- function(list.of.windows,
                                               x_increment = NULL,
                                               integration.or.dominant.freq){
 
-  #If only one combination is used, then comparisons cannot be made,
-  #so end the function prematurely.
-  if(length(level.combinations) < 1){
-    
-    no.comparison.message <- "Only one group is present, so comparisons cannot be done."
-    
-    output <- list(no.comparison.message, no.comparison.message, no.comparison.message)
-    
-    return(output)
-    
-  }
-
   integrals.or.dominant.freq.for.each.combo <- list()
 
   #For each combo specified, get the integral value for the specified bin in all
@@ -1700,6 +1688,18 @@ SingleBinPSDIntegrationOrDominantFreqComparison <- function(list.of.windows,
   }
 
   vals.to.compare.with.combo.labels <- data.frame(vals.to.compare.combined, combo.labels.combined)
+  
+  #If only one combination is used, then comparisons cannot be made,
+  #so end the function prematurely.
+  if(length(unique(combo.labels.combined)) < 1){
+    
+    no.comparison.message <- "Only one group is present, so comparisons cannot be done."
+    
+    output <- list(no.comparison.message, no.comparison.message, no.comparison.message)
+    
+    return(output)
+    
+  }
 
   #http://www.sthda.com/english/wiki/kruskal-wallis-test-in-r
   kruskal.test.res <- stats::kruskal.test(vals.to.compare.combined ~ combo.labels.combined, data = vals.to.compare.with.combo.labels)
