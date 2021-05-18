@@ -62,9 +62,9 @@ A List with three objects:
 \enumerate{
 \item A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.
 \item A ggplot object that can be plotted right away.
-\item If plot selected is a PSD, then a List is outputted from
+\item If plot selected is a PSD and mutliple combinations are used, then a List is outputted from
 SingleBinPSDIntegrationOrDominantFreqComparison() to compare
-dominant frequencies.
+dominant frequencies between combinations.
 }
 }
 \description{

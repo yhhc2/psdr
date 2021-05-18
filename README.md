@@ -161,6 +161,14 @@ PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
     ## [1] 3
     ## [1] 1
     ## [1] 2
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+    ## [1] 1
+    ## [1] 2
+
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
 
 ``` r
 ggplot.obj.PSD <- PSD.results[[2]]
@@ -174,7 +182,7 @@ ggplot.obj.PSD
 ```
 
     ## Warning: Removed 5 row(s) containing missing values (geom_path).
-    
+
     ## Warning: Removed 5 row(s) containing missing values (geom_path).
 
 ![](README_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
@@ -204,6 +212,14 @@ ggplot.obj.PSD
     ## [1] 3
     ## [1] 1
     ## [1] 2
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+    ## [1] 1
+    ## [1] 2
+
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
 
 ``` r
  ggplot.obj.PSD <- PSD.results[[2]]
@@ -260,6 +276,32 @@ ggplot.obj.LogPSD
     ## Warning: Removed 5 row(s) containing missing values (geom_path).
 
 ![](README_files/figure-gfm/unnamed-chunk-3-4.png)<!-- -->
+
+``` r
+#Are dominant frequencies different---------------------------------------------
+comparison_results <- PSD.results[[3]]
+
+#Table used for statistical testing
+comparison_results[[1]]
+```
+
+    ##   vals.to.compare.combined combo.labels.combined
+    ## 1                        1           Signal1+2+3
+    ## 2                        1           Signal1+2+3
+    ## 3                        1           Signal1+2+3
+    ## 4                        1             Signal3+4
+    ## 5                        1             Signal3+4
+
+``` r
+#Kruskal Wallis results
+comparison_results[[2]]
+```
+
+    ## 
+    ##  Kruskal-Wallis rank sum test
+    ## 
+    ## data:  vals.to.compare.combined by combo.labels.combined
+    ## Kruskal-Wallis chi-squared = NaN, df = 1, p-value = NA
 
 ### CountWindows()
 
@@ -564,6 +606,22 @@ PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
     ## [1] 11
     ## [1] 1
     ## [1] 2
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+    ## [1] 4
+    ## [1] 5
+    ## [1] 6
+    ## [1] 7
+    ## [1] 8
+    ## [1] 9
+    ## [1] 10
+    ## [1] 11
+    ## [1] 1
+    ## [1] 2
+
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
 
 ``` r
 ggplot.obj.PSD <- PSD.results[[2]]
@@ -850,6 +908,28 @@ PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
     ## [1] 1
     ## [1] 1
     ## [1] 1
+    ## [1] 1
+    ## [1] 1
+    ## [1] 1
+    ## [1] 1
+
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
 
 ``` r
 ggplot.obj.PSD <- PSD.results[[2]]
@@ -1029,6 +1109,28 @@ PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
     ## [1] 1
     ## [1] 1
     ## [1] 1
+    ## [1] 1
+    ## [1] 1
+    ## [1] 1
+    ## [1] 1
+
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
 
 ``` r
 ggplot.obj.PSD <- PSD.results[[2]]
@@ -1169,6 +1271,33 @@ PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
     ## [1] 3
     ## [1] 4
     ## [1] 5
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+    ## [1] 4
+    ## [1] 5
+    ## [1] 6
+    ## [1] 7
+    ## [1] 8
+    ## [1] 9
+    ## [1] 10
+    ## [1] 11
+    ## [1] 1
+    ## [1] 2
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+    ## [1] 4
+    ## [1] 5
+
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
+    
+    ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+    ## exact p-value with ties
 
 ``` r
 ggplot.obj.PSD <- PSD.results[[2]]

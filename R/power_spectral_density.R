@@ -509,9 +509,9 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' @return A List with three objects:
 #' 1. A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.
 #' 2. A ggplot object that can be plotted right away.
-#' 3. If plot selected is a PSD, then a List is outputted from
+#' 3. If plot selected is a PSD and mutliple combinations are used, then a List is outputted from
 #' SingleBinPSDIntegrationOrDominantFreqComparison() to compare
-#' dominant frequencies.
+#' dominant frequencies between combinations.
 #'
 #' @export
 #'
@@ -879,7 +879,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
   # See if the combinations produce significantly different dominant frequencies
   #------------------------------------------------------------------------------
 
-  if(TimeSeries.PSD.LogPSD == "PSD"){
+  if((TimeSeries.PSD.LogPSD == "PSD") & (length(level.combinations.labels) > 1) ){
 
     comparison_results <- SingleBinPSDIntegrationOrDominantFreqComparison(list.of.windows = list.of.windows,
                                                   name.of.col.containing.time.series = name.of.col.containing.time.series,
