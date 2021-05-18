@@ -1691,7 +1691,7 @@ SingleBinPSDIntegrationOrDominantFreqComparison <- function(list.of.windows,
   
   #If only one combination is used, then comparisons cannot be made,
   #so end the function prematurely.
-  if(length(unique(combo.labels.combined)) < 1){
+  if(length(unique(combo.labels.combined)) < 2){
     
     no.comparison.message <- "Only one group is present, so comparisons cannot be done."
     
