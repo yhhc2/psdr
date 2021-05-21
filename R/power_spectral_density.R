@@ -1734,7 +1734,7 @@ GenerateExampleData <- function(){
   Fs = 100; #sampling frequency in Hz
   T = 1/Fs; #sampling period
   L = 1000; #length of time vector
-  t = (0:L-1)*T; #time vector
+  t = (0:(L-1))*T; #time vector
   
   #First signal
   #1. 1 Hz with amplitude of 2
