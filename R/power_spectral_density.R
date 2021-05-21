@@ -793,8 +793,8 @@ AutomatedCompositePlotting <- function(list.of.windows,
     }
 
 
-    data.temp <- as.data.frame(cbind(list.of.values.to.plot[[i]][[1]], list.of.values.to.plot[[i]][[2]], list.of.values.to.plot[[i]][[3]]))
-    colnames(data.temp) <- c("xvals", "yvals", "ystddev")
+    data.temp <- as.data.frame(cbind(list.of.values.to.plot[[i]][[1]], list.of.values.to.plot[[i]][[2]], list.of.values.to.plot[[i]][[3]], list.of.values.to.plot[[i]][[2]]-list.of.values.to.plot[[i]][[3]], list.of.values.to.plot[[i]][[2]]+list.of.values.to.plot[[i]][[3]]))
+    colnames(data.temp) <- c("xvals", "yvals", "ystddev", "yvals-ystddev", "yvals+ystddev")
     list.of.dataframes.to.plot[[i]] <- data.temp
 
   }
@@ -803,7 +803,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
   # Create ggplot
   #------------------------------------------------------------------------------
 
-  ggplot.object <- ggplot2::ggplot(list.of.dataframes.to.plot[[1]], ggplot2::aes(x=xvals, y=yvals))
+  ggplot.object <- ggplot2::ggplot(list.of.dataframes.to.plot[[1]], ggplot2::aes_string(x="xvals", y="yvals"))
 
   #Remove white space from all combination labels. This is needed for the legend to work.
   for(i in 1:length(level.combinations.labels)){
@@ -819,7 +819,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
   if(!is.null(combination.index.for.envelope)){
 
     ggplot.object <- ggplot.object +
-                     ggplot2::geom_ribbon(data = list.of.dataframes.to.plot[[combination.index.for.envelope]], ggplot2::aes(ymin=yvals-ystddev, ymax=yvals+ystddev), fill = "grey70")
+                     ggplot2::geom_ribbon(data = list.of.dataframes.to.plot[[combination.index.for.envelope]], ggplot2::aes_string(ymin="yvals-ystddev", ymax="yvals+ystddev"), fill = "grey70")
 
   }
 
@@ -830,9 +830,10 @@ AutomatedCompositePlotting <- function(list.of.windows,
   for(i in 1:length(level.combinations)){
 
     ggplot.object <- ggplot.object +
-                     ggplot2::geom_line(data = list.of.dataframes.to.plot[[i]], ggplot2::aes_(x=quote(xvals), y=quote(yvals), color = level.combinations.labels[[i]]))
+                     ggplot2::geom_line(data = list.of.dataframes.to.plot[[i]], ggplot2::aes_string(x="xvals", y="yvals", color = shQuote(level.combinations.labels[[i]])))
 
 
+    #Can only have one mapping assignment, so cannot use both aes_ and aes_string
 
   }
 
