@@ -1757,8 +1757,8 @@ GenerateExampleData <- function(){
   #Third signal
   #1. 1.25 Hz with amplitude of 2
   S3 <- 2*sin(2*pi*1.25*t);
-  level1.vals <- rep("a", length(S3))
-  level2.vals <- rep("3", length(S3))
+  level1.vals <- rep("3", length(S3))
+  level2.vals <- rep("A", length(S3))
   S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
   colnames(S3.data.frame) <- c("Time", "Signal", "Session", "Category")
   S3.data.frame[,"Signal"] <- as.numeric(S3.data.frame[,"Signal"])

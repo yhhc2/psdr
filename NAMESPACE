@@ -3,6 +3,7 @@
 export(AutomatedCompositePlotting)
 export(CountWindows)
 export(FindHomogeneousWindows)
+export(GenerateExampleData)
 export(GetHomogeneousWindows)
 export(GetSubsetOfWindows)
 export(GetSubsetOfWindowsTwoLevels)
