@@ -1720,3 +1720,79 @@ SingleBinPSDIntegrationOrDominantFreqComparison <- function(list.of.windows,
 #Find the dominant frequency for many curves for a single combo.
 
 #Compare the dominant frequency for different combos.
+
+
+#' Produce example data set for demonstrating package functions
+#'
+#' @return A data frame
+#' 
+#' @export
+#'
+GenerateExampleData <- function(){
+  
+  #Create a vector of time that represent times where data are sampled.
+  Fs = 100; #sampling frequency in Hz
+  T = 1/Fs; #sampling period
+  L = 1000; #length of time vector
+  t = (0:L-1)*T; #time vector
+  
+  #First signal
+  #1. 1 Hz with amplitude of 2
+  S1 <- 2*sin(2*pi*1*t)
+  level1.vals <- rep("1", length(S1))
+  level2.vals <- rep("A", length(S1))
+  S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
+  colnames(S1.data.frame) <- c("Time", "Signal", "Session", "Category")
+  S1.data.frame[,"Signal"] <- as.numeric(S1.data.frame[,"Signal"])
+  
+  #Second signal
+  #1. 1.5 Hz with amplitude of -4
+  S2 <- (-4)*sin(2*pi*1.5*t);
+  level1.vals <- rep("2", length(S2))
+  level2.vals <- rep("A", length(S2))
+  S2.data.frame <- as.data.frame(cbind(t, S2, level1.vals, level2.vals))
+  colnames(S2.data.frame) <- c("Time", "Signal", "Session", "Category")
+  S2.data.frame[,"Signal"] <- as.numeric(S2.data.frame[,"Signal"])
+  
+  #Third signal
+  #1. 1.25 Hz with amplitude of 2
+  S3 <- 2*sin(2*pi*1.25*t);
+  level1.vals <- rep("a", length(S3))
+  level2.vals <- rep("3", length(S3))
+  S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
+  colnames(S3.data.frame) <- c("Time", "Signal", "Session", "Category")
+  S3.data.frame[,"Signal"] <- as.numeric(S3.data.frame[,"Signal"])
+  
+  #Fourth signal
+  #1. 0.1 Hz with amplitude of -2
+  S4 <- -2*sin(2*pi*0.1*t)
+  level1.vals <- rep("4", length(S4))
+  level2.vals <- rep("B", length(S4))
+  S4.data.frame <- as.data.frame(cbind(t, S4, level1.vals, level2.vals))
+  colnames(S4.data.frame) <- c("Time", "Signal", "Session", "Category")
+  S4.data.frame[,"Signal"] <- as.numeric(S4.data.frame[,"Signal"])
+  
+  #Fifth signal
+  #1. 0.2 Hz with amplitude of -2
+  S5 <- -2*sin(2*pi*0.2*t)
+  level1.vals <- rep("5", length(S5))
+  level2.vals <- rep("B", length(S5))
+  S5.data.frame <- as.data.frame(cbind(t, S5, level1.vals, level2.vals))
+  colnames(S5.data.frame) <- c("Time", "Signal", "Session", "Category")
+  S5.data.frame[,"Signal"] <- as.numeric(S5.data.frame[,"Signal"])
+  
+  #Sixth signal
+  #1. 0.3 Hz with amplitude of 4
+  S6 <- 4*sin(2*pi*0.3*t)
+  level1.vals <- rep("6", length(S5))
+  level2.vals <- rep("B", length(S5))
+  S6.data.frame <- as.data.frame(cbind(t, S6, level1.vals, level2.vals))
+  colnames(S6.data.frame) <- c("Time", "Signal", "Session", "Category")
+  S6.data.frame[,"Signal"] <- as.numeric(S6.data.frame[,"Signal"])
+  
+  output <- rbind(S1.data.frame, S2.data.frame, S3.data.frame,
+                  S4.data.frame, S5.data.frame, S6.data.frame)
+  
+  
+  return(output)
+}
