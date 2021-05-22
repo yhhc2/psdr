@@ -1742,7 +1742,7 @@ GenerateExampleData <- function(){
   level1.vals <- rep("1", length(S1))
   level2.vals <- rep("A", length(S1))
   S1.data.frame <- as.data.frame(cbind(t, S1, level1.vals, level2.vals))
-  colnames(S1.data.frame) <- c("Time", "Signal", "Session", "Category")
+  colnames(S1.data.frame) <- c("Time in seconds", "Signal", "Session", "Category")
   S1.data.frame[,"Signal"] <- as.numeric(S1.data.frame[,"Signal"])
   
   #Second signal
@@ -1751,7 +1751,7 @@ GenerateExampleData <- function(){
   level1.vals <- rep("2", length(S2))
   level2.vals <- rep("A", length(S2))
   S2.data.frame <- as.data.frame(cbind(t, S2, level1.vals, level2.vals))
-  colnames(S2.data.frame) <- c("Time", "Signal", "Session", "Category")
+  colnames(S2.data.frame) <- c("Time in seconds", "Signal", "Session", "Category")
   S2.data.frame[,"Signal"] <- as.numeric(S2.data.frame[,"Signal"])
   
   #Third signal
@@ -1760,7 +1760,7 @@ GenerateExampleData <- function(){
   level1.vals <- rep("3", length(S3))
   level2.vals <- rep("A", length(S3))
   S3.data.frame <- as.data.frame(cbind(t, S3, level1.vals, level2.vals))
-  colnames(S3.data.frame) <- c("Time", "Signal", "Session", "Category")
+  colnames(S3.data.frame) <- c("Time in seconds", "Signal", "Session", "Category")
   S3.data.frame[,"Signal"] <- as.numeric(S3.data.frame[,"Signal"])
   
   #Fourth signal
@@ -1769,7 +1769,7 @@ GenerateExampleData <- function(){
   level1.vals <- rep("4", length(S4))
   level2.vals <- rep("B", length(S4))
   S4.data.frame <- as.data.frame(cbind(t, S4, level1.vals, level2.vals))
-  colnames(S4.data.frame) <- c("Time", "Signal", "Session", "Category")
+  colnames(S4.data.frame) <- c("Time in seconds", "Signal", "Session", "Category")
   S4.data.frame[,"Signal"] <- as.numeric(S4.data.frame[,"Signal"])
   
   #Fifth signal
@@ -1778,7 +1778,7 @@ GenerateExampleData <- function(){
   level1.vals <- rep("5", length(S5))
   level2.vals <- rep("B", length(S5))
   S5.data.frame <- as.data.frame(cbind(t, S5, level1.vals, level2.vals))
-  colnames(S5.data.frame) <- c("Time", "Signal", "Session", "Category")
+  colnames(S5.data.frame) <- c("Time in seconds", "Signal", "Session", "Category")
   S5.data.frame[,"Signal"] <- as.numeric(S5.data.frame[,"Signal"])
   
   #Sixth signal
