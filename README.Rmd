@@ -1,5 +1,6 @@
 ---
 output: github_document
+always_allow_html: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -24,6 +25,11 @@ devtools::install_github("yhhc2/psdr")
 ```{r}
 # Load package
 library("psdr")
+
+#For displaying data table
+library(kableExtra)
+library(magrittr)
+
 ```
 
 ## Usage
@@ -59,7 +65,12 @@ dataframes, with each dataframe as a separate time series.
 
 example_data <- GenerateExampleData()
 
-print(example_data)
+#Only displays on html
+rmarkdown::paged_table(example_data)
+
+#kable(example_data, booktabs = TRUE, longtable = TRUE)
+
+#print(example_data, max.tbl.height = 100)
 
 example_data_windows <- GetHomogeneousWindows(example_data, "Session", c("Session"))
 
