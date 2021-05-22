@@ -1787,7 +1787,7 @@ GenerateExampleData <- function(){
   level1.vals <- rep("6", length(S5))
   level2.vals <- rep("B", length(S5))
   S6.data.frame <- as.data.frame(cbind(t, S6, level1.vals, level2.vals))
-  colnames(S6.data.frame) <- c("Time", "Signal", "Session", "Category")
+  colnames(S6.data.frame) <- c("Time in seconds", "Signal", "Session", "Category")
   S6.data.frame[,"Signal"] <- as.numeric(S6.data.frame[,"Signal"])
   
   output <- rbind(S1.data.frame, S2.data.frame, S3.data.frame,

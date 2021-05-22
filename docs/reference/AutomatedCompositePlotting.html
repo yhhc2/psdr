@@ -47,8 +47,6 @@ on the same plot." />
 
 
 
-
-
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -60,18 +58,9 @@ on the same plot." />
 
 
 
-<!-- dependencies from examples -->
-
-
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -92,6 +81,12 @@ on the same plot." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -102,7 +97,7 @@ on the same plot." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples_with_output.html">examples_with_output</a>
+      <a href="../articles/Examples.html">Examples</a>
     </li>
   </ul>
 </li>
@@ -224,9 +219,12 @@ on the same plot.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A List with two objects:</p><ol>
+    <p>A List with three objects:</p><ol>
 <li><p>A List of dataframes containing values for each line on the plot. The order of the dataframes correspond to the order of the combinations in level.combinations.</p></li>
 <li><p>A ggplot object that can be plotted right away.</p></li>
+<li><p>If plot selected is a PSD, then a List is outputted from
+SingleBinPSDIntegrationOrDominantFreqComparison() to compare
+dominant frequencies between combinations.</p></li>
 </ol>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -374,7 +372,12 @@ or error envelopes to see the spread of the windows used to make the composite.<
 #&gt; [1] 2
 #&gt; [1] 3
 #&gt; [1] 1
-#&gt; [1] 2</div><div class='input'>
+#&gt; [1] 2
+#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+#&gt; [1] 1
+#&gt; [1] 2</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot compute exact p-value with ties</span></div><div class='input'>
 <span class='va'>ggplot.obj.PSD</span> <span class='op'>&lt;-</span> <span class='va'>PSD.results</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
 
 <span class='co'>#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be</span>
@@ -405,7 +408,12 @@ or error envelopes to see the spread of the windows used to make the composite.<
 #&gt; [1] 2
 #&gt; [1] 3
 #&gt; [1] 1
-#&gt; [1] 2</div><div class='input'>
+#&gt; [1] 2
+#&gt; [1] 1
+#&gt; [1] 2
+#&gt; [1] 3
+#&gt; [1] 1
+#&gt; [1] 2</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot compute exact p-value with ties</span></div><div class='input'>
 <span class='va'>ggplot.obj.PSD</span> <span class='op'>&lt;-</span> <span class='va'>PSD.results</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
 
 <span class='co'>#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be</span>
@@ -458,11 +466,11 @@ or error envelopes to see the spread of the windows used to make the composite.<
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Yong-Han Hank Cheng.</p></p>
+  <p>Developed by Yong-Han Hank Cheng.</p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -470,8 +478,6 @@ or error envelopes to see the spread of the windows used to make the composite.<
 
   
 
-
-  
 
   </body>
 </html>

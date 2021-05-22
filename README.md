@@ -20,54 +20,31 @@ devtools::install_github("yhhc2/psdr")
 ``` r
 # Load package
 library("psdr")
-
-#For displaying data table
-library(kableExtra)
 ```
-
-    ## Warning: package 'kableExtra' was built under R version 4.0.5
-
-``` r
-library(magrittr)
-```
-
-    ## Warning: package 'magrittr' was built under R version 4.0.5
 
 ## Usage
 
 Visit the package’s website for function reference:
 <https://yhhc2.github.io/psdr/>
 
-## Installation
-
-``` r
-# Install the package from GitHub
-devtools::install_github("yhhc2/psdr")
-```
-
-``` r
-# Load package
-library("psdr")
-```
-
 ## Example
 
-This is an example of how this package can be used to take a dataframe
+Below is an example of how this package can be used to take a dataframe
 with multiple separate time series belonging to 2 categories (A and B),
 separate out the time series, and use the time series to make PSDs and
 compare the dominant frequencies between the two categories of signals.
 
 ### Load in example dataset
 
-In this example dataset, there are 3 time series for each category (6
-signals total). Here is how the package can be used to take a dataframe
-and split it into multiple dataframes, with each dataframe as a separate
-time series.
+In this example dataset, there are 3 time series for each category. 3
+for category A and 3 for category B. Each time series comes from one
+session, so there are 6 sessions in total. For each signal, the sampling
+rate is 100 Hz, which means a data point is obtained every 0.01 seconds.
 
 ``` r
 example_data <- GenerateExampleData()
 
-
+#Only displays on html
 rmarkdown::paged_table(example_data)
 ```
 
@@ -80,10 +57,22 @@ rmarkdown::paged_table(example_data)
 </div>
 
 ``` r
-#kable(example_data, booktabs = TRUE, longtable = TRUE)
+head(example_data)
+```
 
-#print(example_data, max.tbl.height = 100)
+    ##   Time    Signal Session Category
+    ## 1    0 0.0000000       1        A
+    ## 2 0.01 0.1255810       1        A
+    ## 3 0.02 0.2506665       1        A
+    ## 4 0.03 0.3747626       1        A
+    ## 5 0.04 0.4973798       1        A
+    ## 6 0.05 0.6180340       1        A
 
+Here is how the package can be used to take a dataframe containing data
+from all 6 sessions and split it into multiple dataframes, with each
+dataframe containing data from a single session.
+
+``` r
 example_data_windows <- GetHomogeneousWindows(example_data, "Session", c("Session"))
 ```
 
@@ -108,7 +97,7 @@ plot_result <- ggplot2::ggplot(subset(example_data, example_data$Category=="A"),
 plot_result
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Plot signals for category B
 
@@ -118,7 +107,7 @@ plot_result <- ggplot2::ggplot(subset(example_data, example_data$Category=="B"),
 plot_result
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 This remains true when the time series for each category are averaged.
 
@@ -137,27 +126,18 @@ timeseries.results <- AutomatedCompositePlotting(list.of.windows = example_data_
                            level.combinations = list(FirstComboToUse, SecondComboToUse),
                            level.combinations.labels = c("A", "B"),
                            plot.title = "Comparing category A and B",
-                           plot.xlab = "Time",
-                           plot.ylab = "Original units",
+                           plot.xlab = "Time in 0.01 second increments",
+                           plot.ylab = "Original units of signal",
                            combination.index.for.envelope = NULL,
                            TimeSeries.PSD.LogPSD = "TimeSeries",
                            sampling_frequency = NULL)
-```
 
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
-
-``` r
 ggplot.obj.timeseries <- timeseries.results[[2]]
 
 ggplot.obj.timeseries
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ### Visualize the frequency contribution of signals
 
@@ -166,7 +146,7 @@ oscillations are different between the time series. To determine which
 frequencies are contributing to each time series, we can plot the PSDs
 for each time series.
 
-PSD for signals in session A
+PSD for signals in category A
 
 ``` r
 data1 <- example_data_windows[[1]]
@@ -191,13 +171,9 @@ plot_results <- ggplot2::ggplot(data=data_to_plot, ggplot2::aes(x=Frequency, y=P
 plot_results
 ```
 
-    ## Warning: Removed 1410 rows containing missing values (geom_point).
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-    ## Warning: Removed 470 row(s) containing missing values (geom_path).
-
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
-
-PSD for signal in session B
+PSD for signal in category B
 
 ``` r
 data1 <- example_data_windows[[4]]
@@ -222,11 +198,7 @@ plot_results <- ggplot2::ggplot(data=data_to_plot, ggplot2::aes(x=Frequency, y=P
 plot_results
 ```
 
-    ## Warning: Removed 1410 rows containing missing values (geom_point).
-
-    ## Warning: Removed 470 row(s) containing missing values (geom_path).
-
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 To get a single composite PSD for each category, we can take the
 average.
@@ -251,28 +223,100 @@ PSD.results <- AutomatedCompositePlotting(list.of.windows = example_data_windows
                            combination.index.for.envelope = NULL,
                            TimeSeries.PSD.LogPSD = "PSD",
                            sampling_frequency = 100)
+
+ggplot.obj.PSD <- PSD.results[[2]]
+
+ggplot.obj.PSD
 ```
 
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+If we want to see how the average compares to the individual signals
+that make up the average, then we can include an error envelope.
+
+Here is the error envelope added to the category A composite curve.
 
 ``` r
+PSD.results <- AutomatedCompositePlotting(list.of.windows = example_data_windows,
+                           name.of.col.containing.time.series = "Signal",
+                           x_start = 0,
+                           x_end = 5,
+                           x_increment = 0.01,
+                           level1.column.name = "Session",
+                           level2.column.name = "Category",
+                           level.combinations = list(FirstComboToUse, SecondComboToUse),
+                           level.combinations.labels = c("A", "B"),
+                           plot.title = "Comparing category A and B",
+                           plot.xlab = "Hz",
+                           plot.ylab = "(Original units)^2/Hz",
+                           combination.index.for.envelope = 1,
+                           TimeSeries.PSD.LogPSD = "PSD",
+                           sampling_frequency = 100
+                           )
+
 ggplot.obj.PSD <- PSD.results[[2]]
 
 ggplot.obj.PSD
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+Here is the error envelope added to the category B composite curve.
+
+``` r
+PSD.results <- AutomatedCompositePlotting(list.of.windows = example_data_windows,
+                           name.of.col.containing.time.series = "Signal",
+                           x_start = 0,
+                           x_end = 5,
+                           x_increment = 0.01,
+                           level1.column.name = "Session",
+                           level2.column.name = "Category",
+                           level.combinations = list(FirstComboToUse, SecondComboToUse),
+                           level.combinations.labels = c("A", "B"),
+                           plot.title = "Comparing category A and B",
+                           plot.xlab = "Hz",
+                           plot.ylab = "(Original units)^2/Hz",
+                           combination.index.for.envelope = 2,
+                           TimeSeries.PSD.LogPSD = "PSD",
+                           sampling_frequency = 100
+                           )
+
+ggplot.obj.PSD <- PSD.results[[2]]
+
+ggplot.obj.PSD
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+When the signals are very noisy, it is often times helpful to log
+transform the PSD plots. For the example data, this is not necessary
+because the signals are very clear. Since amplitudes are small, log
+transform are also not helpful here.
+
+``` r
+LogPSD.results <- AutomatedCompositePlotting(list.of.windows = example_data_windows,
+                           name.of.col.containing.time.series = "Signal",
+                           x_start = 0,
+                           x_end = 5,
+                           x_increment = 0.01,
+                           level1.column.name = "Session",
+                           level2.column.name = "Category",
+                           level.combinations = list(FirstComboToUse, SecondComboToUse),
+                           level.combinations.labels = c("A", "B"),
+                           plot.title = "Comparing category A and B",
+                           plot.xlab = "Hz",
+                           plot.ylab = "Log((Original units)^2/Hz)",
+                           combination.index.for.envelope = NULL,
+                           TimeSeries.PSD.LogPSD = "LogPSD",
+                           sampling_frequency = 100
+                           )
+
+ggplot.obj.LogPSD <- LogPSD.results[[2]]
+
+ggplot.obj.LogPSD
+```
+
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ### Comparing frequency contribution of each category
 
@@ -291,7 +335,7 @@ wilcoxon_rank_sum_test_results <- comparison_results[[3]]
 ```
 
 Since multiple signals are present in each category, we want to see if
-the dominant frequencies in signals of category A are signficantly
+the dominant frequencies in signals of category A are significantly
 different from the dominant frequencies in signals of category B
 
 ``` r
