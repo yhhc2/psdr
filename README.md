@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# psdr <a href='https://yhhc2.github.io/psdr/'><img src='man/figures/logo.png' align="right" height="139" /></a>
+
 ## Overview
 
 Author: Yong-Han Hank Cheng
