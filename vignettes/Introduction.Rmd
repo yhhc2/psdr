@@ -53,14 +53,18 @@ means a data point is obtained every 0.01 seconds.
 
 example_data <- GenerateExampleData()
 
-head(example_data)
+example_data_displayed <- example_data
+
+colnames(example_data_displayed) <- c("Time in seconds", "Signal", "Session", "Category")
+
+head(example_data_displayed)
 
 ```
 
 ```{r, warning = FALSE}
 
 #Only works in html, not md. 
-rmarkdown::paged_table(example_data)
+rmarkdown::paged_table(example_data_displayed)
 
 ```
 
@@ -85,7 +89,7 @@ signals in category A are higher.
 Plot signals for category A
 ```{r, warning = FALSE}
 
-plot_result <- ggplot2::ggplot(subset(example_data, example_data$Category=="A"), ggplot2::aes_string(x = "Time in seconds", y = "Signal", colour = "Session", group = 1)) + ggplot2::geom_line()
+plot_result <- ggplot2::ggplot(subset(example_data, example_data$Category=="A"), ggplot2::aes(x = Time, y = Signal, colour = Session, group = 1)) + ggplot2::geom_line()
 
 plot_result
 
