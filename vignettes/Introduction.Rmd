@@ -164,7 +164,7 @@ Session <- c(rep(1, length(psd_results1[[1]])), rep(2, length(psd_results1[[1]])
 
 data_to_plot <- data.frame(Frequency, PSD, Session)
 
-plot_results <- ggplot2::ggplot(data=data_to_plot, ggplot2::aes(x=Frequency, y=PSD, color = factor(Session), group=1)) +
+plot_results <- ggplot2::ggplot(data=data_to_plot, ggplot2::aes(x=Frequency, y=PSD, color = as.factor(Session), group=1)) +
   ggplot2::geom_point() + ggplot2::geom_path() + ggplot2::xlim(0,3)
 
 plot_results
@@ -187,12 +187,12 @@ psd_results3 <- MakePowerSpectralDensity(100, data3$Signal)
 
 Frequency <- c(psd_results1[[1]], psd_results2[[1]], psd_results3[[1]])
 PSD <- c(psd_results1[[2]], psd_results2[[2]], psd_results3[[2]])
-Session <- c(rep(1, length(psd_results1[[1]])), rep(2, length(psd_results1[[1]])), 
-             rep(3, length(psd_results1[[1]])))
+Session <- c(rep(4, length(psd_results1[[1]])), rep(5, length(psd_results1[[1]])), 
+             rep(6, length(psd_results1[[1]])))
 
 data_to_plot <- data.frame(Frequency, PSD, Session)
 
-plot_results <- ggplot2::ggplot(data=data_to_plot, ggplot2::aes(x=Frequency, y=PSD, color = factor(Session), group=1)) +
+plot_results <- ggplot2::ggplot(data=data_to_plot, ggplot2::aes(x=Frequency, y=PSD, color = as.factor(Session), group=1)) +
   ggplot2::geom_point() + ggplot2::geom_path() + ggplot2::xlim(0,3)
 
 plot_results
