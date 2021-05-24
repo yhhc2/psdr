@@ -54,7 +54,7 @@ To see detailed descriptions for each function, please visit the package's websi
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #First signal
 #1. 1 Hz with amplitude of 2
@@ -367,7 +367,7 @@ result
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #First signal
 #1. 1 Hz with amplitude of 2
@@ -465,7 +465,7 @@ second.curve.max
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #First signal
 #1. 10 Hz with amplitude of 4
@@ -515,7 +515,7 @@ plot(frequencies, averaged.PSD, type = "l")
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #First signal
 #1. 1 Hz with amplitude of 4
@@ -570,7 +570,7 @@ plot(x.values, y.values, type = "l")
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #Form a signal (time series) that contains two frequencies:
 #1. 10 Hz with amplitude of 1
@@ -596,7 +596,7 @@ plot(frequencies, amplitudes, type = "l")
 Fs = 100; #sampling frequency in Hz (sampling/second)
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector in seconds
+t = (0:(L-1))*T; #time vector in seconds
 
 #Form a signal (time series) that contains two frequencies:
 #1. 10 Hz with amplitude of 1
@@ -625,7 +625,7 @@ plot(frequencies, PSD, type = "l")
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #First signal
 #1. 1 Hz with amplitude of 2
@@ -710,7 +710,7 @@ results
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #First signal
 #1. 1 Hz with amplitude of 2
@@ -735,7 +735,7 @@ results
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #Form a signal (time series) that contains two frequencies:
 #1. 10 Hz with amplitude of 1
@@ -778,7 +778,7 @@ for(i in 1:length(integration.results)){
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #First signal
 #1. 1 Hz with amplitude of 2
@@ -864,7 +864,7 @@ results
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #First signal
 #1. 1 Hz with amplitude of 2

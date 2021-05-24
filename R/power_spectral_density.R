@@ -22,7 +22,7 @@
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #Form a signal (time series) that contains two frequencies:
 #' #1. 10 Hz with amplitude of 1
@@ -98,7 +98,7 @@ MakeOneSidedAmplitudeSpectrum <- function(sampling_frequency, data_vector){
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #Form a signal (time series) that contains two frequencies:
 #' #1. 10 Hz with amplitude of 1
@@ -176,7 +176,7 @@ MakePowerSpectralDensity <- function(sampling_frequency, data_vector){
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #First signal
 #' #1. 10 Hz with amplitude of 4
@@ -322,7 +322,7 @@ MakeCompositePSDForAllWindows <- function(list.of.windows,
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #First signal
 #' #1. 1 Hz with amplitude of 4
@@ -525,7 +525,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #First signal
 #' #1. 1 Hz with amplitude of 2
@@ -927,7 +927,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #Form a signal (time series) that contains two frequencies:
 #' #1. 10 Hz with amplitude of 1
@@ -1027,7 +1027,7 @@ PSDIntegrationPerFreqBin <- function(sampling_frequency, data_vector, frequency_
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #First signal
 #' #1. 1 Hz with amplitude of 2
@@ -1169,7 +1169,7 @@ IdentifyMaxOnXY <- function(x_vector, y_vector, x_start = 0,
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #First signal
 #' #1. 1 Hz with amplitude of 2
@@ -1224,7 +1224,7 @@ PSDIdentifyDominantFrequency <- function(sampling_frequency, data_vector, x_star
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #First signal
 #' #1. 1 Hz with amplitude of 2
@@ -1323,7 +1323,7 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #First signal
 #' #1. 1 Hz with amplitude of 2
@@ -1451,7 +1451,7 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 #' Fs = 100; #sampling frequency in Hz
 #' T = 1/Fs; #sampling period
 #' L = 1000; #length of time vector
-#' t = (0:L-1)*T; #time vector
+#' t = (0:(L-1))*T; #time vector
 #'
 #' #First signal
 #' #1. 1 Hz with amplitude of 2
