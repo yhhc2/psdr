@@ -16,6 +16,14 @@ plots given time series data. FFT is used to take a time series data, analyze
 the oscillations, and then output the frequencies of these oscillations in the
 time series in the form of a PSD plot.
 
+Thus given a time series, the dominant frequencies in the time series can be 
+identified. Additional functions in this package allow the dominant frequencies 
+of one group of time series to be compared with the dominant frequencies of 
+another group of time series. 
+
+To see example usage with the main functions of this package, please visit
+this site: <https://yhhc2.github.io/psdr/articles/Introduction.html>
+
 ## Installation
 
 ```{r, eval = FALSE, warning = FALSE}
@@ -30,6 +38,8 @@ library("psdr")
 ```
 
 ## Usage
+
+Source code: <https://github.com/yhhc2/psdr>
 
 Visit the package's website: <https://yhhc2.github.io/psdr/>
 
