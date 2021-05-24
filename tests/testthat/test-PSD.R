@@ -51,8 +51,8 @@ test_that("MakePowerSpectralDensity works", {
   S <- 1*sin(2*pi*10*t) + 2*sin(2*pi*25*t);
   
   one_side_results <- MakeOneSidedAmplitudeSpectrum(Fs, S)
-  one_side_frequencies <- actual_results[[1]]
-  one_side_amplitudes <- actual_results[[2]]
+  one_side_frequencies <- one_side_results[[1]]
+  one_side_amplitudes <- one_side_results[[2]]
   
   #Use math operations to see if one sided amplitude
   #can be converted to PSD
