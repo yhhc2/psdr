@@ -30,7 +30,7 @@ Code was referenced from here: https://www.mathworks.com/help/matlab/ref/fft.htm
 Fs = 100; #sampling frequency in Hz
 T = 1/Fs; #sampling period
 L = 1000; #length of time vector
-t = (0:L-1)*T; #time vector
+t = (0:(L-1))*T; #time vector
 
 #Form a signal (time series) that contains two frequencies:
 #1. 10 Hz with amplitude of 1
