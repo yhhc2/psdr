@@ -1,5 +1,7 @@
 library(psdr)
 
+#invisible(capture.output()) is used throughout to prevent the increment
+#ticker from showing up in the console. 
 
 test_that("MakeOneSidedAmplitudeSpectrum works", {
   
@@ -101,7 +103,7 @@ test_that("MakeCompositePSDForAllWindows works", {
   #Add all signals to a List
   list.of.windows <- list(S1.data.frame, S2.data.frame, S3.data.frame)
   
-  averaged_results <- MakeCompositePSDForAllWindows(list.of.windows, "Signal", Fs, 0, 50, 0.1)
+  invisible(capture.output(averaged_results <- MakeCompositePSDForAllWindows(list.of.windows, "Signal", Fs, 0, 50, 0.1)))
   
   
   PSD1 <- MakePowerSpectralDensity(Fs, S1)[[2]]
@@ -151,7 +153,7 @@ test_that("MakeCompositeXYPlotForAllWindows works", {
   #Add all signals to a List
   list.of.windows <- list(S1.data.frame, S2.data.frame, S3.data.frame)
   
-  averaged_results <- MakeCompositeXYPlotForAllWindows(list.of.windows, "Signal", 0, 999, 1)
+  invisible(capture.output(averaged_results <- MakeCompositeXYPlotForAllWindows(list.of.windows, "Signal", 0, 999, 1)))
   
   combined_timeseries <- rbind(S1, S2, S3)
   
@@ -231,7 +233,8 @@ test_that("AutomatedCompositePlotting timeseries works", {
   # Test for no envelope
   #-------------------------------------------
   
-  timeseries.results <- AutomatedCompositePlotting(list.of.windows = windows,
+  invisible(capture.output(
+    timeseries.results <- AutomatedCompositePlotting(list.of.windows = windows,
                                                    name.of.col.containing.time.series = "Signal",
                                                    x_start = 0,
                                                    x_end = 999,
@@ -246,6 +249,7 @@ test_that("AutomatedCompositePlotting timeseries works", {
                                                    combination.index.for.envelope = NULL,
                                                    TimeSeries.PSD.LogPSD = "TimeSeries",
                                                    sampling_frequency = NULL)
+  ))
   
   #Are there two objects total.
   expect_equal(length(timeseries.results), 2)
@@ -264,7 +268,8 @@ test_that("AutomatedCompositePlotting timeseries works", {
   # Test for envelope
   #-------------------------------------------
   
-  timeseries.results.envelope <- AutomatedCompositePlotting(list.of.windows = windows,
+  invisible(capture.output(
+    timeseries.results.envelope <- AutomatedCompositePlotting(list.of.windows = windows,
                                                    name.of.col.containing.time.series = "Signal",
                                                    x_start = 0,
                                                    x_end = 999,
@@ -279,6 +284,7 @@ test_that("AutomatedCompositePlotting timeseries works", {
                                                    combination.index.for.envelope = 1,
                                                    TimeSeries.PSD.LogPSD = "TimeSeries",
                                                    sampling_frequency = NULL)
+  ))
   
   #Are there two objects total.
   expect_equal(length(timeseries.results.envelope), 2)
@@ -357,6 +363,7 @@ test_that("AutomatedCompositePlotting PSD works", {
   
   #Expect warning about tied ranks from the statistical testing
   expect_warning(
+    invisible(capture.output(
     PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
                                                        name.of.col.containing.time.series = "Signal",
                                                        x_start = 0,
@@ -372,6 +379,7 @@ test_that("AutomatedCompositePlotting PSD works", {
                                                        combination.index.for.envelope = NULL,
                                                        TimeSeries.PSD.LogPSD = "PSD",
                                                        sampling_frequency = 100)
+    ))
   )
   
   #Are there three objects total.
@@ -408,6 +416,7 @@ test_that("AutomatedCompositePlotting PSD works", {
   
   #Expect warning about tied ranks from the statistical testing
   expect_warning(
+    invisible(capture.output(
   PSD.results.envelope <- AutomatedCompositePlotting(list.of.windows = windows,
                                             name.of.col.containing.time.series = "Signal",
                                             x_start = 0,
@@ -423,6 +432,7 @@ test_that("AutomatedCompositePlotting PSD works", {
                                             combination.index.for.envelope = 2,
                                             TimeSeries.PSD.LogPSD = "PSD",
                                             sampling_frequency = 100)
+    ))
   )
   
   #Are there three objects total.
@@ -515,6 +525,7 @@ test_that("AutomatedCompositePlotting LogPSD works", {
   # Test for no envelope
   #-------------------------------------------
 
+  invisible(capture.output(
     LogPSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
                                               name.of.col.containing.time.series = "Signal",
                                               x_start = 0,
@@ -530,6 +541,7 @@ test_that("AutomatedCompositePlotting LogPSD works", {
                                               combination.index.for.envelope = NULL,
                                               TimeSeries.PSD.LogPSD = "LogPSD",
                                               sampling_frequency = 100)
+  ))
   
   #Are there two objects total.
   expect_equal(length(LogPSD.results), 2)
@@ -548,7 +560,7 @@ test_that("AutomatedCompositePlotting LogPSD works", {
   #-------------------------------------------
   # Test for envelope
   #-------------------------------------------
-  
+  invisible(capture.output(
   LogPSD.results.envelope <- AutomatedCompositePlotting(list.of.windows = windows,
                                                name.of.col.containing.time.series = "Signal",
                                                x_start = 0,
@@ -564,6 +576,7 @@ test_that("AutomatedCompositePlotting LogPSD works", {
                                                combination.index.for.envelope = 2,
                                                TimeSeries.PSD.LogPSD = "LogPSD",
                                                sampling_frequency = 100)
+  ))
   
   #Are there two objects total.
   expect_equal(length(LogPSD.results.envelope), 2)
@@ -724,6 +737,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison integration compariso
   
   #expect warning for tied ranks.
   expect_warning(
+    invisible(capture.output(
+      
     integration.compare.res.no.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
     list.of.windows = windows,
     name.of.col.containing.time.series = "Signal",
@@ -734,6 +749,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison integration compariso
     sampling_frequency = 100,
     single.bin.boundary = c(1.5, 2.5),
     integration.or.dominant.freq = "integration")
+    
+    ))
   )
   
   #Does p-value indicate non-significant
@@ -750,6 +767,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison integration compariso
   
   #expect warning for tied ranks.
   expect_warning(
+    invisible(capture.output(
+      
   integration.compare.res.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
     list.of.windows = windows,
     name.of.col.containing.time.series = "Signal",
@@ -760,6 +779,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison integration compariso
     sampling_frequency = 100,
     single.bin.boundary = c(1.5, 2.5),
     integration.or.dominant.freq = "integration")
+  
+    ))
   )
 
   #Does p-value indicate non signficant
@@ -849,6 +870,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison dominant frequency co
   
   #expect warning for tied ranks.
   expect_warning(
+    invisible(capture.output(
+      
     integration.compare.res.no.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
       list.of.windows = windows,
       name.of.col.containing.time.series = "Signal",
@@ -862,6 +885,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison dominant frequency co
       x_end = 50,
       x_increment = 0.1,
       integration.or.dominant.freq = "dominant.freq")
+    
+    ))
   )
   
   #Does p-value indicate non-significant (NA since all values are the same)
@@ -878,6 +903,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison dominant frequency co
   
   #expect warning for tied ranks.
   expect_warning(
+    invisible(capture.output(
+    
     integration.compare.res.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
       list.of.windows = windows,
       name.of.col.containing.time.series = "Signal",
@@ -891,6 +918,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison dominant frequency co
       x_end = 50,
       x_increment = 0.1,
       integration.or.dominant.freq = "dominat.freq")
+    
+    ))
   )
   
   #Does p-value indicate non signficant

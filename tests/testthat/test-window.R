@@ -25,7 +25,7 @@ test_that("GetHomogeneousWindows works", {
   
   multi.window.data <- data.frame(window.name.column, col.two, col.three)
   
-  result <- GetHomogeneousWindows(multi.window.data, "window.name.column", c("col.two", "col.three"))
+  invisible(capture.output(result <- GetHomogeneousWindows(multi.window.data, "window.name.column", c("col.two", "col.three"))))
   
   expect_equal(length(result), 2)
   
@@ -41,8 +41,8 @@ test_that("GetSubsetOfWindows works", {
   
   multi.window.data <- data.frame(window.name.column, col.two, col.three)
   
-  list.of.homogeneous.windows <- GetHomogeneousWindows(multi.window.data,
-                                                       "window.name.column", c("col.two", "col.three"))
+  invisible(capture.output(list.of.homogeneous.windows <- GetHomogeneousWindows(multi.window.data,
+                                                       "window.name.column", c("col.two", "col.three"))))
   
   subset.list.of.homogeneous.windows <- GetSubsetOfWindows(list.of.homogeneous.windows,
                                                            "col.three", "2")
@@ -63,8 +63,8 @@ test_that("CountWindows works", {
   
   multi.window.data <- data.frame(window.name.column, col.two, col.three)
   
-  list.of.homogeneous.windows <- GetHomogeneousWindows(multi.window.data,
-                                                       "window.name.column", c("col.two", "col.three"))
+  invisible(capture.output(list.of.homogeneous.windows <- GetHomogeneousWindows(multi.window.data,
+                                                       "window.name.column", c("col.two", "col.three"))))
   
   actual_matrix <- CountWindows(list.of.homogeneous.windows, "col.two", "col.three",
                          c("a", "b"), c("1", "2", "3"))
@@ -87,8 +87,8 @@ test_that("GetSubsetOfWindowsTwoLevels works", {
   
   multi.window.data <- data.frame(window.name.column, col.two, col.three)
   
-  list.of.homogeneous.windows <- GetHomogeneousWindows(multi.window.data,
-                                                       "window.name.column", c("col.two", "col.three"))
+  invisible(capture.output(list.of.homogeneous.windows <- GetHomogeneousWindows(multi.window.data,
+                                                       "window.name.column", c("col.two", "col.three"))))
   
   result <- GetSubsetOfWindowsTwoLevels(list.of.homogeneous.windows, "col.two", "col.three",
                                         c("a"), c("1", "2"))
