@@ -18,19 +18,16 @@ time series in the form of a PSD plot.
 
 ## Installation
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 # Install the package from GitHub
 devtools::install_github("yhhc2/psdr")
 ```
 
-```{r}
+```{r, warning=FALSE}
 # Load package
 library("psdr")
 ```
 
-## Usage
-
-Visit the package's website for function reference: <https://yhhc2.github.io/psdr/>
 
 ## Examples
 
