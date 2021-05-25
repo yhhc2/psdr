@@ -2,7 +2,7 @@
 
 #' Create a one sided amplitude spectrum using time series data
 #'
-#' Code was referenced from here: https://www.mathworks.com/help/matlab/ref/fft.html
+#' An explanation for some of the math can be found here: https://www.mathworks.com/help/matlab/ref/fft.html
 #'
 #' @param sampling_frequency Numeric value specifying sampling frequency in hertz. If data is sampled once every second, then sampling frequency is 1 Hz. If data is sampled once every 2 seconds, then sampling frequency is 0.5 Hz.
 #' @param data_vector Vector of numeric values. Time series vector of data.
@@ -73,7 +73,7 @@ MakeOneSidedAmplitudeSpectrum <- function(sampling_frequency, data_vector){
 #' If time series is a vector of accelerometer data, then the outputted y-axis will
 #' have units of (acceleration^2)/Hz.
 #'
-#' References
+#' Explanations of some of the math:
 #' https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html
 #' https://blog.endaq.com/why-the-power-spectral-density-psd-is-the-gold-standard-of-vibration-analysis
 #' https://endaq.com/pages/power-spectral-density

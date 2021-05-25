@@ -281,7 +281,7 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='va'>Fs</span> <span class='op'>=</span> <span class='fl'>100</span>; <span class='co'>#sampling frequency in Hz</span>
 <span class='cn'>T</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='va'>Fs</span>; <span class='co'>#sampling period</span>
 <span class='va'>L</span> <span class='op'>=</span> <span class='fl'>1000</span>; <span class='co'>#length of time vector</span>
-<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
+<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='op'>(</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
 
 <span class='co'>#First signal</span>
 <span class='co'>#1. 1 Hz with amplitude of 2</span>
@@ -397,7 +397,7 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='co'>#be present for 2 Hz signal.</span>
 <span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>ggplot.obj.PSD</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 5 row(s) containing missing values (geom_path).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 5 row(s) containing missing values (geom_path).</span></div><div class='input'>
+
 <span class='co'>#PSD Zoomed in---------------------------------------------------------------</span>
 
 <span class='va'>PSD.results</span> <span class='op'>&lt;-</span> <span class='fu'>AutomatedCompositePlotting</span><span class='op'>(</span>list.of.windows <span class='op'>=</span> <span class='va'>windows</span>,
@@ -464,7 +464,7 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='co'>#be present for 2 Hz signal.</span>
 <span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>ggplot.obj.LogPSD</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 5 row(s) containing missing values (geom_path).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 5 row(s) containing missing values (geom_path).</span></div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

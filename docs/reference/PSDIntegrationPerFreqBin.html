@@ -164,7 +164,7 @@
 <span class='va'>Fs</span> <span class='op'>=</span> <span class='fl'>100</span>; <span class='co'>#sampling frequency in Hz</span>
 <span class='cn'>T</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='va'>Fs</span>; <span class='co'>#sampling period</span>
 <span class='va'>L</span> <span class='op'>=</span> <span class='fl'>1000</span>; <span class='co'>#length of time vector</span>
-<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
+<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='op'>(</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
 
 <span class='co'>#Form a signal (time series) that contains two frequencies:</span>
 <span class='co'>#1. 10 Hz with amplitude of 1</span>
@@ -197,10 +197,10 @@
    <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>message</span><span class='op'>)</span>
 
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; [1] "Area in bin  9 - 11  is  0.000501171241533908"
-#&gt; [1] "Area in bin  24 - 26  is  0.00197935842439243"
-#&gt; [1] "Area in bin  9 - 26  is  0.00248759865247614"
-#&gt; [1] "Area in bin  30 - 40  is  8.00563378584211e-07"</div><div class='input'>
+</div><div class='output co'>#&gt; [1] "Area in bin  9 - 11  is  0.00050011493570859"
+#&gt; [1] "Area in bin  24 - 26  is  0.00200024756472286"
+#&gt; [1] "Area in bin  9 - 26  is  0.00249982073718224"
+#&gt; [1] "Area in bin  30 - 40  is  1.40556982936425e-30"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

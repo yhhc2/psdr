@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Create a one sided amplitude spectrum using time series data — MakeOneSidedAmplitudeSpectrum" />
-<meta property="og:description" content="Code was referenced from here: https://www.mathworks.com/help/matlab/ref/fft.html" />
+<meta property="og:description" content="An explanation for some of the math can be found here: https://www.mathworks.com/help/matlab/ref/fft.html" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -132,7 +132,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Code was referenced from here: https://www.mathworks.com/help/matlab/ref/fft.html</p>
+    <p>An explanation for some of the math can be found here: https://www.mathworks.com/help/matlab/ref/fft.html</p>
     </div>
 
     <pre class="usage"><span class='fu'>MakeOneSidedAmplitudeSpectrum</span><span class='op'>(</span><span class='va'>sampling_frequency</span>, <span class='va'>data_vector</span><span class='op'>)</span></pre>
@@ -166,7 +166,7 @@ The vector of amplitudes can be used as the y-axis values of a single sided spec
 <span class='va'>Fs</span> <span class='op'>=</span> <span class='fl'>100</span>; <span class='co'>#sampling frequency in Hz</span>
 <span class='cn'>T</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='va'>Fs</span>; <span class='co'>#sampling period</span>
 <span class='va'>L</span> <span class='op'>=</span> <span class='fl'>1000</span>; <span class='co'>#length of time vector</span>
-<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
+<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='op'>(</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
 
 <span class='co'>#Form a signal (time series) that contains two frequencies:</span>
 <span class='co'>#1. 10 Hz with amplitude of 1</span>

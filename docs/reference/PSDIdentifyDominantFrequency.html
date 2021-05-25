@@ -187,7 +187,7 @@ where the max y value (PSD value) is found. The second element is the max y valu
 <span class='va'>Fs</span> <span class='op'>=</span> <span class='fl'>100</span>; <span class='co'>#sampling frequency in Hz</span>
 <span class='cn'>T</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='va'>Fs</span>; <span class='co'>#sampling period</span>
 <span class='va'>L</span> <span class='op'>=</span> <span class='fl'>1000</span>; <span class='co'>#length of time vector</span>
-<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
+<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='op'>(</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
 
 <span class='co'>#First signal</span>
 <span class='co'>#1. 1 Hz with amplitude of 2</span>

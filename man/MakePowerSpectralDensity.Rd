@@ -28,7 +28,7 @@ Using fft(), the PSD of a time series dataset can be calculated.
 If time series is a vector of accelerometer data, then the outputted y-axis will
 have units of (acceleration^2)/Hz.
 
-References
+Explanations of some of the math:
 https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html
 https://blog.endaq.com/why-the-power-spectral-density-psd-is-the-gold-standard-of-vibration-analysis
 https://endaq.com/pages/power-spectral-density

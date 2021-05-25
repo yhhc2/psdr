@@ -22,7 +22,7 @@ The vector of frequencies can be used as the x-axis values of a single sided spe
 The vector of amplitudes can be used as the y-axis values of a single sided spectrum.
 }
 \description{
-Code was referenced from here: https://www.mathworks.com/help/matlab/ref/fft.html
+An explanation for some of the math can be found here: https://www.mathworks.com/help/matlab/ref/fft.html
 }
 \examples{
 

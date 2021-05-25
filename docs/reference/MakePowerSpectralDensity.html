@@ -163,7 +163,7 @@ The vector of PSD values can be used as the y-axis values of the PSD plot.</p>
 
     <p>If time series is a vector of accelerometer data, then the outputted y-axis will
 have units of (acceleration^2)/Hz.</p>
-<p>References
+<p>Explanations of some of the math:
 https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html
 https://blog.endaq.com/why-the-power-spectral-density-psd-is-the-gold-standard-of-vibration-analysis
 https://endaq.com/pages/power-spectral-density</p>
@@ -173,7 +173,7 @@ https://endaq.com/pages/power-spectral-density</p>
 <span class='va'>Fs</span> <span class='op'>=</span> <span class='fl'>100</span>; <span class='co'>#sampling frequency in Hz</span>
 <span class='cn'>T</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>/</span><span class='va'>Fs</span>; <span class='co'>#sampling period</span>
 <span class='va'>L</span> <span class='op'>=</span> <span class='fl'>1000</span>; <span class='co'>#length of time vector</span>
-<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
+<span class='va'>t</span> <span class='op'>=</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='op'>(</span><span class='va'>L</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>*</span><span class='cn'>T</span>; <span class='co'>#time vector</span>
 
 <span class='co'>#Form a signal (time series) that contains two frequencies:</span>
 <span class='co'>#1. 10 Hz with amplitude of 1</span>

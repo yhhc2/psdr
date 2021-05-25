@@ -29,11 +29,6 @@ library("psdr")
 
 ```
 
-## Usage
-
-Visit the package's website for function reference: <https://yhhc2.github.io/psdr/>
-
-Visit this vignette for example usage: <https://yhhc2.github.io/psdr/articles/Introduction.html>
 
 ## Example
 
