@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "yhhc@uw.edu",
            comment = c(ORCID = "0000-0001-7686-0697"))
-Description: This package allows you to generate and compare power spectral density (PSD) 
+Description: Functions that allow you to generate and compare power spectral density (PSD) 
 	plots given time series data. Fast Fourier Transform (FFT) is used to take a time series 
 	data, analyze the oscillations, and then output the frequencies of these oscillations 
 	in the time series in the form of a PSD plot.Thus given a time series, the dominant 
