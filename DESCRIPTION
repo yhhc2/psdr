@@ -1,5 +1,5 @@
 Package: psdr
-Title: Package that generates power spectral density plots using time series data
+Title: Package that uses time series data to generate and compare power spectral density plots 
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Yong-Han Hank",
@@ -8,7 +8,7 @@ Authors@R:
            email = "yhhc@uw.edu",
            comment = c(ORCID = "0000-0001-7686-0697"))
 Description: To be added.
-License: GPL (>= 3)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
