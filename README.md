@@ -27,6 +27,15 @@ To see example usage with the main functions of this package, please
 visit this site:
 <https://yhhc2.github.io/psdr/articles/Introduction.html>
 
+The mathematical operations used to generate the PSDs are described
+here:
+
+“Fft.” Fast Fourier transform - MATLAB. Accessed May 25, 2021.
+<https://www.mathworks.com/help/matlab/ref/fft.html>.
+
+“Signal Analyzer.” MATLAB & Simulink. Accessed May 25, 2021.
+<https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html>.
+
 ## Installation
 
 ``` r
