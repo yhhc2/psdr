@@ -3,6 +3,11 @@
 
 # psdr <a href='https://yhhc2.github.io/psdr/'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/yhhc2/psdr/workflows/R-CMD-check/badge.svg)](https://github.com/yhhc2/psdr/actions)
+<!-- badges: end -->
+
 ## Overview
 
 Author: Yong-Han Hank Cheng
