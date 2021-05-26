@@ -82,7 +82,7 @@ on the same plot." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ on the same plot.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>list.of.windows</th>
-      <td><p>A list of windows (dataframes). All windows should have similar lengths</p></td>
+      <td><p>A list of windows (dataframes). All windows should have the same length, but because interpolation is used, the function still works if window length differs.</p></td>
     </tr>
     <tr>
       <th>name.of.col.containing.time.series</th>
