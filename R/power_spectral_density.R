@@ -489,7 +489,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' 2. PSD plot. This takes the time series in the windows and given the sampling frequency, it calculates the PSD. It averages the PSD for the windows in each combo, and then plots the composite curve for each combo.
 #' 3. Log transformed PSD plot. Same as PSD plot except at the end, the composite PSD curves are log transformed.
 #'
-#' @param list.of.windows A list of windows (dataframes). All windows should have similar lengths
+#' @param list.of.windows A list of windows (dataframes). All windows should have the same length, but because interpolation is used, the function still works if window length differs.
 #' @param name.of.col.containing.time.series A string that specifies the name of the column in the windows that correspond to the time series that should be used.
 #' @param x_start Numeric value specifying start of the new x-axis. Default is 0.
 #' @param x_end Numeric value specifying end of the new x-axis. For PSD, maximum value is the sampling_frequency divided by 2.
