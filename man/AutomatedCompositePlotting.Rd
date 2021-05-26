@@ -25,7 +25,7 @@ AutomatedCompositePlotting(
 )
 }
 \arguments{
-\item{list.of.windows}{A list of windows (dataframes). All windows should have similar lengths}
+\item{list.of.windows}{A list of windows (dataframes). All windows should have the same length, but because interpolation is used, the function still works if window length differs.}
 
 \item{name.of.col.containing.time.series}{A string that specifies the name of the column in the windows that correspond to the time series that should be used.}
 
