@@ -18,7 +18,7 @@ Description: Functions that allow you to generate and compare power spectral den
 	The mathematical operations used to generate the PSDs are described in these sites:
 	<https://www.mathworks.com/help/matlab/ref/fft.html>.
 	<https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html>.
-License: MIT + file LICENSE
+License: GPL (>= 3) | file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
