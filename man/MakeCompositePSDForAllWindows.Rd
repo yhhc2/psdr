@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_spectral_density.R
 \name{MakeCompositePSDForAllWindows}
 \alias{MakeCompositePSDForAllWindows}
-\title{Make PSD for each window in a list and then find the average of all the PSDs}
+\title{Make PSD for each window (dataframe) in a list and then find the average of all the PSDs}
 \usage{
 MakeCompositePSDForAllWindows(
   list.of.windows,

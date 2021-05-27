@@ -2,7 +2,7 @@
 % Please edit documentation in R/windows.R
 \name{GetSubsetOfWindows}
 \alias{GetSubsetOfWindows}
-\title{Select only windows where a specified column matches a specified value}
+\title{Select only windows (dataframes) where a specified column matches a specified value}
 \usage{
 GetSubsetOfWindows(
   list.of.windows,

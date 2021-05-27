@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_spectral_density.R
 \name{AutomatedCompositePlotting}
 \alias{AutomatedCompositePlotting}
-\title{Automated plotting of time series, PSD, and log transformed PSD.}
+\title{Automated plotting of time series, PSD, and log transformed PSD}
 \usage{
 AutomatedCompositePlotting(
   list.of.windows,

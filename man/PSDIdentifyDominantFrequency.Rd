@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_spectral_density.R
 \name{PSDIdentifyDominantFrequency}
 \alias{PSDIdentifyDominantFrequency}
-\title{Given a time series vector, create a PSD and find the dominant frequency.}
+\title{Given a time series vector, create a PSD and find the dominant frequency}
 \usage{
 PSDIdentifyDominantFrequency(
   sampling_frequency,

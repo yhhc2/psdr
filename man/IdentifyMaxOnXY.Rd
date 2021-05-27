@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_spectral_density.R
 \name{IdentifyMaxOnXY}
 \alias{IdentifyMaxOnXY}
-\title{Given a x, y, plot. Find the maximum value on the plot.}
+\title{Given a x, y, plot. Find the maximum value on the plot}
 \usage{
 IdentifyMaxOnXY(x_vector, y_vector, x_start = 0, x_end, x_increment)
 }

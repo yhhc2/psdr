@@ -2,7 +2,7 @@
 % Please edit documentation in R/windows.R
 \name{CountWindows}
 \alias{CountWindows}
-\title{Create a contingency table to display how many windows fall into particular categories}
+\title{Create a contingency table to display how many windows (dataframes) fall into particular categories}
 \usage{
 CountWindows(
   list.of.windows,

@@ -150,7 +150,7 @@ GetHomogeneousWindows <- function(inputted.data, window.ID.col.name, observation
 }
 
 
-#' Select only windows where a specified column matches a specified value
+#' Select only windows (dataframes) where a specified column matches a specified value
 #'
 #' Looks at all the windows (dataframes) in a list of homogeneous windows. And
 #' only selects the windows where the column value contains a specified value.
@@ -224,7 +224,7 @@ GetSubsetOfWindows <- function(list.of.windows, name.of.column.to.look.at.in.win
 
 
 
-#' Create a contingency table to display how many windows fall into particular categories
+#' Create a contingency table to display how many windows (dataframes) fall into particular categories
 #'
 #' Given a List of homogeneous windows (dataframes where the two selected columns in each dataframe only
 #' have one unique value), make a contingency table to show how many windows fall into each of the
@@ -305,7 +305,7 @@ CountWindows <- function(list.of.windows, level1.column.name, level2.column.name
 }
 
 
-#' Select only windows where a two specified columns must match specified values
+#' Select only windows (dataframes) where a two specified columns must match specified values
 #'
 #' Looks at all the windows (dataframes) in a list of homogeneous windows. And
 #' only selects the windows where the column values for two columns matches

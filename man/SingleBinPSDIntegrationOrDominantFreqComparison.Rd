@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_spectral_density.R
 \name{SingleBinPSDIntegrationOrDominantFreqComparison}
 \alias{SingleBinPSDIntegrationOrDominantFreqComparison}
-\title{Given sets of windows corresponding to different combos, see if the integration
+\title{Given sets of windows (dataframes) corresponding to different combos, see if the integration
 or dominant frequency of a specific frequency range is significantly different between the combos}
 \usage{
 SingleBinPSDIntegrationOrDominantFreqComparison(

@@ -143,7 +143,7 @@ MakePowerSpectralDensity <- function(sampling_frequency, data_vector){
 
 }
 
-#' Make PSD for each window in a list and then find the average of all the PSDs
+#' Make PSD for each window (dataframe) in a list and then find the average of all the PSDs
 #'
 #' Given multiple windows of time series data, if the sampling frequency for
 #' all time series is the same, then the PSD for each window can be calculated,
@@ -451,7 +451,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 
 
 
-#' Automated plotting of time series, PSD, and log transformed PSD.
+#' Automated plotting of time series, PSD, and log transformed PSD
 #'
 #' This function uses a lot of the functions in this package (psdr) to automate the
 #' plotting process for plotting composite curves and having multiple curves
@@ -999,7 +999,7 @@ PSDIntegrationPerFreqBin <- function(sampling_frequency, data_vector, frequency_
 
 
 
-#' Given a x, y, plot. Find the maximum value on the plot.
+#' Given a x, y, plot. Find the maximum value on the plot
 #'
 #' To generate a curve of points, interpolation is used
 #' and the range and increment can be specified. Will output
@@ -1144,7 +1144,7 @@ IdentifyMaxOnXY <- function(x_vector, y_vector, x_start = 0,
 
 
 
-#' Given a time series vector, create a PSD and find the dominant frequency.
+#' Given a time series vector, create a PSD and find the dominant frequency
 #'
 #' The range to look for a dominant frequency (frequency corresponding to max
 #' PSD value) should be specified for this function. This function uses the
@@ -1405,7 +1405,7 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
 
 
 
-#' Given sets of windows corresponding to different combos, see if the integration
+#' Given sets of windows (dataframes) corresponding to different combos, see if the integration
 #' or dominant frequency of a specific frequency range is significantly different between the combos
 #'
 #' Just for a single frequency bin: For Each combination in level.combinations,

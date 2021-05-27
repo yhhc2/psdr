@@ -2,7 +2,7 @@
 % Please edit documentation in R/windows.R
 \name{GetSubsetOfWindowsTwoLevels}
 \alias{GetSubsetOfWindowsTwoLevels}
-\title{Select only windows where a two specified columns must match specified values}
+\title{Select only windows (dataframes) where a two specified columns must match specified values}
 \usage{
 GetSubsetOfWindowsTwoLevels(
   list.of.windows,
