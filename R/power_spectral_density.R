@@ -999,7 +999,7 @@ PSDIntegrationPerFreqBin <- function(sampling_frequency, data_vector, frequency_
 
 
 
-#' Given a x, y, plot. Find the maximum value on the plot
+#' Given a xy plot. Find the maximum value on the plot
 #'
 #' To generate a curve of points, interpolation is used
 #' and the range and increment can be specified. Will output
