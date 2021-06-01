@@ -60,4 +60,15 @@ Visit this vignette for example output for each function usage: <https://yhhc2.g
 ## License
 The psdr package is licensed under the GPL (>=3) license. The logo is licensed under the <a href='https://creativecommons.org/licenses/by/4.0/'> CC BY 4.0 license</a>.
 
+## Thanks
+This package was developed in part during my time at the NIH as a postbac researcher. Acknowledgements to: 
 
++ Kory Johnson and Yang Fann at the NINDS Bioinformatics Section for mentorship. 
+
++ Jonathan Pomeraniec at the NIH Clinical Center for providing datasets to validate usage of package.  
+
++ John Kakareka and Randy Pursley at the NIH CIT, Signal Processing and Instrumentation Section for guidance on signal processing.  
+
++ Tianxia Wu at the NINDS Clinical Trials Unit for guidance on statistical testing.  
+
++ NIH Undergraduate Scholarship Program and the NINDS Section of Infections of the Nervous System for supporting postbac. 
