@@ -355,9 +355,9 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='va'>ggplot.obj.timeseries</span> <span class='op'>&lt;-</span> <span class='va'>timeseries.results</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
 
 <span class='co'>#Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>##dev.new()</span>
 <span class='va'>ggplot.obj.timeseries</span>
-
+</div><div class='img'><img src='AutomatedCompositePlotting-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#PSD-------------------------------------------------------------------------</span>
 
 <span class='co'>#Note that the PSDs are not generated directly from the "Signal 1 + 2 + 3" and</span>
@@ -395,9 +395,9 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='co'>#stronger in both cases because more signals have this frequency (even if amp is negative).</span>
 <span class='co'>#Error envelope is specified for the second (red) curve. Envelope should only</span>
 <span class='co'>#be present for 2 Hz signal.</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>#dev.new()</span>
 <span class='va'>ggplot.obj.PSD</span>
-
+</div><div class='img'><img src='AutomatedCompositePlotting-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#PSD Zoomed in---------------------------------------------------------------</span>
 
 <span class='va'>PSD.results</span> <span class='op'>&lt;-</span> <span class='fu'>AutomatedCompositePlotting</span><span class='op'>(</span>list.of.windows <span class='op'>=</span> <span class='va'>windows</span>,
@@ -431,9 +431,9 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='co'>#stronger in both cases because more signals have this frequency (even if amp is negative).</span>
 <span class='co'>#Error envelope is specified for the second (red) curve. Envelope should only</span>
 <span class='co'>#be present for 1 Hz signal.</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>#dev.new()</span>
 <span class='va'>ggplot.obj.PSD</span>
-
+</div><div class='img'><img src='AutomatedCompositePlotting-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#LogPSD-------------------------------------------------------------------------</span>
 
 <span class='va'>LogPSD.results</span> <span class='op'>&lt;-</span> <span class='fu'>AutomatedCompositePlotting</span><span class='op'>(</span>list.of.windows <span class='op'>=</span> <span class='va'>windows</span>,
@@ -462,9 +462,9 @@ or error envelopes to see the spread of the windows used to make the composite.<
 <span class='co'>#be stronger in both cases because more signals have this frequency (even if amp is negative).</span>
 <span class='co'>#Error envelope is specified for the second (red) curve. Envelope should only</span>
 <span class='co'>#be present for 2 Hz signal.</span>
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>#dev.new()</span>
 <span class='va'>ggplot.obj.LogPSD</span>
-
+</div><div class='img'><img src='AutomatedCompositePlotting-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

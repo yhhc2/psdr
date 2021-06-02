@@ -90,10 +90,10 @@ averaged.PSD <- results[[2]]
 
 stddev.PSD <- results[[3]]
 
-dev.new()
+#dev.new()
 plot(frequencies, averaged.PSD, type = "l")
 
-dev.new()
+#dev.new()
 plot(frequencies, averaged.PSD, type = "l")
 #Add error bars
 arrows(frequencies, averaged.PSD, frequencies, averaged.PSD + stddev.PSD, length=0.05, angle=90)

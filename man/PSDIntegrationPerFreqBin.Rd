@@ -38,7 +38,7 @@ frequencies <- results[[1]]
 
 PSD <- results[[2]]
 
-dev.new()
+#dev.new()
 plot(frequencies, PSD, type = "l")
 
 bins <- list(

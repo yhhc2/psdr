@@ -43,7 +43,7 @@ frequencies <- results[[1]]
 
 amplitudes <- results[[2]]
 
-dev.new()
+#dev.new()
 plot(frequencies, amplitudes, type = "l")
 
 

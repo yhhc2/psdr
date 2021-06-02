@@ -186,7 +186,7 @@ timeseries.results <- AutomatedCompositePlotting(list.of.windows = windows,
 ggplot.obj.timeseries <- timeseries.results[[2]]
 
 #Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.
-dev.new()
+##dev.new()
 ggplot.obj.timeseries
 
 #PSD-------------------------------------------------------------------------
@@ -217,7 +217,7 @@ ggplot.obj.PSD <- PSD.results[[2]]
 #stronger in both cases because more signals have this frequency (even if amp is negative).
 #Error envelope is specified for the second (red) curve. Envelope should only
 #be present for 2 Hz signal.
-dev.new()
+#dev.new()
 ggplot.obj.PSD
 
 #PSD Zoomed in---------------------------------------------------------------
@@ -244,7 +244,7 @@ ggplot.obj.PSD <- PSD.results[[2]]
 #stronger in both cases because more signals have this frequency (even if amp is negative).
 #Error envelope is specified for the second (red) curve. Envelope should only
 #be present for 1 Hz signal.
-dev.new()
+#dev.new()
 ggplot.obj.PSD
 
 #LogPSD-------------------------------------------------------------------------
@@ -271,7 +271,7 @@ ggplot.obj.LogPSD <- LogPSD.results[[2]]
 #be stronger in both cases because more signals have this frequency (even if amp is negative).
 #Error envelope is specified for the second (red) curve. Envelope should only
 #be present for 2 Hz signal.
-dev.new()
+#dev.new()
 ggplot.obj.LogPSD
 
 }

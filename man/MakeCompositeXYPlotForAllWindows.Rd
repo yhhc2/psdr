@@ -75,7 +75,7 @@ y.values <- results[[2]]
 stddev.y.values <- results[[3]]
 
 #plot each xy plot individually
-dev.new()
+#dev.new()
 plot(t, S1, ylim = c(-5, 5), type = "l")
 lines(t, S2, col="blue")
 lines(t, S3, col="green")
@@ -83,11 +83,11 @@ lines(t, S3, col="green")
 
 #plot the averaged plot
 #The only curve remaining should be the 1Hz with amplitude of 4/3.
-dev.new()
+#dev.new()
 plot(x.values, y.values, type = "l")
 
 #plot averaged plot with error bars
-dev.new()
+#dev.new()
 plot(x.values, y.values, type = "l")
 #Add error bars
 arrows(x.values, y.values, x.values, y.values + stddev.y.values, length=0.05, angle=90)

@@ -35,7 +35,7 @@
 #'
 #' amplitudes <- results[[2]]
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(frequencies, amplitudes, type = "l")
 #'
 #'
@@ -66,17 +66,23 @@ MakeOneSidedAmplitudeSpectrum <- function(sampling_frequency, data_vector){
 }
 
 
-#' Create a one power spectral density (PSD) plot using time series data
+#' Create a power spectral density (PSD) plot using time series data
 #'
-#' Using fft(), the PSD of a time series dataset can be calculated.
+#' Dividing the results of fft() by the frequency bin width, the PSD of a time 
+#' series data set can be calculated.
 #'
 #' If time series is a vector of accelerometer data, then the outputted y-axis will
 #' have units of (acceleration^2)/Hz.
 #'
 #' Explanations of some of the math:
 #' https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html
+#' 
 #' https://blog.endaq.com/why-the-power-spectral-density-psd-is-the-gold-standard-of-vibration-analysis
+#' 
 #' https://endaq.com/pages/power-spectral-density
+#' 
+#' https://medium.com/analytics-vidhya/breaking-down-confusions-over-fast-fourier-transform-fft-1561a029b1ab
+#' 
 #'
 #'
 #'
@@ -111,7 +117,7 @@ MakeOneSidedAmplitudeSpectrum <- function(sampling_frequency, data_vector){
 #'
 #' PSD <- results[[2]]
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(frequencies, PSD, type = "l")
 #'
 #'
@@ -126,15 +132,21 @@ MakePowerSpectralDensity <- function(sampling_frequency, data_vector){
 
   Y <- stats::fft(X)
 
+  #Divide fft output by length because FFT output is a sum over all points in the time-domain input.
+  #FFT produces a complex sequence and we need to take the magnitude of these
+  #complex values.
   P2 <- abs(Y/L)
 
+  #Look at just the first half of the samples because the other half is redundant.
   P1 <- P2[c(1:((L/2)+1))]
 
+  #Square the result and divide by frequency bin to get the PSD.
   P1 <- (P1 * P1)/(Fs)
 
-  P1[c((2:(length(P1)-1)))] <- 2*P1[c((2:(length(P1)-1)))]  #Double amplitude because we are only looking at one side.
+  #Double amplitude because we are only looking at one side.
+  P1[c((2:(length(P1)-1)))] <- 2*P1[c((2:(length(P1)-1)))]  
 
-
+  #The sampling frequency is used to create the frequency values on x-axis.
   f = Fs*(0:(L/2))/L
 
   output <- list(f, P1)
@@ -213,10 +225,10 @@ MakePowerSpectralDensity <- function(sampling_frequency, data_vector){
 #'
 #' stddev.PSD <- results[[3]]
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(frequencies, averaged.PSD, type = "l")
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(frequencies, averaged.PSD, type = "l")
 #' #Add error bars
 #' arrows(frequencies, averaged.PSD, frequencies, averaged.PSD + stddev.PSD, length=0.05, angle=90)
@@ -356,7 +368,7 @@ MakeCompositePSDForAllWindows <- function(list.of.windows,
 #' stddev.y.values <- results[[3]]
 #'
 #' #plot each xy plot individually
-#' dev.new()
+#' #dev.new()
 #' plot(t, S1, ylim = c(-5, 5), type = "l")
 #' lines(t, S2, col="blue")
 #' lines(t, S3, col="green")
@@ -364,11 +376,11 @@ MakeCompositePSDForAllWindows <- function(list.of.windows,
 #'
 #' #plot the averaged plot
 #' #The only curve remaining should be the 1Hz with amplitude of 4/3.
-#' dev.new()
+#' #dev.new()
 #' plot(x.values, y.values, type = "l")
 #'
 #' #plot averaged plot with error bars
-#' dev.new()
+#' #dev.new()
 #' plot(x.values, y.values, type = "l")
 #' #Add error bars
 #' arrows(x.values, y.values, x.values, y.values + stddev.y.values, length=0.05, angle=90)
@@ -595,7 +607,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' ggplot.obj.timeseries <- timeseries.results[[2]]
 #'
 #' #Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.
-#' dev.new()
+#' ##dev.new()
 #' ggplot.obj.timeseries
 #'
 #' #PSD-------------------------------------------------------------------------
@@ -626,7 +638,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' #stronger in both cases because more signals have this frequency (even if amp is negative).
 #' #Error envelope is specified for the second (red) curve. Envelope should only
 #' #be present for 2 Hz signal.
-#' dev.new()
+#' #dev.new()
 #' ggplot.obj.PSD
 #'
 #' #PSD Zoomed in---------------------------------------------------------------
@@ -653,7 +665,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' #stronger in both cases because more signals have this frequency (even if amp is negative).
 #' #Error envelope is specified for the second (red) curve. Envelope should only
 #' #be present for 1 Hz signal.
-#' dev.new()
+#' #dev.new()
 #' ggplot.obj.PSD
 #'
 #' #LogPSD-------------------------------------------------------------------------
@@ -680,7 +692,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
 #' #be stronger in both cases because more signals have this frequency (even if amp is negative).
 #' #Error envelope is specified for the second (red) curve. Envelope should only
 #' #be present for 2 Hz signal.
-#' dev.new()
+#' #dev.new()
 #' ggplot.obj.LogPSD
 #'
 AutomatedCompositePlotting <- function(list.of.windows,
@@ -940,7 +952,7 @@ AutomatedCompositePlotting <- function(list.of.windows,
 #'
 #' PSD <- results[[2]]
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(frequencies, PSD, type = "l")
 #'
 #' bins <- list(
