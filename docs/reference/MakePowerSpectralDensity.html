@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a one power spectral density (PSD) plot using time series data — MakePowerSpectralDensity • psdr</title>
+<title>Create a power spectral density (PSD) plot using time series data — MakePowerSpectralDensity • psdr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Create a one power spectral density (PSD) plot using time series data — MakePowerSpectralDensity" />
-<meta property="og:description" content="Using fft(), the PSD of a time series dataset can be calculated." />
+<meta property="og:title" content="Create a power spectral density (PSD) plot using time series data — MakePowerSpectralDensity" />
+<meta property="og:description" content="Dividing the results of fft() by the frequency bin width, the PSD of a time
+series data set can be calculated." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -110,6 +111,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -126,13 +130,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a one power spectral density (PSD) plot using time series data</h1>
+    <h1>Create a power spectral density (PSD) plot using time series data</h1>
     
     <div class="hidden name"><code>MakePowerSpectralDensity.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Using fft(), the PSD of a time series dataset can be calculated.</p>
+    <p>Dividing the results of fft() by the frequency bin width, the PSD of a time
+series data set can be calculated.</p>
     </div>
 
     <pre class="usage"><span class='fu'>MakePowerSpectralDensity</span><span class='op'>(</span><span class='va'>sampling_frequency</span>, <span class='va'>data_vector</span><span class='op'>)</span></pre>
@@ -164,9 +169,10 @@ The vector of PSD values can be used as the y-axis values of the PSD plot.</p>
     <p>If time series is a vector of accelerometer data, then the outputted y-axis will
 have units of (acceleration^2)/Hz.</p>
 <p>Explanations of some of the math:
-https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html
-https://blog.endaq.com/why-the-power-spectral-density-psd-is-the-gold-standard-of-vibration-analysis
-https://endaq.com/pages/power-spectral-density</p>
+https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html</p>
+<p>https://blog.endaq.com/why-the-power-spectral-density-psd-is-the-gold-standard-of-vibration-analysis</p>
+<p>https://endaq.com/pages/power-spectral-density</p>
+<p>https://medium.com/analytics-vidhya/breaking-down-confusions-over-fast-fourier-transform-fft-1561a029b1ab</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#Create a vector of time that represent times where data are sampled.</span>

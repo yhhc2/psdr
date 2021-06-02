@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Assess if window (dataframe) share certain features across all observations — FindHomogeneousWindows • psdr</title>
+<title>Changelog • psdr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,7 @@
 
 
 
-<meta property="og:title" content="Assess if window (dataframe) share certain features across all observations — FindHomogeneousWindows" />
-<meta property="og:description" content="For a given window (dataframe of observations where rows are observations),
-evaluate whether all observations in the window share the same values for
-specified columns." />
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -69,7 +66,7 @@ specified columns." />
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,72 +128,37 @@ specified columns." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Assess if window (dataframe) share certain features across all observations</h1>
-    
-    <div class="hidden name"><code>FindHomogeneousWindows.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      
     </div>
 
-    <div class="ref-description">
-    <p>For a given window (dataframe of observations where rows are observations),
-evaluate whether all observations in the window share the same values for
-specified columns.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>FindHomogeneousWindows</span><span class='op'>(</span><span class='va'>inputted.data</span>, <span class='va'>names.of.columns.to.look.at</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>inputted.data</th>
-      <td><p>A dataframe.</p></td>
-    </tr>
-    <tr>
-      <th>names.of.columns.to.look.at</th>
-      <td><p>A vector of strings with each string being the name of a column in the datafarame to look at.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Boolean (true/false) indicating if window is homogeneous.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Given a dataframe, look at the values in each of the specified column and
-sees if there is only one level in the specified column. If there is only
-one level, then this means rows share the same value for that column.
-Do this for all specified columns and return true if each column only
-contains one value. If all observations share the same value for the
-specified columns, then the window is considered a homogeneous window.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>col.one</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span>
-<span class='va'>col.two</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"a"</span>, <span class='st'>"a"</span>, <span class='st'>"a"</span>, <span class='st'>"a"</span><span class='op'>)</span>
-<span class='va'>col.three</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
-
-<span class='va'>single.window.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>col.one</span>, <span class='va'>col.two</span>, <span class='va'>col.three</span><span class='op'>)</span>
-
-<span class='co'>#Example of inhomogeneous window if looking at col.one and col.two because</span>
-<span class='co'>#col.one does not only have a single unique value.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>FindHomogeneousWindows</span><span class='op'>(</span><span class='va'>single.window.data</span> , <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"col.one"</span>, <span class='st'>"col.two"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>result</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-<span class='co'>#Example of homogeneous window if looking at col.two and col.three because</span>
-<span class='co'>#col.two and col.three both only have a single unique value.</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>FindHomogeneousWindows</span><span class='op'>(</span><span class='va'>single.window.data</span> , <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"col.two"</span>, <span class='st'>"col.three"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>result</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-
-</div></pre>
+    <div id="psdr-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#psdr-100" class="anchor"></a>psdr 1.0.0</h1>
+<p>This is the first release version of psdr.</p>
+<ul>
+<li>Major new functions:
+<ul>
+<li><code><a href="../reference/GetHomogeneousWindows.html">GetHomogeneousWindows()</a></code></li>
+<li><code><a href="../reference/AutomatedCompositePlotting.html">AutomatedCompositePlotting()</a></code></li>
+</ul>
+</li>
+<li>New vignettes:
+<ul>
+<li><a href="https://yhhc2.github.io/psdr/articles/Introduction.html">Introduction</a></li>
+<li><a href="https://yhhc2.github.io/psdr/articles/Examples.html">Examples</a></li>
+</ul>
+</li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_spectral_density.R
 \name{MakePowerSpectralDensity}
 \alias{MakePowerSpectralDensity}
-\title{Create a one power spectral density (PSD) plot using time series data}
+\title{Create a power spectral density (PSD) plot using time series data}
 \usage{
 MakePowerSpectralDensity(sampling_frequency, data_vector)
 }
@@ -22,7 +22,8 @@ The vector of frequencies can be used as the x-axis values of a single sided spe
 The vector of PSD values can be used as the y-axis values of the PSD plot.
 }
 \description{
-Using fft(), the PSD of a time series dataset can be calculated.
+Dividing the results of fft() by the frequency bin width, the PSD of a time
+series data set can be calculated.
 }
 \details{
 If time series is a vector of accelerometer data, then the outputted y-axis will
@@ -30,8 +31,12 @@ have units of (acceleration^2)/Hz.
 
 Explanations of some of the math:
 https://www.mathworks.com/help/signal/ug/power-spectral-density-estimates-using-fft.html
+
 https://blog.endaq.com/why-the-power-spectral-density-psd-is-the-gold-standard-of-vibration-analysis
+
 https://endaq.com/pages/power-spectral-density
+
+https://medium.com/analytics-vidhya/breaking-down-confusions-over-fast-fourier-transform-fft-1561a029b1ab
 }
 \examples{
 #Create a vector of time that represent times where data are sampled.
