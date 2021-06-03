@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -106,7 +106,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Install the package from GitHub</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"yhhc2/psdr"</span><span class="op">)</span></code></pre></div>
+<span class="co"># devtools::install_github("yhhc2/psdr")</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load package</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"psdr"</span><span class="op">)</span></code></pre></div>
@@ -193,20 +193,15 @@
                            plot.ylab <span class="op">=</span> <span class="st">"Original units"</span>,
                            combination.index.for.envelope <span class="op">=</span> <span class="cn">NULL</span>,
                            TimeSeries.PSD.LogPSD <span class="op">=</span> <span class="st">"TimeSeries"</span>,
-                           sampling_frequency <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 1
-## [1] 2</code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ggplot.obj.timeseries</span> <span class="op">&lt;-</span> <span class="va">timeseries.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+                           sampling_frequency <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+
+<span class="va">ggplot.obj.timeseries</span> <span class="op">&lt;-</span> <span class="va">timeseries.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co">#Plot. Will see the 1+2+3 curve as a flat line. The 3+4 curve will only have 2 Hz.</span>
 <span class="co">#dev.new()</span>
 <span class="va">ggplot.obj.timeseries</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#PSD-------------------------------------------------------------------------</span>
 
 <span class="co">#Note that the PSDs are not generated directly from the "Signal 1 + 2 + 3" and</span>
@@ -228,19 +223,9 @@
                            combination.index.for.envelope <span class="op">=</span> <span class="fl">2</span>,
                            TimeSeries.PSD.LogPSD <span class="op">=</span> <span class="st">"PSD"</span>,
                            sampling_frequency <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 1
-## [1] 2
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 1
-## [1] 2</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ggplot.obj.PSD</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co">#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be</span>
@@ -250,7 +235,7 @@
 <span class="co">#dev.new()</span>
 <span class="va">ggplot.obj.PSD</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"> <span class="co">#PSD Zoomed in---------------------------------------------------------------</span>
 
  <span class="va">PSD.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutomatedCompositePlotting.html">AutomatedCompositePlotting</a></span><span class="op">(</span>list.of.windows <span class="op">=</span> <span class="va">windows</span>,
@@ -268,19 +253,9 @@
                             combination.index.for.envelope <span class="op">=</span> <span class="fl">2</span>,
                             TimeSeries.PSD.LogPSD <span class="op">=</span> <span class="st">"PSD"</span>,
                             sampling_frequency <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 1
-## [1] 2
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 1
-## [1] 2</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"> <span class="va">ggplot.obj.PSD</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
  <span class="co">#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should be</span>
@@ -290,7 +265,7 @@
  <span class="co">#dev.new()</span>
  <span class="va">ggplot.obj.PSD</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-3-3.png" width="700"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#LogPSD-------------------------------------------------------------------------</span>
 
 <span class="va">LogPSD.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutomatedCompositePlotting.html">AutomatedCompositePlotting</a></span><span class="op">(</span>list.of.windows <span class="op">=</span> <span class="va">windows</span>,
@@ -307,14 +282,9 @@
                            plot.ylab <span class="op">=</span> <span class="st">"log((Original units)^2/Hz)"</span>,
                            combination.index.for.envelope <span class="op">=</span> <span class="cn">NULL</span>,
                            TimeSeries.PSD.LogPSD <span class="op">=</span> <span class="st">"LogPSD"</span>,
-                           sampling_frequency <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 1
-## [1] 2</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ggplot.obj.LogPSD</span> <span class="op">&lt;-</span> <span class="va">LogPSD.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+                           sampling_frequency <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
+
+<span class="va">ggplot.obj.LogPSD</span> <span class="op">&lt;-</span> <span class="va">LogPSD.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co">#Plot. For both plots, two peaks will be present, 1 Hz and 2 Hz. 1 Hz should</span>
 <span class="co">#be stronger in both cases because more signals have this frequency (even if amp is negative).</span>
@@ -323,7 +293,7 @@
 <span class="co">#dev.new()</span>
 <span class="va">ggplot.obj.LogPSD</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-3-4.png" width="700"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Are dominant frequencies different---------------------------------------------</span>
 <span class="va">comparison_results</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>
 
@@ -335,7 +305,7 @@
 ## 3                        2           Signal1+2+3
 ## 4                        2             Signal3+4
 ## 5                        1             Signal3+4</code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Kruskal Wallis results</span>
 <span class="va">comparison_results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## 
@@ -347,7 +317,7 @@
 <div id="countwindows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#countwindows" class="anchor"></a>CountWindows()</h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Example using a dataframe with 5 homogeneous windows.</span>
 
 <span class="co">#Windows are homogeneous if looking at col.two and col.three values.</span>
@@ -358,14 +328,9 @@
 <span class="va">multi.window.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">window.name.column</span>, <span class="va">col.two</span>, <span class="va">col.three</span><span class="op">)</span>
 
 <span class="va">list.of.homogeneous.windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetHomogeneousWindows.html">GetHomogeneousWindows</a></span><span class="op">(</span><span class="va">multi.window.data</span>,
-<span class="st">"window.name.column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5</code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CountWindows.html">CountWindows</a></span><span class="op">(</span><span class="va">list.of.homogeneous.windows</span>, <span class="st">"col.two"</span>, <span class="st">"col.three"</span>,
+<span class="st">"window.name.column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CountWindows.html">CountWindows</a></span><span class="op">(</span><span class="va">list.of.homogeneous.windows</span>, <span class="st">"col.two"</span>, <span class="st">"col.three"</span>,
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">matrix</span></code></pre></div>
@@ -376,7 +341,7 @@
 <div id="findhomogeneouswindows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#findhomogeneouswindows" class="anchor"></a>FindHomogeneousWindows()</h3>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">col.one</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="va">col.two</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span>
 <span class="va">col.three</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
@@ -389,7 +354,7 @@
 
 <span class="va">result</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Example of homogeneous window if looking at col.two and col.three because</span>
 <span class="co">#col.two and col.three both only have a single unique value.</span>
 <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FindHomogeneousWindows.html">FindHomogeneousWindows</a></span><span class="op">(</span><span class="va">single.window.data</span> , <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span>
@@ -400,7 +365,7 @@
 <div id="gethomogeneouswindows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#gethomogeneouswindows" class="anchor"></a>GetHomogeneousWindows</h3>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Example using a dataframe with 3 windows.</span>
 
 <span class="co">#Windows 20 and 30 are homogeneous if looking at col.two and col.three values.</span>
@@ -410,12 +375,9 @@
 
 <span class="va">multi.window.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">window.name.column</span>, <span class="va">col.two</span>, <span class="va">col.three</span><span class="op">)</span>
 
-<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetHomogeneousWindows.html">GetHomogeneousWindows</a></span><span class="op">(</span><span class="va">multi.window.data</span>, <span class="st">"window.name.column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3</code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#As expected, it looks like two windows are homogeneous.</span>
+<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetHomogeneousWindows.html">GetHomogeneousWindows</a></span><span class="op">(</span><span class="va">multi.window.data</span>, <span class="st">"window.name.column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co">#As expected, it looks like two windows are homogeneous.</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></code></pre></div>
 <pre><code>## List of 2
 ##  $ :'data.frame':    3 obs. of  3 variables:
@@ -426,13 +388,13 @@
 ##   ..$ window.name.column: num [1:4] 30 30 30 30
 ##   ..$ col.two           : chr [1:4] "a" "a" "a" "a"
 ##   ..$ col.three         : num [1:4] 2 2 2 2</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>##   window.name.column col.two col.three
 ## 4                 20       a         1
 ## 5                 20       a         1
 ## 6                 20       a         1</code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>##    window.name.column col.two col.three
 ## 7                  30       a         2
@@ -443,7 +405,7 @@
 <div id="getsubsetofwindows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#getsubsetofwindows" class="anchor"></a>GetSubsetOfWindows()</h3>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Example using a dataframe with 3 windows.</span>
 
 <span class="co">#Windows 20 and 30 are homogeneous if looking at col.two and col.three values.</span>
@@ -454,12 +416,9 @@
 <span class="va">multi.window.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">window.name.column</span>, <span class="va">col.two</span>, <span class="va">col.three</span><span class="op">)</span>
 
 <span class="va">list.of.homogeneous.windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetHomogeneousWindows.html">GetHomogeneousWindows</a></span><span class="op">(</span><span class="va">multi.window.data</span>,
-<span class="st">"window.name.column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3</code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#Get a subset of windows where col.three has a value of 2</span>
+<span class="st">"window.name.column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co">#Get a subset of windows where col.three has a value of 2</span>
 <span class="va">subset.list.of.homogeneous.windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetSubsetOfWindows.html">GetSubsetOfWindows</a></span><span class="op">(</span><span class="va">list.of.homogeneous.windows</span>,
 <span class="st">"col.three"</span>, <span class="st">"2"</span><span class="op">)</span>
 
@@ -469,7 +428,7 @@
 ##   ..$ window.name.column: num [1:4] 30 30 30 30
 ##   ..$ col.two           : chr [1:4] "a" "a" "a" "a"
 ##   ..$ col.three         : num [1:4] 2 2 2 2</code></pre>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">subset.list.of.homogeneous.windows</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>##    window.name.column col.two col.three
 ## 7                  30       a         2
@@ -480,7 +439,7 @@
 <div id="getsubsetofwindowstwolevels" class="section level3">
 <h3 class="hasAnchor">
 <a href="#getsubsetofwindowstwolevels" class="anchor"></a>GetSubsetOfWindowsTwoLevels()</h3>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Example using a dataframe with 5 homogeneous windows.</span>
 
 <span class="co">#Windows are homogeneous if looking at col.two and col.three values.</span>
@@ -491,14 +450,9 @@
 <span class="va">multi.window.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">window.name.column</span>, <span class="va">col.two</span>, <span class="va">col.three</span><span class="op">)</span>
 
 <span class="va">list.of.homogeneous.windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetHomogeneousWindows.html">GetHomogeneousWindows</a></span><span class="op">(</span><span class="va">multi.window.data</span>,
-<span class="st">"window.name.column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5</code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetSubsetOfWindowsTwoLevels.html">GetSubsetOfWindowsTwoLevels</a></span><span class="op">(</span><span class="va">list.of.homogeneous.windows</span>, <span class="st">"col.two"</span>, <span class="st">"col.three"</span>,
+<span class="st">"window.name.column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col.two"</span>, <span class="st">"col.three"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetSubsetOfWindowsTwoLevels.html">GetSubsetOfWindowsTwoLevels</a></span><span class="op">(</span><span class="va">list.of.homogeneous.windows</span>, <span class="st">"col.two"</span>, <span class="st">"col.three"</span>,
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">#Should contain windows 10, 20, 30 because col.two is "a" and col.three can be "1" or "2"</span>
@@ -525,7 +479,7 @@
 <div id="identifymaxonxy" class="section level3">
 <h3 class="hasAnchor">
 <a href="#identifymaxonxy" class="anchor"></a>IdentifyMaxOnXY()</h3>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#I want to create a plot that shows two curves:</span>
 <span class="co">#1. Composite of time series signals 1, 2, and 3.</span>
 <span class="co">#2. Composite of time series signals 3 and 4.</span>
@@ -604,41 +558,15 @@
                            combination.index.for.envelope <span class="op">=</span> <span class="fl">2</span>,
                            TimeSeries.PSD.LogPSD <span class="op">=</span> <span class="st">"PSD"</span>,
                            sampling_frequency <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10
-## [1] 11
-## [1] 1
-## [1] 2
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10
-## [1] 11
-## [1] 1
-## [1] 2</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ggplot.obj.PSD</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co">#Plot</span>
 <span class="va">ggplot.obj.PSD</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dataframes.plotted</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">first.curve</span> <span class="op">&lt;-</span> <span class="va">dataframes.plotted</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">second.curve</span> <span class="op">&lt;-</span> <span class="va">dataframes.plotted</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
@@ -650,7 +578,7 @@
 <span class="va">first.curve.max</span></code></pre></div>
 <pre><code>##     xval       yval
 ## 101    1 0.06909091</code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">second.curve.max</span></code></pre></div>
 <pre><code>##     xval yval
 ## 101    1 0.02</code></pre>
@@ -658,7 +586,7 @@
 <div id="makecompositepsdforallwindows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#makecompositepsdforallwindows" class="anchor"></a>MakeCompositePSDForAllWindows()</h3>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -692,12 +620,9 @@
 <span class="co">#Add all signals to a List</span>
 <span class="va">list.of.windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">S1.data.frame</span>, <span class="va">S2.data.frame</span>, <span class="va">S3.data.frame</span><span class="op">)</span>
 
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCompositePSDForAllWindows.html">MakeCompositePSDForAllWindows</a></span><span class="op">(</span><span class="va">list.of.windows</span>, <span class="st">"Signal"</span>, <span class="va">Fs</span>, <span class="fl">0</span>, <span class="fl">30</span>, <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3</code></pre>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">frequencies</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCompositePSDForAllWindows.html">MakeCompositePSDForAllWindows</a></span><span class="op">(</span><span class="va">list.of.windows</span>, <span class="st">"Signal"</span>, <span class="va">Fs</span>, <span class="fl">0</span>, <span class="fl">30</span>, <span class="fl">0.1</span><span class="op">)</span>
+
+<span class="va">frequencies</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
 <span class="va">averaged.PSD</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
@@ -709,7 +634,7 @@
 <div id="makecompositexyplotforallwindows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#makecompositexyplotforallwindows" class="anchor"></a>MakeCompositeXYPlotForAllWindows</h3>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -739,12 +664,9 @@
 <span class="co">#Add all signals to a List</span>
 <span class="va">list.of.windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">S1.data.frame</span>, <span class="va">S2.data.frame</span>, <span class="va">S3.data.frame</span><span class="op">)</span>
 
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCompositeXYPlotForAllWindows.html">MakeCompositeXYPlotForAllWindows</a></span><span class="op">(</span><span class="va">list.of.windows</span>, <span class="st">"Signal"</span>, <span class="fl">0</span>, <span class="fl">999</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3</code></pre>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCompositeXYPlotForAllWindows.html">MakeCompositeXYPlotForAllWindows</a></span><span class="op">(</span><span class="va">list.of.windows</span>, <span class="st">"Signal"</span>, <span class="fl">0</span>, <span class="fl">999</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">x.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
 <span class="va">y.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
@@ -755,7 +677,7 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">S2</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">S3</span>, col<span class="op">=</span><span class="st">"green"</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#plot the averaged plot</span>
 <span class="co">#The only curve remaining should be the 1Hz with amplitude of 4/3.</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x.values</span>, <span class="va">y.values</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code></pre></div>
@@ -764,7 +686,7 @@
 <div id="makeonesidedamplitudespectrum" class="section level3">
 <h3 class="hasAnchor">
 <a href="#makeonesidedamplitudespectrum" class="anchor"></a>MakeOneSidedAmplitudeSpectrum()</h3>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -789,7 +711,7 @@
 <div id="makepowerspectraldensity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#makepowerspectraldensity" class="anchor"></a>MakePowerSpectralDensity()</h3>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz (sampling/second)</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -804,7 +726,7 @@
 <span class="co">#Plot the signal</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span>, <span class="va">S</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Make a PSD to see the frequencies in the signal</span>
 <span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakePowerSpectralDensity.html">MakePowerSpectralDensity</a></span><span class="op">(</span><span class="va">Fs</span>, <span class="va">S</span><span class="op">)</span>
 
@@ -819,7 +741,7 @@
 <div id="psddominantfrequencyformultiplewindows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#psddominantfrequencyformultiplewindows" class="anchor"></a>PSDDominantFrequencyForMultipleWindows()</h3>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -888,14 +810,6 @@
                            combination.index.for.envelope <span class="op">=</span> <span class="fl">2</span>,
                            TimeSeries.PSD.LogPSD <span class="op">=</span> <span class="st">"PSD"</span>,
                            sampling_frequency <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties
 
@@ -904,27 +818,23 @@
 
 ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ggplot.obj.PSD</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co">#Plot</span>
 <span class="va">ggplot.obj.PSD</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Calculate the dominant frequency for each window</span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PSDDominantFrequencyForMultipleWindows.html">PSDDominantFrequencyForMultipleWindows</a></span><span class="op">(</span><span class="va">windows</span>, <span class="st">"Signal"</span>, <span class="va">Fs</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">0.01</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4</code></pre>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span></code></pre></div>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PSDDominantFrequencyForMultipleWindows.html">PSDDominantFrequencyForMultipleWindows</a></span><span class="op">(</span><span class="va">windows</span>, <span class="st">"Signal"</span>, <span class="va">Fs</span>, <span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">0.01</span><span class="op">)</span>
+
+<span class="va">results</span></code></pre></div>
 <pre><code>## [1] 1 1 2 1</code></pre>
 </div>
 <div id="psdidentifydominantfrequency" class="section level3">
 <h3 class="hasAnchor">
 <a href="#psdidentifydominantfrequency" class="anchor"></a>PSDIdentifyDominantFrequency()</h3>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -949,7 +859,7 @@
 <div id="psdintegrationperfreqbin" class="section level3">
 <h3 class="hasAnchor">
 <a href="#psdintegrationperfreqbin" class="anchor"></a>PSDIntegrationPerFreqBin()</h3>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -969,7 +879,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">frequencies</span>, <span class="va">PSD</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">11</span><span class="op">)</span>,
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">24</span>,<span class="fl">26</span><span class="op">)</span>,
@@ -995,7 +905,7 @@
 <div id="singlebinpsdintegrationformultiplewindows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#singlebinpsdintegrationformultiplewindows" class="anchor"></a>SingleBinPSDIntegrationForMultipleWindows()</h3>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -1064,14 +974,6 @@
                            combination.index.for.envelope <span class="op">=</span> <span class="fl">2</span>,
                            TimeSeries.PSD.LogPSD <span class="op">=</span> <span class="st">"PSD"</span>,
                            sampling_frequency <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1
-## [1] 1</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties
 
@@ -1080,27 +982,23 @@
 
 ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ggplot.obj.PSD</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co">#Plot</span>
 <span class="va">ggplot.obj.PSD</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#For each of the 4 windows, calculate the area under the PSD from 0-2 Hz</span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SingleBinPSDIntegrationForMultipleWindows.html">SingleBinPSDIntegrationForMultipleWindows</a></span><span class="op">(</span><span class="va">windows</span>, <span class="st">"Signal"</span>, <span class="va">Fs</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4</code></pre>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span></code></pre></div>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SingleBinPSDIntegrationForMultipleWindows.html">SingleBinPSDIntegrationForMultipleWindows</a></span><span class="op">(</span><span class="va">windows</span>, <span class="st">"Signal"</span>, <span class="va">Fs</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">results</span></code></pre></div>
 <pre><code>## [1] 0.002000248 0.009000239 0.003000262 0.002000248</code></pre>
 </div>
 <div id="singlebinpsdintegrationordominantfreqcomparison" class="section level3">
 <h3 class="hasAnchor">
 <a href="#singlebinpsdintegrationordominantfreqcomparison" class="anchor"></a>SingleBinPSDIntegrationOrDominantFreqComparison()</h3>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Create a vector of time that represent times where data are sampled.</span>
 <span class="va">Fs</span> <span class="op">=</span> <span class="fl">100</span>; <span class="co">#sampling frequency in Hz</span>
 <span class="cn">T</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">Fs</span>; <span class="co">#sampling period</span>
@@ -1192,42 +1090,6 @@
                            combination.index.for.envelope <span class="op">=</span> <span class="fl">2</span>,
                            TimeSeries.PSD.LogPSD <span class="op">=</span> <span class="st">"PSD"</span>,
                            sampling_frequency <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10
-## [1] 11
-## [1] 1
-## [1] 2
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10
-## [1] 11
-## [1] 1
-## [1] 2
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties
 
@@ -1236,12 +1098,12 @@
 
 ## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ggplot.obj.PSD</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
 <span class="va">ggplot.obj.PSD</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Integration-------------------------------------------------------------------------</span>
 
 <span class="co">#Compare integration for the 1.5-2.5 Hz bin. P-value should not indicate</span>
@@ -1256,22 +1118,9 @@ level.combinations.labels <span class="op">=</span> <span class="fu"><a href="ht
 sampling_frequency <span class="op">=</span> <span class="fl">100</span>,
 single.bin.boundary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">2.5</span><span class="op">)</span>,
 integration.or.dominant.freq <span class="op">=</span> <span class="st">"integration"</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10
-## [1] 11
-## [1] 1
-## [1] 2</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Kruskal-Wallis test results</span>
 <span class="va">integration.compare.res</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## 
@@ -1279,7 +1128,7 @@ integration.or.dominant.freq <span class="op">=</span> <span class="st">"integra
 ## 
 ## data:  vals.to.compare.combined by combo.labels.combined
 ## Kruskal-Wallis chi-squared = 0, df = 1, p-value = 1</code></pre>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Values used in Kruskal-Wallis test</span>
 <span class="va">integration.compare.res</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>##    vals.to.compare.combined combo.labels.combined
@@ -1296,7 +1145,7 @@ integration.or.dominant.freq <span class="op">=</span> <span class="st">"integra
 ## 11             2.000248e-03      Signal 1 + 2 + 3
 ## 12             2.000248e-03          Signal 3 + 4
 ## 13             4.733168e-35          Signal 3 + 4</code></pre>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Compare integration for the 0.5-1.5 Hz bin. P-value should indicate</span>
 <span class="co">#significant difference</span>
 <span class="va">integration.compare.res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SingleBinPSDIntegrationOrDominantFreqComparison.html">SingleBinPSDIntegrationOrDominantFreqComparison</a></span><span class="op">(</span>
@@ -1309,22 +1158,9 @@ level.combinations.labels <span class="op">=</span> <span class="fu"><a href="ht
 sampling_frequency <span class="op">=</span> <span class="fl">100</span>,
 single.bin.boundary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">1.5</span><span class="op">)</span>,
 integration.or.dominant.freq <span class="op">=</span> <span class="st">"integration"</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10
-## [1] 11
-## [1] 1
-## [1] 2</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Kruskal-Wallis test results</span>
 <span class="va">integration.compare.res2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## 
@@ -1332,7 +1168,7 @@ integration.or.dominant.freq <span class="op">=</span> <span class="st">"integra
 ## 
 ## data:  vals.to.compare.combined by combo.labels.combined
 ## Kruskal-Wallis chi-squared = 4.9091, df = 1, p-value = 0.02672</code></pre>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Values used in Kruskal-Wallis test</span>
 <span class="va">integration.compare.res2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>##    vals.to.compare.combined combo.labels.combined
@@ -1349,7 +1185,7 @@ integration.or.dominant.freq <span class="op">=</span> <span class="st">"integra
 ## 11              0.002000248      Signal 1 + 2 + 3
 ## 12              0.002000248          Signal 3 + 4
 ## 13              0.002000248          Signal 3 + 4</code></pre>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Dominant Frequency---------------------------------------------------------------------</span>
 
 <span class="co">#Compare dominant frequency P-value should not indicate</span>
@@ -1366,22 +1202,9 @@ x_start <span class="op">=</span> <span class="fl">0</span>,
 x_end <span class="op">=</span> <span class="fl">10</span>,
 x_increment <span class="op">=</span> <span class="fl">0.01</span>,
 integration.or.dominant.freq <span class="op">=</span> <span class="st">"dominant_freq"</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6
-## [1] 7
-## [1] 8
-## [1] 9
-## [1] 10
-## [1] 11
-## [1] 1
-## [1] 2</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Kruskal-Wallis test results</span>
 <span class="va">integration.compare.res3</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## 
@@ -1389,7 +1212,7 @@ integration.or.dominant.freq <span class="op">=</span> <span class="st">"dominan
 ## 
 ## data:  vals.to.compare.combined by combo.labels.combined
 ## Kruskal-Wallis chi-squared = 2.0083, df = 1, p-value = 0.1564</code></pre>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Values used in Kruskal-Wallis test</span>
 <span class="va">integration.compare.res3</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>##    vals.to.compare.combined combo.labels.combined
@@ -1406,7 +1229,7 @@ integration.or.dominant.freq <span class="op">=</span> <span class="st">"dominan
 ## 11                        2      Signal 1 + 2 + 3
 ## 12                        2          Signal 3 + 4
 ## 13                        1          Signal 3 + 4</code></pre>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Compare dominant frequency P-value should indicate</span>
 <span class="co">#significant difference</span>
 <span class="va">integration.compare.res4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/SingleBinPSDIntegrationOrDominantFreqComparison.html">SingleBinPSDIntegrationOrDominantFreqComparison</a></span><span class="op">(</span>
@@ -1421,16 +1244,9 @@ x_start <span class="op">=</span> <span class="fl">0</span>,
 x_end <span class="op">=</span> <span class="fl">10</span>,
 x_increment <span class="op">=</span> <span class="fl">0.01</span>,
 integration.or.dominant.freq <span class="op">=</span> <span class="st">"dominant_freq"</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5</code></pre>
 <pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Kruskal-Wallis test results</span>
 <span class="va">integration.compare.res4</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## 
@@ -1438,7 +1254,7 @@ integration.or.dominant.freq <span class="op">=</span> <span class="st">"dominan
 ## 
 ## data:  vals.to.compare.combined by combo.labels.combined
 ## Kruskal-Wallis chi-squared = 5.8333, df = 1, p-value = 0.01573</code></pre>
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Values used in Kruskal-Wallis test</span>
 <span class="va">integration.compare.res4</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>##   vals.to.compare.combined combo.labels.combined

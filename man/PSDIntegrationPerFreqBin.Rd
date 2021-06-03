@@ -50,12 +50,14 @@ c(30,40)
 
 integration.results <- PSDIntegrationPerFreqBin(Fs, S, bins)
 
+message.captured <- list()
+
 for(i in 1:length(integration.results)){
 
    message <- paste("Area in bin ", integration.results[[i]][[1]], " is ",
                    integration.results[[i]][[2]])
 
-   print(message)
+   message.captured[[i]] <- message
 
 }
 

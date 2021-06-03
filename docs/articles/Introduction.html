@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">psdr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Install the package from GitHub</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"yhhc2/psdr"</span><span class="op">)</span></code></pre></div>
+<span class="co"># devtools::install_github("yhhc2/psdr")</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load package</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"psdr"</span><span class="op">)</span></code></pre></div>
@@ -146,31 +146,25 @@
 <p>Here is how the package can be used to take a dataframe containing data from all 6 sessions and split it into multiple dataframes, with each dataframe containing data from a single session.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example_data_windows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetHomogeneousWindows.html">GetHomogeneousWindows</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="st">"Session"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Session"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
-## [1] 5
-## [1] 6</code></pre>
 </div>
 <div id="explore-the-dataset" class="section level3">
 <h3 class="hasAnchor">
 <a href="#explore-the-dataset" class="anchor"></a>Explore the dataset</h3>
 <p>Plotting all the time series for category A on a single plot and plotting time series data for category B on a single plot shows that the frequencies of signals in category A are higher.</p>
 <p>Plot signals for category A</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_result</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">example_data</span><span class="op">$</span><span class="va">Category</span><span class="op">==</span><span class="st">"A"</span><span class="op">)</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Time</span>, y <span class="op">=</span> <span class="va">Signal</span>, colour <span class="op">=</span> <span class="va">Session</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">plot_result</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>Plot signals for category B</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plot_result</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">example_data</span><span class="op">$</span><span class="va">Category</span><span class="op">==</span><span class="st">"B"</span><span class="op">)</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Time</span>, y <span class="op">=</span> <span class="va">Signal</span>, colour <span class="op">=</span> <span class="va">Session</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">plot_result</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>This remains true when the time series for each category are averaged.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">FirstComboToUse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span><span class="op">)</span> <span class="op">)</span>
 
 <span class="va">SecondComboToUse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B"</span><span class="op">)</span> <span class="op">)</span>
@@ -201,7 +195,7 @@
 <a href="#visualize-the-frequency-contribution-of-signals" class="anchor"></a>Visualize the frequency contribution of signals</h3>
 <p>Looking at the time series data, we can tell the frequencies of oscillations are different between the time series. To determine which frequencies are contributing to each time series, we can plot the PSDs for each time series.</p>
 <p>PSD for signals in category A</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">example_data_windows</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">psd_results1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakePowerSpectralDensity.html">MakePowerSpectralDensity</a></span><span class="op">(</span><span class="fl">100</span>, <span class="va">data1</span><span class="op">$</span><span class="va">Signal</span><span class="op">)</span>
 
@@ -224,7 +218,7 @@
 <span class="va">plot_results</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>PSD for signal in category B</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">example_data_windows</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>
 <span class="va">psd_results1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakePowerSpectralDensity.html">MakePowerSpectralDensity</a></span><span class="op">(</span><span class="fl">100</span>, <span class="va">data1</span><span class="op">$</span><span class="va">Signal</span><span class="op">)</span>
 
@@ -247,7 +241,7 @@
 <span class="va">plot_results</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>To get a single composite PSD for each category, we can take the average.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">FirstComboToUse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span><span class="op">)</span> <span class="op">)</span>
 
 <span class="va">SecondComboToUse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B"</span><span class="op">)</span> <span class="op">)</span>
@@ -274,7 +268,7 @@
 <p><img src="Introduction_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>If we want to see how the average compares to the individual signals that make up the average, then we can include an error envelope.</p>
 <p>Here is the error envelope added to the category A composite curve.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PSD.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutomatedCompositePlotting.html">AutomatedCompositePlotting</a></span><span class="op">(</span>list.of.windows <span class="op">=</span> <span class="va">example_data_windows</span>,
                            name.of.col.containing.time.series <span class="op">=</span> <span class="st">"Signal"</span>,
                            x_start <span class="op">=</span> <span class="fl">0</span>,
@@ -297,7 +291,7 @@
 <span class="va">ggplot.obj.PSD</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <p>Here is the error envelope added to the category B composite curve.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PSD.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutomatedCompositePlotting.html">AutomatedCompositePlotting</a></span><span class="op">(</span>list.of.windows <span class="op">=</span> <span class="va">example_data_windows</span>,
                            name.of.col.containing.time.series <span class="op">=</span> <span class="st">"Signal"</span>,
                            x_start <span class="op">=</span> <span class="fl">0</span>,
@@ -320,7 +314,7 @@
 <span class="va">ggplot.obj.PSD</span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <p>When the signals are very noisy, it is often times helpful to log transform the PSD plots. For the example data, this is not necessary because the signals are very clear. Since amplitudes are small, log transform are also not helpful here.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">LogPSD.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutomatedCompositePlotting.html">AutomatedCompositePlotting</a></span><span class="op">(</span>list.of.windows <span class="op">=</span> <span class="va">example_data_windows</span>,
                            name.of.col.containing.time.series <span class="op">=</span> <span class="st">"Signal"</span>,
                            x_start <span class="op">=</span> <span class="fl">0</span>,
@@ -347,7 +341,7 @@
 <h3 class="hasAnchor">
 <a href="#comparing-frequency-contribution-of-each-category" class="anchor"></a>Comparing frequency contribution of each category</h3>
 <p>We know there are differences in frequencies of signals between category A and B, but we want to statistically test if the difference is significant.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">comparison_results</span> <span class="op">&lt;-</span> <span class="va">PSD.results</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>
 
 <span class="va">dominant_freq_for_comparison</span> <span class="op">&lt;-</span> <span class="va">comparison_results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
@@ -356,7 +350,7 @@
 
 <span class="va">wilcoxon_rank_sum_test_results</span> <span class="op">&lt;-</span> <span class="va">comparison_results</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p>Since multiple signals are present in each category, we want to see if the dominant frequencies in signals of category A are significantly different from the dominant frequencies in signals of category B</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dominant_freq_for_comparison</span></code></pre></div>
 <pre><code>##   vals.to.compare.combined combo.labels.combined
 ## 1                      1.0                     A
@@ -366,7 +360,7 @@
 ## 5                      0.2                     B
 ## 6                      0.3                     B</code></pre>
 <p>The comparison can be performed using the Kruskal-Wallis rank sum test. Here, the p-value indicates the difference is statistically significant.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">kruskal_wallis_test_results</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
@@ -374,7 +368,7 @@
 ## data:  vals.to.compare.combined by combo.labels.combined
 ## Kruskal-Wallis chi-squared = 3.8571, df = 1, p-value = 0.04953</code></pre>
 <p>In this example, only two categories are used. However, Kruskal-Wallis rank sum test can be used for multiple categories, similar to ANOVA. If more than two categories are used, pair-wise testing using Wilcoxon rank sum exact test can be used to see which two categories are significantly different.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wilcoxon_rank_sum_test_results</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum exact test 
