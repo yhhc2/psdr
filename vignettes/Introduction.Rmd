@@ -20,7 +20,7 @@ time series in the form of a PSD plot.
 
 ```{r, eval = FALSE, warning = FALSE}
 # Install the package from GitHub
-devtools::install_github("yhhc2/psdr")
+# devtools::install_github("yhhc2/psdr")
 ```
 
 ```{r, warning = FALSE}
