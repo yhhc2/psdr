@@ -265,7 +265,7 @@ MakeCompositePSDForAllWindows <- function(list.of.windows,
   #Go through all windows
   for(i in 1:length(list.of.windows)){
 
-    print(i)
+    #print(i)
 
     single.window <- list.of.windows[[i]]
     single.window.results <- MakePowerSpectralDensity(sampling_frequency, single.window[,name.of.col.containing.time.series])
@@ -409,7 +409,7 @@ MakeCompositeXYPlotForAllWindows <- function(list.of.windows,
   #Go through all windows
   for(i in 1:length(list.of.windows)){
 
-    print(i)
+    #print(i)
 
     single.window <- list.of.windows[[i]]
 
@@ -964,12 +964,14 @@ AutomatedCompositePlotting <- function(list.of.windows,
 #'
 #' integration.results <- PSDIntegrationPerFreqBin(Fs, S, bins)
 #'
+#' message.captured <- list()
+#'
 #' for(i in 1:length(integration.results)){
 #'
 #'    message <- paste("Area in bin ", integration.results[[i]][[1]], " is ",
 #'                    integration.results[[i]][[2]])
 #'
-#'    print(message)
+#'    message.captured[[i]] <- message
 #'
 #' }
 #'
@@ -1146,7 +1148,7 @@ IdentifyMaxOnXY <- function(x_vector, y_vector, x_start = 0,
 
   if(length(results) > 2){
 
-    print("Multiple maxima detected")
+    warning("Multiple maxima detected")
 
   }
 
@@ -1295,7 +1297,7 @@ SingleBinPSDIntegrationForMultipleWindows <- function(list.of.windows,
   #Go through all windows
   for(i in 1:length(list.of.windows)){
 
-    print(i)
+    #print(i)
 
     single.window <- list.of.windows[[i]]
 
@@ -1394,7 +1396,7 @@ PSDDominantFrequencyForMultipleWindows <- function(list.of.windows,
   #Go through all windows
   for(i in 1:length(list.of.windows)){
 
-    print(i)
+    #print(i)
 
     single.window <- list.of.windows[[i]]
 

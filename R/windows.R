@@ -132,7 +132,7 @@ GetHomogeneousWindows <- function(inputted.data, window.ID.col.name, observation
 
   for(i in 1:length(unique.window.IDs)){
 
-    print(i)
+    #print(i)
 
     window.subset <- subset(inputted.data, inputted.data[,window.ID.col.name]==unique.window.IDs[i])
     #If window has only one amplitude and task, then add to list.
