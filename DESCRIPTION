@@ -1,5 +1,5 @@
 Package: psdr
-Title: Package that Uses Time Series Data to Generate and Compare Power Spectral Density Plots
+Title: Use Time Series to Generate and Compare Power Spectral Density
 Version: 1.0.0
 Authors@R: 
     person(given = "Yong-Han Hank",
