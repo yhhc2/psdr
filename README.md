@@ -6,6 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/yhhc2/psdr/workflows/R-CMD-check/badge.svg)](https://github.com/yhhc2/psdr/actions)
+[![CRAN](https://www.r-pkg.org/badges/version/psdr)](https://CRAN.R-project.org/package=psdr)
 <!-- badges: end -->
 
 ## Overview
