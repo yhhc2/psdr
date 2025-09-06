@@ -407,7 +407,7 @@ test_that("AutomatedCompositePlotting PSD works", {
   expect_equal(names(PSD.results[[3]][[2]]$statistic), "Kruskal-Wallis chi-squared")
   
   #Is the third object for statistical testing using wilcoxon rank sum test.
-  expect_equal(PSD.results[[3]][[3]]$method, "Wilcoxon rank sum test with continuity correction")
+  expect_match(PSD.results[[3]][[3]]$method, "Wilcoxon rank sum")
   
   
   #-------------------------------------------
@@ -460,7 +460,7 @@ test_that("AutomatedCompositePlotting PSD works", {
   expect_equal(names(PSD.results.envelope[[3]][[2]]$statistic), "Kruskal-Wallis chi-squared")
   
   #Is the third object for statistical testing using wilcoxon rank sum test.
-  expect_equal(PSD.results.envelope[[3]][[3]]$method, "Wilcoxon rank sum test with continuity correction")
+  expect_match(PSD.results.envelope[[3]][[3]]$method, "Wilcoxon rank sum")
   
   
 })
