@@ -1,6 +1,6 @@
 Package: psdr
 Title: Use Time Series to Generate and Compare Power Spectral Density
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: 
     person(given = "Yong-Han Hank",
            family = "Cheng",
