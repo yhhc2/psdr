@@ -1,3 +1,8 @@
+# psdr 1.0.2
+
+This is a resubmission to CRAN. In this version I have:
+    - Fixed tests failing under R-devel due to upstream change in wilcox.test output.
+
 # psdr 1.0.1
 
 This is a resubmission to CRAN. In this version I have:
