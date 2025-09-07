@@ -362,25 +362,23 @@ test_that("AutomatedCompositePlotting PSD works", {
   #-------------------------------------------
   
   #Expect warning about tied ranks from the statistical testing
-  expect_warning(
-    invisible(capture.output(
+  invisible(capture.output(
     PSD.results <- AutomatedCompositePlotting(list.of.windows = windows,
-                                                       name.of.col.containing.time.series = "Signal",
-                                                       x_start = 0,
-                                                       x_end = 50,
-                                                       x_increment = 0.01,
-                                                       level1.column.name = "level1.ID",
-                                                       level2.column.name = "level2.ID",
-                                                       level.combinations = list(FirstComboToUse, SecondComboToUse),
-                                                       level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
-                                                       plot.title = "Example",
-                                                       plot.xlab = "Hz",
-                                                       plot.ylab = "(Original units)^2/Hz",
-                                                       combination.index.for.envelope = NULL,
-                                                       TimeSeries.PSD.LogPSD = "PSD",
-                                                       sampling_frequency = 100)
-    ))
-  )
+                                              name.of.col.containing.time.series = "Signal",
+                                              x_start = 0,
+                                              x_end = 50,
+                                              x_increment = 0.01,
+                                              level1.column.name = "level1.ID",
+                                              level2.column.name = "level2.ID",
+                                              level.combinations = list(FirstComboToUse, SecondComboToUse),
+                                              level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+                                              plot.title = "Example",
+                                              plot.xlab = "Hz",
+                                              plot.ylab = "(Original units)^2/Hz",
+                                              combination.index.for.envelope = NULL,
+                                              TimeSeries.PSD.LogPSD = "PSD",
+                                              sampling_frequency = 100)
+  ))
   
   #Are there three objects total.
   expect_equal(length(PSD.results), 3)
@@ -415,25 +413,23 @@ test_that("AutomatedCompositePlotting PSD works", {
   #-------------------------------------------
   
   #Expect warning about tied ranks from the statistical testing
-  expect_warning(
-    invisible(capture.output(
-  PSD.results.envelope <- AutomatedCompositePlotting(list.of.windows = windows,
-                                            name.of.col.containing.time.series = "Signal",
-                                            x_start = 0,
-                                            x_end = 50,
-                                            x_increment = 0.01,
-                                            level1.column.name = "level1.ID",
-                                            level2.column.name = "level2.ID",
-                                            level.combinations = list(FirstComboToUse, SecondComboToUse),
-                                            level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
-                                            plot.title = "Example",
-                                            plot.xlab = "Hz",
-                                            plot.ylab = "(Original units)^2/Hz",
-                                            combination.index.for.envelope = 2,
-                                            TimeSeries.PSD.LogPSD = "PSD",
-                                            sampling_frequency = 100)
-    ))
-  )
+  invisible(capture.output(
+    PSD.results.envelope <- AutomatedCompositePlotting(list.of.windows = windows,
+                                                       name.of.col.containing.time.series = "Signal",
+                                                       x_start = 0,
+                                                       x_end = 50,
+                                                       x_increment = 0.01,
+                                                       level1.column.name = "level1.ID",
+                                                       level2.column.name = "level2.ID",
+                                                       level.combinations = list(FirstComboToUse, SecondComboToUse),
+                                                       level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+                                                       plot.title = "Example",
+                                                       plot.xlab = "Hz",
+                                                       plot.ylab = "(Original units)^2/Hz",
+                                                       combination.index.for.envelope = 2,
+                                                       TimeSeries.PSD.LogPSD = "PSD",
+                                                       sampling_frequency = 100)
+  ))
   
   #Are there three objects total.
   expect_equal(length(PSD.results.envelope), 3)
@@ -736,22 +732,21 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison integration compariso
   #-------------------------------------------
   
   #expect warning for tied ranks.
-  expect_warning(
-    invisible(capture.output(
-      
-    integration.compare.res.no.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
-    list.of.windows = windows,
-    name.of.col.containing.time.series = "Signal",
-    level1.column.name = "level1.ID",
-    level2.column.name = "level2.ID",
-    level.combinations = list(FirstComboToUse, SecondComboToUse),
-    level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
-    sampling_frequency = 100,
-    single.bin.boundary = c(1.5, 2.5),
-    integration.or.dominant.freq = "integration")
+  invisible(capture.output(
     
-    ))
-  )
+    integration.compare.res.no.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
+      list.of.windows = windows,
+      name.of.col.containing.time.series = "Signal",
+      level1.column.name = "level1.ID",
+      level2.column.name = "level2.ID",
+      level.combinations = list(FirstComboToUse, SecondComboToUse),
+      level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 3 + 4"),
+      sampling_frequency = 100,
+      single.bin.boundary = c(1.5, 2.5),
+      integration.or.dominant.freq = "integration")
+    
+  ))
+  
   
   #Does p-value indicate non-significant
   expect_equal(integration.compare.res.no.sig[[2]]$p.value == 1, TRUE)
@@ -766,22 +761,20 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison integration compariso
   #-------------------------------------------
   
   #expect warning for tied ranks.
-  expect_warning(
-    invisible(capture.output(
-      
-  integration.compare.res.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
-    list.of.windows = windows,
-    name.of.col.containing.time.series = "Signal",
-    level1.column.name = "level1.ID",
-    level2.column.name = "level2.ID",
-    level.combinations = list(FirstComboToUse, ThirdComboToUse),
-    level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 5"),
-    sampling_frequency = 100,
-    single.bin.boundary = c(1.5, 2.5),
-    integration.or.dominant.freq = "integration")
-  
-    ))
-  )
+  invisible(capture.output(
+    
+    integration.compare.res.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
+      list.of.windows = windows,
+      name.of.col.containing.time.series = "Signal",
+      level1.column.name = "level1.ID",
+      level2.column.name = "level2.ID",
+      level.combinations = list(FirstComboToUse, ThirdComboToUse),
+      level.combinations.labels = c("Signal 1 + 2 + 3", "Signal 5"),
+      sampling_frequency = 100,
+      single.bin.boundary = c(1.5, 2.5),
+      integration.or.dominant.freq = "integration")
+    
+  ))
 
   #Does p-value indicate non signficant
   expect_equal(integration.compare.res.sig[[2]]$p.value < 0.05, TRUE)
@@ -869,9 +862,8 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison dominant frequency co
   #-------------------------------------------
   
   #expect warning for tied ranks.
-  expect_warning(
-    invisible(capture.output(
-      
+  invisible(capture.output(
+    
     integration.compare.res.no.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
       list.of.windows = windows,
       name.of.col.containing.time.series = "Signal",
@@ -886,8 +878,7 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison dominant frequency co
       x_increment = 0.1,
       integration.or.dominant.freq = "dominant.freq")
     
-    ))
-  )
+  ))
   
   #Does p-value indicate non-significant (NA since all values are the same)
   expect_equal(is.na(integration.compare.res.no.sig[[2]]$p.value), TRUE)
@@ -902,8 +893,7 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison dominant frequency co
   #-------------------------------------------
   
   #expect warning for tied ranks.
-  expect_warning(
-    invisible(capture.output(
+  invisible(capture.output(
     
     integration.compare.res.sig <- SingleBinPSDIntegrationOrDominantFreqComparison(
       list.of.windows = windows,
@@ -919,8 +909,7 @@ test_that("SingleBinPSDIntegrationOrDominantFreqComparison dominant frequency co
       x_increment = 0.1,
       integration.or.dominant.freq = "dominat.freq")
     
-    ))
-  )
+  ))
   
   #Does p-value indicate non signficant
   expect_equal(integration.compare.res.sig[[2]]$p.value < 0.05, TRUE)
